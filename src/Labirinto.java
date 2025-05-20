@@ -49,15 +49,10 @@
         }
 
         public void atualizarMapa() {
-
             for (int i = 0; i < mapa.length; i++) {
                 for (int j = 0; j < mapa[i].length; j++) {
                     mapa[i][j] = ".";
                 }
-            }
-
-            for(int i = 3; i < 9; i++){
-                mapa[4][i] = "@";
             }
 
             for (Perigo p : perigos) {
@@ -69,6 +64,14 @@
                 mapa[pos[0]][pos[1]] = "T";
             }
 
+            int[] j = jogador.getLocalizacao();
+            mapa[j[0]][j[1]] = "J";
+            mapa[4][0] = "F";
+            if (salaSecretaDesbloqueada) mapa[2][4] = "S";
+            else mapa[2][4] = "X";
+        }
+
+        public void gerarParedes(){
             for(int i = 0; i < 10; i++){
                 mapa[i][0] = "|";
                 mapa[i][20-1] = "|";
@@ -79,15 +82,59 @@
                 mapa[10 - 1][j] = "_";
             }
 
-            int[] j = jogador.getLocalizacao();
-            mapa[j[0]][j[1]] = "J";
-            mapa[4][0] = "F";
-            if (salaSecretaDesbloqueada) mapa[2][4] = "S";
-            else mapa[2][4] = "X";
+            for(int i = 2; i < 10; i++){
+                mapa[2][i] = "@";
+            }
+            for(int i = 2; i < 6; i++){
+                mapa[4][i] = "@";
+            }
+            for(int i = 7; i < 10; i++){
+                mapa[4][i] = "@";
+            }
+            for(int j = 5; j < 7; j++){
+                mapa[j][2] = "@";
+            }
+            for(int i = 2; i < 4; i++){
+                mapa[7][i] = "@";
+            }
+            for(int i = 2; i < 5; i++){
+                mapa[7][i] = "@";
+            }
+            for(int j = 6; j < 8; j++){
+                mapa[j][5] = "@";
+            }
+            for(int j = 6; j < 9; j++){
+                mapa[j][7] = "@";
+            }
+            for(int i = 7; i < 18; i++){
+                mapa[6][i] = "@";
+            }
+            for(int i = 11; i < 19; i++){
+                mapa[4][i] = "@";
+            }
+            for(int j = 2; j < 5; j++){
+                mapa[j][14] = "@";
+            }
+            for(int j = 2; j < 5; j++){
+                mapa[j][11] = "@";
+            }
+
+            mapa[1][9] = "@";
+            mapa[2][12] = "@";
+            mapa[7][17] = "@";
+            mapa[8][15] = "@";
+            mapa[7][13] = "@";
+            mapa[8][11] = "@";
+            mapa[7][9] = "@";
+            mapa[1][16] = "@";
+            mapa[1][17] = "@";
+            mapa[2][16] = "@";
+            mapa[2][17] = "@";
         }
 
         public void exibirLabirinto() {
             atualizarMapa();
+            gerarParedes();
             for (String[] linha : mapa) {
                 for (String celula : linha) {
                     System.out.print(celula + " ");
