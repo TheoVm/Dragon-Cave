@@ -1,181 +1,124 @@
-    import java.util.*;
+import java.util.*;
 
-    public class Labirinto {
-        private String[][] mapa;
-        private List<Tesouro> tesouros;
-        private List<Perigo> perigos;
-        private Aventureiro jogador;
-        private int dificuldade;
-        private boolean salaSecretaDesbloqueada;
+public class Labirinto {
+    private String[][] mapa;
+    private List<Tesouro> tesouros;
+    private List<Perigo> perigos;
+    private MapaConfigurado config;
+    private Aventureiro jogador;
+    private int dificuldade;
+    private boolean salaSecretaDesbloqueada;
 
-        public Labirinto(Aventureiro jogador, int dificuldade) {
-            this.jogador = jogador;
-            this.dificuldade = dificuldade;
-            this.mapa = gerarMapa();
-            this.tesouros = new ArrayList<>();
-            this.perigos = new ArrayList<>();
-            this.salaSecretaDesbloqueada = false;
-            popularMapa();
+    public Labirinto(Aventureiro jogador, int dificuldade) {
+        this.jogador = jogador;
+        this.dificuldade = dificuldade;
+        
+        // Inicializa o MapaConfigurado e as listas de tesouros e perigos
+        this.config = GeradorMapaManual.criarMapaPadrao(dificuldade);
+        this.mapa = config.getMapa();
+        this.tesouros = config.getTesouros();  // Agora as listas de tesouros e perigos são configuradas aqui
+        this.perigos = config.getPerigos();
+        this.salaSecretaDesbloqueada = false;
+
+    }
+
+
+    private void popularMapa() {
+        // Usando o mapa, tesouros e perigos do config
+        String[][] mapa = this.config.getMapa();
+
+        // Preencher o mapa com tesouros
+        for (Tesouro t : tesouros) {
+            int[] loc = t.getLocalizacao();
+            mapa[loc[0]][loc[1]] = "T"; // Representação do tesouro no mapa
         }
 
-        private String[][] gerarMapa() {
-            int altura = 10;
-            int comprimento = 20;
-            String[][] mapa = new String[altura][comprimento];
-            for (int i = 0; i < altura; i++) {
-                for (int j = 0; j < comprimento; j++) {
-                    mapa[i][j] = ".";
+        // Preencher o mapa com perigos
+        for (Perigo p : perigos) {
+            int[] loc = p.getLocalizacao();
+            mapa[loc[0]][loc[1]] = "P"; // Representação do perigo no mapa
+        }
+
+        // Colocando o jogador no mapa
+        int[] posJogador = jogador.getLocalizacao();
+        mapa[posJogador[0]][posJogador[1]] = "J"; // Representação do jogador no mapa
+    }
+
+    public void atualizarMapa() {
+        // Limpar a posição anterior do jogador no mapa
+        for (int i = 0; i < mapa.length; i++) {
+            for (int j = 0; j < mapa[i].length; j++) {
+                if (mapa[i][j].equals("J")) {
+                    mapa[i][j] = ".";  // Remove o "J" de qualquer lugar anterior
                 }
             }
-            return mapa;
         }
 
-        private void popularMapa() {
-            jogador.setLocalizacao(new int[]{1, 1});
-            mapa[1][1] = "J";
+        // Agora, adicione novamente o "J" na posição correta do jogador
+        int[] posJogador = jogador.getLocalizacao();
+        mapa[posJogador[0]][posJogador[1]] = "J";  // Coloca o "J" na posição atual
 
-            tesouros.add(new TesouroArma("Adaga", new int[]{2, 2}, 10));
-            tesouros.add(new TesouroArmadura("Armadura leve", new int[]{9, 16}, 15));
-            tesouros.add(new TesouroArma("Espada", new int[]{3, 1}, 20));
-            tesouros.add(new TesouroArmadura("Armadura padrão", new int[]{4, 2}, 20));
-            tesouros.add(new TesouroArma("Machado", new int[]{2, 6}, 25));
-
-            perigos.add(new Perigo(new int[]{1, 2}, 10 * dificuldade));
-            perigos.add(new Perigo(new int[]{3, 3}, 20 * dificuldade));
-            perigos.add(new Perigo(new int[]{4, 4}, 30 * dificuldade));
-
-            mapa[4][0] = "F";
-            mapa[2][4] = "X";
+        // Atualizar os tesouros e perigos
+        for (Perigo p : perigos) {
+            int[] posPerigo = p.getLocalizacao();
+            mapa[posPerigo[0]][posPerigo[1]] = "P"; // Marca o perigo
         }
 
-        public void atualizarMapa() {
-            for (int i = 0; i < mapa.length; i++) {
-                for (int j = 0; j < mapa[i].length; j++) {
-                    mapa[i][j] = ".";
-                }
-            }
-
-            for (Perigo p : perigos) {
-                int[] pos = p.getLocalizacao();
-                mapa[pos[0]][pos[1]] = "P";
-            }
-            for (Tesouro t : tesouros) {
-                int[] pos = t.getLocalizacao();
-                mapa[pos[0]][pos[1]] = "T";
-            }
-
-            int[] j = jogador.getLocalizacao();
-            mapa[j[0]][j[1]] = "J";
-            mapa[4][0] = "F";
-            if (salaSecretaDesbloqueada) mapa[2][4] = "S";
-            else mapa[2][4] = "X";
+        for (Tesouro t : tesouros) {
+            int[] posTesouro = t.getLocalizacao();
+            mapa[posTesouro[0]][posTesouro[1]] = "T"; // Marca o tesouro
         }
 
-        public void gerarParedes(){
-            for(int i = 0; i < 10; i++){
-                mapa[i][0] = "|";
-                mapa[i][20-1] = "|";
-            }
+        if (salaSecretaDesbloqueada) mapa[2][4] = "S";
+        else mapa[2][4] = "X";
+    }
 
-            for(int j = 0; j < 20; j++){
-                mapa[0][j] = "_";
-                mapa[10 - 1][j] = "_";
-            }
+    public void exibirLabirinto() {
+        atualizarMapa();
 
-            for(int i = 2; i < 10; i++){
-                mapa[2][i] = "@";
+        for (int i = 0; i < mapa.length; i++) {
+            for (int j = 0; j < mapa[i].length; j++) {
+                System.out.print(mapa[i][j]);
             }
-            for(int i = 2; i < 6; i++){
-                mapa[4][i] = "@";
-            }
-            for(int i = 7; i < 10; i++){
-                mapa[4][i] = "@";
-            }
-            for(int j = 5; j < 7; j++){
-                mapa[j][2] = "@";
-            }
-            for(int i = 2; i < 4; i++){
-                mapa[7][i] = "@";
-            }
-            for(int i = 2; i < 5; i++){
-                mapa[7][i] = "@";
-            }
-            for(int j = 6; j < 8; j++){
-                mapa[j][5] = "@";
-            }
-            for(int j = 6; j < 9; j++){
-                mapa[j][7] = "@";
-            }
-            for(int i = 7; i < 18; i++){
-                mapa[6][i] = "@";
-            }
-            for(int i = 11; i < 19; i++){
-                mapa[4][i] = "@";
-            }
-            for(int j = 2; j < 5; j++){
-                mapa[j][14] = "@";
-            }
-            for(int j = 2; j < 5; j++){
-                mapa[j][11] = "@";
-            }
-
-            mapa[1][9] = "@";
-            mapa[2][12] = "@";
-            mapa[7][17] = "@";
-            mapa[8][15] = "@";
-            mapa[7][13] = "@";
-            mapa[8][11] = "@";
-            mapa[7][9] = "@";
-            mapa[1][16] = "@";
-            mapa[1][17] = "@";
-            mapa[2][16] = "@";
-            mapa[2][17] = "@";
+            System.out.println(); // Quebra linha após cada linha da matriz
         }
 
-        public void exibirLabirinto() {
-            atualizarMapa();
-            gerarParedes();
-            for (String[] linha : mapa) {
-                for (String celula : linha) {
-                    System.out.print(celula + " ");
-                }
-                System.out.println();
-            }
-            System.out.println("Vida: " + jogador.getVida());
-        }
+        System.out.println("Vida: " + jogador.getVida());
+    }
 
-        public boolean verificarFim() {
-            int[] loc = jogador.getLocalizacao();
-            if (!salaSecretaDesbloqueada && jogador.getTesouros().size() >= 3) {
-                salaSecretaDesbloqueada = true;
-                System.out.println("Sala secreta desbloqueada em [2,4]!");
-            }
-            return loc[0] == 4 && loc[1] == 0;
+    public boolean verificarFim() {
+        int[] loc = jogador.getLocalizacao();
+        if (!salaSecretaDesbloqueada && jogador.getTesouros().size() >= 3) {
+            salaSecretaDesbloqueada = true;
+            System.out.println("Sala secreta desbloqueada em [2,4]!");
         }
+        return loc[0] == 4 && loc[1] == 0; // Verifica se o jogador chegou ao final
+    }
 
-        public List<Tesouro> getTesouros(){ 
-            return tesouros; 
-        }
-        public List<Perigo> getPerigos(){ 
-            return perigos;
-        }
+    public List<Tesouro> getTesouros() {
+        return tesouros;
+    }
 
-        public int getAltura() {
+    public List<Perigo> getPerigos() {
+        return perigos;
+    }
+
+    public int getAltura() {
         return mapa.length;
-        }
+    }
 
-        public int getLargura() {
+    public int getLargura() {
         return mapa[0].length;
-        }
+    }
 
-        public String[][] getMapa(){
-            return mapa;
-        }
+    public String[][] getMapa() {
+        return mapa;
+    }
 
-        public void verificarSalaSecreta() {
-            int[] pos = jogador.getLocalizacao();
-            if (salaSecretaDesbloqueada && pos[0] == 2 && pos[1] == 4) {
-                System.out.println("Diego é gay");
-            }
+    public void verificarSalaSecreta() {
+        int[] pos = jogador.getLocalizacao();
+        if (salaSecretaDesbloqueada && pos[0] == 2 && pos[1] == 4) {
+            System.out.println("Diego é gay"); 
         }
     }
+}
