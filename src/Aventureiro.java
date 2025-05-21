@@ -52,6 +52,18 @@ public abstract class Aventureiro {
                 System.out.println("Você entrou em um perigo! Sofreu " + dano + " de dano. Vida restante: " + vida);
             }
         }
+// Após o for dos perigos...
+
+for (Inimigo inimigo : labirinto.getInimigos()) {
+    if (Arrays.equals(inimigo.getLocalizacao(), localizacao) && inimigo.getVida() > 0) {
+        boolean venceu = Combate.iniciarCombate(this, inimigo);
+        if (!venceu) {
+            System.out.println("Você perdeu ou fugiu do combate!");
+            // Aqui você pode encerrar o jogo ou tratar como quiser
+            return;
+        }
+    }
+}
     }
 
     public void setLocalizacao(int[] localizacao) {
@@ -102,4 +114,10 @@ public abstract class Aventureiro {
     this.defesa = defesa;
     }
     
+public int atacar(Inimigo inimigo) {
+    int dano = Math.max(0, this.getAtaque() - inimigo.getDefesa());
+    inimigo.setVida(inimigo.getVida() - dano);
+    return dano;
 }
+}
+
