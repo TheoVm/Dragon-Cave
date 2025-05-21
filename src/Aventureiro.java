@@ -16,7 +16,7 @@ public abstract class Aventureiro {
         this.defesa = defesa;
         this.ataque = ataque;
         this.tesouros = new ArrayList<>();
-        this.localizacao = new int[2]; // posição inicial (0,0)
+        this.localizacao = new int[]{1, 1};
     }
 
     public void mover(int dx, int dy, Labirinto labirinto) {
@@ -26,7 +26,8 @@ public abstract class Aventureiro {
 
         String[][] aux = labirinto.getMapa();
 
-        if (novaX < 0 || novaY < 0 || novaX >= labirinto.getAltura() || novaY >= labirinto.getLargura() || aux[novaX][novaY] == "@" || aux[novaX][novaY] == "_" || aux[novaX][novaY] == "|") {
+        if (novaX < 0 || novaY < 0 || novaX >= labirinto.getAltura() || novaY >= labirinto.getLargura() || aux[novaX][novaY] == "║" || aux[novaX][novaY] == "═" || aux[novaX][novaY] == "╬" 
+        || aux[novaX][novaY] == "╠" || aux[novaX][novaY] == "╣") {
             System.out.println("Movimento inválido! Fora dos limites do labirinto.");
             return;
         }
