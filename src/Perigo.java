@@ -1,4 +1,6 @@
-public class Perigo {
+import java.io.Serializable;
+
+public class Perigo implements Serializable{
     private int[] localizacao;
     private int dano;
 

@@ -1,7 +1,9 @@
-public abstract class Tesouro {
-    private String nome;
-    private int[] localizacao;
-    private int valor;
+import java.io.Serializable;
+
+public abstract class Tesouro implements Serializable{
+    private final String nome;
+    private final int[] localizacao;
+    private final int valor;
 
     public Tesouro(String nome, int[] localizacao, int valor) {
         this.nome = nome;

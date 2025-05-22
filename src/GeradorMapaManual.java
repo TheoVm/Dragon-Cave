@@ -63,9 +63,11 @@ public class GeradorMapaManual {
             int[] loc = p.getLocalizacao();
             mapa[loc[0]][loc[1]] = "P"; // Marcador de perigo
         }
+        List<Inimigo> inimigos = new ArrayList<>();
+        inimigos.add(new Inimigo(30, 8, 3, new int[]{3,3}));
 
         mapa[9][18] = "F"; 
         // Retornar um novo objeto MapaConfigurado
-        return new MapaConfigurado(mapa, tesouros, perigos, posInicial);
+        return new MapaConfigurado(mapa, tesouros, perigos, posInicial, inimigos);
     }
 }

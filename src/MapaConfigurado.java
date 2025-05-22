@@ -1,17 +1,21 @@
+import java.io.Serializable;
 import java.util.List;
 
-public class MapaConfigurado {
-    private String[][] mapa;        // Matriz que armazena o mapa
-    private List<Tesouro> tesouros; // Lista de tesouros
-    private List<Perigo> perigos;   // Lista de perigos
-    private int[] posInicial;       // Posição inicial do jogador
+public class MapaConfigurado implements Serializable{
+    private final String[][] mapa;        // Matriz que armazena o mapa
+    private final List<Tesouro> tesouros; // Lista de tesouros
+    private final List<Perigo> perigos;   // Lista de perigos
+    private final int[] posInicial;       // Posição inicial do jogador
+    private final List<Inimigo> inimigos; // Lista de inimigos
+
 
     // Construtor que inicializa a classe com os valores recebidos
-    public MapaConfigurado(String[][] mapa, List<Tesouro> tesouros, List<Perigo> perigos, int[] posInicial) {
+    public MapaConfigurado(String[][] mapa, List<Tesouro> tesouros, List<Perigo> perigos, int[] posInicial, List<Inimigo> inimigos) {
         this.mapa = mapa;
         this.tesouros = tesouros;
         this.perigos = perigos;
         this.posInicial = posInicial;
+        this.inimigos = inimigos;
     }
 
     // Métodos para acessar as informações do mapa
@@ -29,5 +33,8 @@ public class MapaConfigurado {
 
     public int[] getPosInicial() {
         return posInicial;
+    }
+     public List<Inimigo> getInimigos() {
+        return inimigos;
     }
 }

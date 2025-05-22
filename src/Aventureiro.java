@@ -1,12 +1,13 @@
+import java.io.Serializable;
 import java.util.*;
 
-public abstract class Aventureiro {
-    private String nome;
+public abstract class Aventureiro implements Serializable{
+    private final String nome;
     private int vida;
     private int velocidade;
     private int defesa;
     private int ataque;
-    private List<Tesouro> tesouros;
+    private final List<Tesouro> tesouros;
     private int[] localizacao;
 
     public Aventureiro(String nome, int vida, int velocidade, int defesa, int ataque) {
@@ -19,15 +20,19 @@ public abstract class Aventureiro {
         this.localizacao = new int[]{1, 1};
     }
 
-    public void mover(int dx, int dy, Labirinto labirinto) {
+    // Agora recebe Scanner como parâmetro!
+    public void mover(int dx, int dy, Labirinto labirinto, Scanner scanner) {
         int novaX = localizacao[0] + dx;
         int novaY = localizacao[1] + dy;
-        
 
         String[][] aux = labirinto.getMapa();
 
-        if (novaX < 0 || novaY < 0 || novaX >= labirinto.getAltura() || novaY >= labirinto.getLargura() || aux[novaX][novaY] == "║" || aux[novaX][novaY] == "═" || aux[novaX][novaY] == "╬" 
-        || aux[novaX][novaY] == "╠" || aux[novaX][novaY] == "╣") {
+        if (novaX < 0 || novaY < 0 || novaX >= labirinto.getAltura() || novaY >= labirinto.getLargura()
+            || "║".equals(aux[novaX][novaY])
+            || "═".equals(aux[novaX][novaY])
+            || "╬".equals(aux[novaX][novaY])
+            || "╠".equals(aux[novaX][novaY])
+            || "╣".equals(aux[novaX][novaY])) {
             System.out.println("Movimento inválido! Fora dos limites do labirinto.");
             return;
         }
@@ -52,26 +57,15 @@ public abstract class Aventureiro {
                 System.out.println("Você entrou em um perigo! Sofreu " + dano + " de dano. Vida restante: " + vida);
             }
         }
-// Após o for dos perigos...
-
-for (Inimigo inimigo : labirinto.getInimigos()) {
-    if (Arrays.equals(inimigo.getLocalizacao(), localizacao) && inimigo.getVida() > 0) {
-        boolean venceu = Combate.iniciarCombate(this, inimigo);
-        if (!venceu) {
-            System.out.println("Você perdeu ou fugiu do combate!");
-            // Aqui você pode encerrar o jogo ou tratar como quiser
-            return;
+        for (Inimigo inimigo : labirinto.getInimigos()) {
+            if (Arrays.equals(inimigo.getLocalizacao(), localizacao) && inimigo.getVida() > 0) {
+                boolean venceu = Combate.iniciarCombate(this, inimigo, scanner);
+                if (!venceu) {
+                    System.out.println("Você perdeu ou fugiu do combate!");
+                    return;
+                }
+            }
         }
-    }
-}
-    }
-
-    public void setLocalizacao(int[] localizacao) {
-        this.localizacao = localizacao;
-    }
-
-    public int[] getLocalizacao() {
-        return localizacao;
     }
 
     public String getNome() {
@@ -82,12 +76,12 @@ for (Inimigo inimigo : labirinto.getInimigos()) {
         return vida;
     }
 
-    public void setVida(int vida) {
-        this.vida = vida;
-    }
-
     public int getVelocidade() {
         return velocidade;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
     }
 
     public int getDefesa() {
@@ -102,22 +96,41 @@ for (Inimigo inimigo : labirinto.getInimigos()) {
         return tesouros;
     }
 
+    public int[] getLocalizacao() {
+        return localizacao;
+    }
+
     public void setAtaque(int ataque) {
-    this.ataque = ataque;
+        this.ataque = ataque;
     }
 
     public void setVelocidade(int velocidade) {
-    this.velocidade = velocidade;
+        this.velocidade = velocidade;
     }
 
     public void setDefesa(int defesa) {
-    this.defesa = defesa;
+        this.defesa = defesa;
     }
-    
-public int atacar(Inimigo inimigo) {
-    int dano = Math.max(0, this.getAtaque() - inimigo.getDefesa());
-    inimigo.setVida(inimigo.getVida() - dano);
-    return dano;
-}
-}
 
+    public void setLocalizacao(int[] localizacao) {
+        this.localizacao = localizacao;
+    }
+
+    public int atacar(Inimigo inimigo) {
+        int dano = Math.max(0, this.getAtaque() - inimigo.getDefesa());
+        inimigo.setVida(inimigo.getVida() - dano);
+        return dano;
+    }
+
+    public void exibirStatus(){
+        System.out.println("Nome: "+ this.nome);
+        System.out.println("Vida: "+ this.vida);
+        System.out.println("Velocidade: "+ this.velocidade);
+        System.out.println("Defesa: "+ this.defesa);
+        System.out.println("Ataque: "+ this.ataque);
+        System.out.println("Tesouros: ");
+        for (Tesouro tesouro : this.tesouros){
+            System.out.println("- " + tesouro);
+        }
+    }
+}

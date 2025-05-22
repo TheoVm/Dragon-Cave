@@ -1,17 +1,17 @@
 import java.util.*;
+import java.io.*;
 
-public class Labirinto {
-    private String[][] mapa;
-    private List<Tesouro> tesouros;
-    private List<Perigo> perigos;
-    private MapaConfigurado config;
-    private Aventureiro jogador;
-    private int dificuldade;
+public class Labirinto implements Serializable{
+    private final String[][] mapa;
+    private final List<Tesouro> tesouros;
+    private final List<Perigo> perigos;
+    private final MapaConfigurado config;
+    private final Aventureiro jogador;
     private boolean salaSecretaDesbloqueada;
+    private final List<Inimigo> inimigos;
 
     public Labirinto(Aventureiro jogador, int dificuldade) {
         this.jogador = jogador;
-        this.dificuldade = dificuldade;
         
         // Inicializa o MapaConfigurado e as listas de tesouros e perigos
         this.config = GeradorMapaManual.criarMapaPadrao(dificuldade);
@@ -19,66 +19,51 @@ public class Labirinto {
         this.tesouros = config.getTesouros();  // Agora as listas de tesouros e perigos são configuradas aqui
         this.perigos = config.getPerigos();
         this.salaSecretaDesbloqueada = false;
+        this.inimigos = config.getInimigos();
 
-    }
-
-
-    private void popularMapa() {
-        // Usando o mapa, tesouros e perigos do config
-        String[][] mapa = this.config.getMapa();
-
-        // Preencher o mapa com tesouros
-        for (Tesouro t : tesouros) {
-            int[] loc = t.getLocalizacao();
-            mapa[loc[0]][loc[1]] = "T"; // Representação do tesouro no mapa
-        }
-
-        // Preencher o mapa com perigos
-        for (Perigo p : perigos) {
-            int[] loc = p.getLocalizacao();
-            mapa[loc[0]][loc[1]] = "P"; // Representação do perigo no mapa
-        }
-
-        // Colocando o jogador no mapa
-        int[] posJogador = jogador.getLocalizacao();
-        mapa[posJogador[0]][posJogador[1]] = "J"; // Representação do jogador no mapa
     }
 
     public void atualizarMapa() {
-        // Limpar a posição anterior do jogador no mapa
-        for (int i = 0; i < mapa.length; i++) {
-            for (int j = 0; j < mapa[i].length; j++) {
-                if (mapa[i][j].equals("J")) {
-                    mapa[i][j] = ".";  // Remove o "J" de qualquer lugar anterior
-                }
+    // Limpar a posição anterior do jogador no mapa
+    for (String[] linha : mapa) {
+        for (int j = 0; j < linha.length; j++) {
+            if (linha[j].equals("J") || linha[j].equals("I")) {
+                linha[j] = ".";  // Remove o "J" e "I" de qualquer lugar anterior
             }
         }
-
-        // Agora, adicione novamente o "J" na posição correta do jogador
-        int[] posJogador = jogador.getLocalizacao();
-        mapa[posJogador[0]][posJogador[1]] = "J";  // Coloca o "J" na posição atual
-
-        // Atualizar os tesouros e perigos
-        for (Perigo p : perigos) {
-            int[] posPerigo = p.getLocalizacao();
-            mapa[posPerigo[0]][posPerigo[1]] = "P"; // Marca o perigo
-        }
-
-        for (Tesouro t : tesouros) {
-            int[] posTesouro = t.getLocalizacao();
-            mapa[posTesouro[0]][posTesouro[1]] = "T"; // Marca o tesouro
-        }
-
-        if (salaSecretaDesbloqueada) mapa[2][4] = "S";
-        else mapa[2][4] = "X";
     }
 
-    public void exibirLabirinto() {
-        atualizarMapa();
+    // Adicionar inimigos no mapa
+    for (Inimigo inimigo : inimigos) {
+        int[] posInimigo = inimigo.getLocalizacao();
+        mapa[posInimigo[0]][posInimigo[1]] = "I"; // Marca o inimigo
+    }
 
-        for (int i = 0; i < mapa.length; i++) {
-            for (int j = 0; j < mapa[i].length; j++) {
-                System.out.print(mapa[i][j]);
+    // Agora, adicione novamente o "J" na posição correta do jogador
+    int[] posJogador = jogador.getLocalizacao();
+    mapa[posJogador[0]][posJogador[1]] = "J";  // Coloca o "J" na posição atual
+
+    // Atualizar os tesouros e perigos
+    for (Perigo p : perigos) {
+        int[] posPerigo = p.getLocalizacao();
+        mapa[posPerigo[0]][posPerigo[1]] = "P"; // Marca o perigo
+    }
+
+    for (Tesouro t : tesouros) {
+        int[] posTesouro = t.getLocalizacao();
+        mapa[posTesouro[0]][posTesouro[1]] = "T"; // Marca o tesouro
+    }
+
+    if (salaSecretaDesbloqueada) mapa[2][4] = "S";
+    else mapa[2][4] = "X";
+}
+
+    public void exibirLabirinto() {
+    atualizarMapa();
+
+        for (String[] linha : mapa) {
+            for (String celula : linha) {
+                System.out.print(celula);
             }
             System.out.println(); // Quebra linha após cada linha da matriz
         }
@@ -120,5 +105,8 @@ public class Labirinto {
         if (salaSecretaDesbloqueada && pos[0] == 2 && pos[1] == 4) {
             System.out.println("Diego é gay"); 
         }
+    }
+    public List<Inimigo> getInimigos() {
+        return inimigos;
     }
 }
