@@ -5,7 +5,6 @@ public class MapaConfigurado implements Serializable{
     private final String[][] mapa;        // Matriz que armazena o mapa
     private final List<Tesouro> tesouros; // Lista de tesouros
     private final List<Perigo> perigos;   // Lista de perigos
-    private final int[] posInicial;       // Posição inicial do jogador
     private final List<Inimigo> inimigos; // Lista de inimigos
 
 
@@ -14,7 +13,6 @@ public class MapaConfigurado implements Serializable{
         this.mapa = mapa;
         this.tesouros = tesouros;
         this.perigos = perigos;
-        this.posInicial = posInicial;
         this.inimigos = inimigos;
     }
 
@@ -31,9 +29,6 @@ public class MapaConfigurado implements Serializable{
         return perigos;
     }
 
-    public int[] getPosInicial() {
-        return posInicial;
-    }
      public List<Inimigo> getInimigos() {
         return inimigos;
     }
