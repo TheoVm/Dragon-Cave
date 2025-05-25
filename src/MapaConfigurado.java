@@ -9,7 +9,7 @@ public class MapaConfigurado implements Serializable{
 
 
     // Construtor que inicializa a classe com os valores recebidos
-    public MapaConfigurado(String[][] mapa, List<Tesouro> tesouros, List<Perigo> perigos, int[] posInicial, List<Inimigo> inimigos) {
+    public MapaConfigurado(String[][] mapa, List<Tesouro> tesouros, List<Perigo> perigos, List<Inimigo> inimigos) {
         this.mapa = mapa;
         this.tesouros = tesouros;
         this.perigos = perigos;
