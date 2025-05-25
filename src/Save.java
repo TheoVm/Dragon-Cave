@@ -1,12 +1,19 @@
 import java.io.*;
+import java.util.ArrayList;
 
-public class Save implements Serializable{
+public class Save implements Serializable {
     private String nome;
     private int id;
     private Aventureiro jogador;
     private Labirinto labirinto;
+    private static final long serialVersionUID = 1L;
 
-    Save(String nome, int id, Aventureiro jogador, Labirinto labirinto){
+    Save(String nome, int id) {
+        this.nome = nome;
+        this.id = id;
+    }
+
+    Save(String nome, int id, Aventureiro jogador, Labirinto labirinto) {
         this.nome = nome;
         this.id = id;
         this.jogador = jogador;
@@ -19,90 +26,84 @@ public class Save implements Serializable{
     public int getId() {
         return id;
     }
-    public Aventureiro getJogador(){
+    public Aventureiro getJogador() {
         return jogador;
     }
-    public Labirinto getLabirinto(){
+    public Labirinto getLabirinto() {
         return labirinto;
     }
-    
-    public void setNome(String nome){
+
+    public void setNome(String nome) {
         this.nome = nome;
     }
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
-    public void setJogador(Aventureiro jogador){
+    public void setJogador(Aventureiro jogador) {
         this.jogador = jogador;
     }
-    public void setLabirinto(Labirinto labirinto){
+    public void setLabirinto(Labirinto labirinto) {
         this.labirinto = labirinto;
     }
 
-    private static class AppendableObjectOutputStream extends ObjectOutputStream {
-        AppendableObjectOutputStream(OutputStream out) throws IOException {
-            super(out);
+    public static ArrayList<Save> carregarListaSaves() {
+        File arquivo = new File("Save.dat");
+        if (!arquivo.exists() || arquivo.length() == 0) {
+            return new ArrayList<>();
         }
-        @Override
-        protected void writeStreamHeader() throws IOException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
+            Object obj = ois.readObject();
+            if (obj instanceof ArrayList<?>) {
+                ArrayList<?> lista = (ArrayList<?>) obj;
+                for (Object item : lista) {
+                    if (!(item instanceof Save)) {
+                        System.out.println("Arquivo corrompido: item inválido na lista.");
+                        return new ArrayList<>();
+                    }
+                }
+                return (ArrayList<Save>) lista;
+            } else {
+                System.out.println("Formato inválido no arquivo de saves.");
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Erro ao carregar saves: " + e);
         }
+        return new ArrayList<>();
     }
 
+    private static void salvarListaSaves(ArrayList<Save> saves) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Save.dat"))) {
+            oos.writeObject(saves);
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar saves: " + e);
+        }
+    }
 
     public static void abrirArquivo(String nome, Aventureiro jogador, Labirinto labirinto) {
-        File arquivo = new File("Saves.dat");
-        int id = 1;
+        ArrayList<Save> saves = carregarListaSaves();
 
-        if (arquivo.exists() && arquivo.length() > 0) {
-            try (ObjectInputStream ois = 
-                     new ObjectInputStream(new FileInputStream(arquivo))) {
-                while (true) {
-                    try {
-                        ois.readObject();
-                        id++;
-                    } catch (EOFException eof) {
-                        break;
-                    }
-                }
-            } catch (IOException | ClassNotFoundException e) {
-                System.out.println("Erro ao ler arquivo: " + e);
-                return;
+        int id = 1;
+        for (Save s : saves) {
+            if (s.getId() >= id) {
+                id = s.getId() + 1;
             }
         }
 
-        Save save = new Save(nome, id, jogador, labirinto);
+        Save novoSave = new Save(nome, id, jogador, labirinto);
+        saves.add(novoSave);
 
-        boolean append = arquivo.exists() && arquivo.length() > 0;
-        try (FileOutputStream fos = new FileOutputStream(arquivo, true);
-             ObjectOutputStream oos = append
-                 ? new AppendableObjectOutputStream(fos)
-                 : new ObjectOutputStream(fos)
-        ) {
-            oos.writeObject(save);
-        } catch (IOException e) {
-            System.out.println("Erro ao criar / escrever arquivo: " + e);
-        }
+        salvarListaSaves(saves);
+        System.out.println("Save salvo com sucesso com ID " + id);
     }
 
-    public static void lerSaves(){
-        try{
-            FileInputStream arq = new FileInputStream("Saves.dat");
-            ObjectInputStream obj = new ObjectInputStream(arq);
-            while(true){
-                try{
-                    Object object = obj.readObject();
-                    if(object instanceof Save){
-                        Save exibir = (Save)object;
-                        System.out.println("Nome: "+ exibir.getNome());
-                        System.out.println("ID: "+ exibir.getId());
-                    }
-                }catch(EOFException eof){
-                    break;
-                }
+    public static Save lerSaves(int id) {
+        ArrayList<Save> saves = carregarListaSaves();
+
+        for (Save s : saves) {
+            if (s.getId() == id) {
+                return s;
             }
-            obj.close();
-        } catch (IOException | ClassNotFoundException erro){
-            System.out.println("Erro ao ler arquivo:" + erro);
         }
+        return new Save("Não existe", -1);
     }
 }
