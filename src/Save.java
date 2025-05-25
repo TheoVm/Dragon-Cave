@@ -6,7 +6,6 @@ public class Save implements Serializable {
     private int id;
     private Aventureiro jogador;
     private Labirinto labirinto;
-    private static final long serialVersionUID = 1L;
 
     Save(String nome, int id) {
         this.nome = nome;

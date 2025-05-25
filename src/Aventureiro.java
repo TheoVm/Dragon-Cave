@@ -28,11 +28,12 @@ public abstract class Aventureiro implements Serializable{
         String[][] aux = labirinto.getMapa();
 
         if (novaX < 0 || novaY < 0 || novaX >= labirinto.getAltura() || novaY >= labirinto.getLargura()
-            || "║".equals(aux[novaX][novaY])
-            || "═".equals(aux[novaX][novaY])
-            || "╬".equals(aux[novaX][novaY])
-            || "╠".equals(aux[novaX][novaY])
-            || "╣".equals(aux[novaX][novaY])) {
+            || "─".equals(aux[novaX][novaY])
+            || "│".equals(aux[novaX][novaY])
+            || "┌".equals(aux[novaX][novaY])
+            || "┐".equals(aux[novaX][novaY])
+            || "└".equals(aux[novaX][novaY]) 
+            || "┘".equals(aux[novaX][novaY])) {
             System.out.println("Movimento inválido! Fora dos limites do labirinto.");
             return;
         }
