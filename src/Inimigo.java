@@ -1,19 +1,25 @@
 import java.io.Serializable;
 
 public class Inimigo implements Serializable{ 
+    private String nome;
     private int vida;
     private int ataque;
     private int defesa;
     private int[] localizacao;
     
-    public Inimigo(int vida, int ataque, int defesa, int[] localizacao) {
+    public Inimigo(String nome, int vida, int ataque, int defesa) {
+        this.nome = nome;
         this.vida = vida;
         this.ataque = ataque;
         this.defesa = defesa;
-        this.localizacao = localizacao;
     }
 
-    //getters e setters
+    public String getNome(){
+        return nome;
+    }
+    public void setNome(String nome){
+        this.nome = nome;
+    }
     public int getVida() {
         return vida;
     }
@@ -38,4 +44,6 @@ public class Inimigo implements Serializable{
     public void setLocalizacao(int[] localizacao) {
         this.localizacao = localizacao;
     }
+
+    
 }

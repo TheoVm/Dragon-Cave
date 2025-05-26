@@ -1,0 +1,60 @@
+public class Consumivel extends Itens {
+    private int quantidade = 0;
+    private String tipo = "";
+    public Consumivel(int valor, int quantidade, String tipo) {
+        super(valor);
+        this.quantidade = quantidade;
+        this.tipo = tipo;
+    }
+    
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setQuantidade(int quantidade){
+        this.quantidade = quantidade;
+    }
+
+    public void alterarQuantidade(int num){
+        int valor = this.quantidade + num;
+        setQuantidade(valor);
+    }
+
+    public static void usar(Aventureiro jogador, Consumivel consumivel){
+        int novoValor = 0;
+        String tipo = consumivel.getTipo();
+        switch (tipo) {
+            case "Cura":
+                novoValor = jogador.getVida() + 20;
+                jogador.setVida(novoValor);
+                consumivel.alterarQuantidade(-1);
+                System.out.println("Pocao de Cura usada! Vida aumentada em 20!");
+                break;
+            case "Ataque":
+                novoValor = jogador.getAtaque() + 20;
+                jogador.setAtaque(novoValor);
+                consumivel.alterarQuantidade(-1);
+                System.out.println("Pocao de Ataque usada! Ataque aumentada em 20!");
+                break;
+            case "Defesa":
+                novoValor = jogador.getDefesa() + 20;
+                jogador.setDefesa(novoValor);
+                consumivel.alterarQuantidade(-1);
+                System.out.println("Pocao de Defesa usada! Velocidade aumentada em 20!");
+                break;
+            case "Velocidade":
+                novoValor = jogador.getVelocidade() + 20;
+                jogador.setVelocidade(novoValor);
+                consumivel.alterarQuantidade(-1);
+                System.out.println("Pocao de Velocidade usada! Velocidade aumentada em 20!");
+                break;
+            default:
+                break;
+        }
+    }
+
+}

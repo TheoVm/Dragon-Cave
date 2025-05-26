@@ -8,6 +8,7 @@ public abstract class Aventureiro implements Serializable{
     private int defesa;
     private int ataque;
     private final List<Tesouro> tesouros;
+    private List<Consumivel> consumiveis;
     private int[] localizacao;
 
     public Aventureiro(String nome, int vida, int velocidade, int defesa, int ataque) {
@@ -17,10 +18,10 @@ public abstract class Aventureiro implements Serializable{
         this.defesa = defesa;
         this.ataque = ataque;
         this.tesouros = new ArrayList<>();
+        this.consumiveis = new ArrayList<>();
         this.localizacao = new int[]{1, 1};
     }
 
-    // Agora recebe Scanner como parâmetro!
     public void mover(int dx, int dy, Labirinto labirinto, Scanner scanner) {
         int novaX = localizacao[0] + dx;
         int novaY = localizacao[1] + dy;
@@ -58,13 +59,16 @@ public abstract class Aventureiro implements Serializable{
                 System.out.println("Você entrou em um perigo! Sofreu " + dano + " de dano. Vida restante: " + vida);
             }
         }
-        for (Inimigo inimigo : labirinto.getInimigos()) {
-            if (Arrays.equals(inimigo.getLocalizacao(), localizacao) && inimigo.getVida() > 0) {
-                boolean venceu = Combate.iniciarCombate(this, inimigo, scanner);
+        for (int i = 0; i < 5; i++) {
+            if (Arrays.equals(labirinto.posicoesInimigos().get(i), localizacao) && labirinto.getInimigosGerados().get(i).getVida() > 0) {
+                System.out.println(labirinto.posicoesInimigos().get(i)[0]);
+                boolean venceu = Combate.iniciarCombate(this, labirinto.getInimigosGerados().get(i), scanner);
                 if (!venceu) {
                     System.out.println("Você perdeu ou fugiu do combate!");
-                    return;
+                } else {
+                    System.out.println("Você venceu o combate!");
                 }
+                return;
             }
         }
     }
@@ -82,6 +86,9 @@ public abstract class Aventureiro implements Serializable{
     }
 
     public void setVida(int vida) {
+        if (vida < 0){
+            vida = 0;
+        }
         this.vida = vida;
     }
 
@@ -97,24 +104,44 @@ public abstract class Aventureiro implements Serializable{
         return tesouros;
     }
 
+        public List<Consumivel> getConsumiveis() {
+        return consumiveis;
+    }
+
     public int[] getLocalizacao() {
         return localizacao;
     }
 
     public void setAtaque(int ataque) {
+        
         this.ataque = ataque;
-    }
-
-    public void setVelocidade(int velocidade) {
-        this.velocidade = velocidade;
     }
 
     public void setDefesa(int defesa) {
         this.defesa = defesa;
     }
 
+    public void setVelocidade(int velocidade) {
+        this.velocidade = velocidade;
+    }
+
+
     public void setLocalizacao(int[] localizacao) {
         this.localizacao = localizacao;
+    }
+
+    public void addConsumivel(int valor, int quantidade, String tipo){
+        int criar = 0;
+        for (int i = 0; i < this.consumiveis.size(); i++) {
+            if (consumiveis.get(i).getTipo().equals(tipo)){
+                consumiveis.get(i).alterarQuantidade(1);
+                criar = 1;
+            }
+        }
+        if (criar == 0){
+            Consumivel consumivel = new Consumivel(valor, quantidade, tipo);
+            consumiveis.add(consumivel);
+        }
     }
 
     public int atacar(Inimigo inimigo) {
@@ -129,9 +156,41 @@ public abstract class Aventureiro implements Serializable{
         System.out.println("Velocidade: "+ this.velocidade);
         System.out.println("Defesa: "+ this.defesa);
         System.out.println("Ataque: "+ this.ataque);
-        System.out.println("Tesouros: ");
-        for (Tesouro tesouro : this.tesouros){
-            System.out.println("- " + tesouro);
+    }
+
+    public void exibirTesouros(){
+        if (this.tesouros.isEmpty()){
+            System.out.println("Voce nao tem tesouros no momento");
+        } else {
+            System.out.println("Tesouros: ");
+            for (Tesouro tesouro : this.tesouros){
+                System.out.println("- " + tesouro);
+            }
         }
     }
+
+    public void verificarQuantidade(){
+        for (int i = 0; i < this.consumiveis.size(); i++) {
+            if (consumiveis.get(i).getQuantidade() <= 0){
+                consumiveis.remove(i);
+            }
+        }
+    }
+
+    public void usarConsumiveis(Aventureiro joogador, Scanner scanner){
+        if (this.consumiveis.isEmpty()){
+            System.out.println("Voce nao tem consumiveis no momento");
+        } else {
+            System.out.println("Consumiveis: ");
+            for (int i = 0; i < this.consumiveis.size(); i++) {
+                System.out.println((i + 1) + " - " + this.consumiveis.get(i).getTipo() + " x" + this.consumiveis.get(i).getQuantidade());
+            }
+            System.out.println("Qual consumivel deseja utilizar?");
+            int escolha = scanner.nextInt();
+            scanner.nextLine();
+            Consumivel.usar(joogador, this.consumiveis.get(escolha - 1));
+            verificarQuantidade();
+        }
+        verificarQuantidade();
+    } 
 }

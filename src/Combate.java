@@ -6,7 +6,8 @@ public class Combate {
         boolean defendendo = false;
 
         System.out.println("Um inimigo APARECEU! Combate iniciado...");
-
+        
+        scanner.nextLine();
         while (jogador.getVida() > 0 && inimigo.getVida() > 0) {
             if (turnoJogador) {
                 System.out.println("\nSeu turno! Escolha uma ação:");
@@ -56,10 +57,8 @@ public class Combate {
             turnoJogador = !turnoJogador;
         }
         if (jogador.getVida() <= 0) {
-            System.out.println("Você foi derrotado pelo inimigo!");
             return false;
         } else {
-            System.out.println("Você derrotou o inimigo!");
             return true;
         }
     }

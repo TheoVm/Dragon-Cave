@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JogoLabirinto {
-
-    
     public static void main(String[] args) {
         
         try (Scanner scanner = new Scanner(System.in)) {
@@ -49,6 +47,10 @@ public class JogoLabirinto {
                             }
                         }
 
+                        jogador.addConsumivel(20, 2, "Cura");
+                        jogador.addConsumivel(20, 1, "Ataque");
+                        jogador.addConsumivel(20, 1, "Defesa");
+
                         System.out.println("Escolha a dificuldade (1 = Fácil, 2 = Médio, 3 = Difícil):");
                         int dificuldade = scanner.nextInt();
                         scanner.nextLine();
@@ -93,11 +95,7 @@ public class JogoLabirinto {
                     case 'A' -> jogador.mover(0, -1, labirinto, scanner);
                     case 'S' -> jogador.mover(1, 0, labirinto, scanner);
                     case 'D' -> jogador.mover(0, 1, labirinto, scanner);
-                    case 'K' -> {
-                        System.out.println("Digite o nome que deseja colocar no seu save:");
-                        String nome = scanner.next();
-                        Save.abrirArquivo(nome, jogador, labirinto);
-                    }
+                    case 'E' -> exibirMenu(jogador, labirinto, scanner);
                     case 'L'-> Save.lerSaves(-1);
                     default -> System.out.println("Comando inválido.");
                 }
@@ -113,4 +111,42 @@ public class JogoLabirinto {
     System.out.println("Parabéns! Você escapou do labirinto!");
     }
     
+    public static void exibirMenu(Aventureiro jogador, Labirinto labirinto, Scanner scanner){ 
+        int continuar = 1;
+        while (continuar == 1) {
+            System.out.println("===== Menu de Opções =====");
+            System.out.println("Escolha uma das opções:");
+            System.out.println("1 - Verificar Status");
+            System.out.println("2 - Verificar Tesouros");
+            System.out.println("3 - Verificar Consumiveis");
+            System.out.println("4 - Salvar Jogo");
+            System.out.println("5 - Voltar");
+            System.out.println("6 - Sair");
+            int escolha = scanner.nextInt();
+            scanner.nextLine();
+            switch (escolha) {
+                case 1 -> {
+                    jogador.exibirStatus();
+                }
+                case 2 -> {
+                    jogador.exibirTesouros();
+                }
+                case 3 -> {
+                    jogador.usarConsumiveis(jogador, scanner);
+                }
+                case 4 -> {
+                    System.out.println("Digite o nome que deseja colocar no seu save:");
+                    String nome = scanner.next();
+                    Save.abrirArquivo(nome, jogador, labirinto);
+                }
+                case 5 -> {
+                    continuar = 0;
+                }
+                case 6 -> {
+                    System.exit(0);
+                }
+                default -> System.out.println("Opção inválida.");
+            }
+        }
+    }
 }

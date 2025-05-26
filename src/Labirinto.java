@@ -8,7 +8,8 @@ public class Labirinto implements Serializable{
     private final MapaConfigurado config;
     private final Aventureiro jogador;
     private boolean salaSecretaDesbloqueada;
-    private final List<Inimigo> inimigos;
+    private List<Inimigo> inimigos;
+    private List<Inimigo> inimigosGerados;
 
     public Labirinto(Aventureiro jogador, int dificuldade) {
         this.jogador = jogador;
@@ -19,47 +20,68 @@ public class Labirinto implements Serializable{
         this.tesouros = config.getTesouros();  // Agora as listas de tesouros e perigos são configuradas aqui
         this.perigos = config.getPerigos();
         this.salaSecretaDesbloqueada = false;
-        this.inimigos = config.getInimigos();
-
+        this.inimigos = new ArrayList<>(Arrays.asList(
+            new Inimigo("Dragão Lacaio", 25, 10, 5), 
+            new Inimigo("Dragão Inferior", 50, 15, 10), 
+            new Inimigo("Dragão Superior", 80, 25, 12), 
+            new Inimigo("Dragão Ancião", 100, 40, 8) 
+        ));
+        this.inimigosGerados = new ArrayList<>();
+        gerarInimigos();
     }
 
-    public void atualizarMapa() {
-    // Limpar a posição anterior do jogador no mapa
-    for (String[] linha : mapa) {
-        for (int j = 0; j < linha.length; j++) {
-            if (linha[j].equals("J") || linha[j].equals("I")) {
-                linha[j] = ".";  // Remove o "J" e "I" de qualquer lugar anterior
-            }
+    public void gerarInimigos(){
+        Random random = new Random();
+        for(int j = 0; j < 5; j++){
+            int i = random.nextInt(3) + 1;
+            inimigosGerados.add(inimigos.get(i));
+            System.out.println(inimigosGerados.get(j).getNome());
         }
     }
 
-    // Adicionar inimigos no mapa
-    for (Inimigo inimigo : inimigos) {
-        int[] posInimigo = inimigo.getLocalizacao();
-        mapa[posInimigo[0]][posInimigo[1]] = "I"; // Marca o inimigo
+    public List<int[]> posicoesInimigos(){
+        List<int[]> posicoes = new ArrayList<>(Arrays.asList(
+            new int[]{3, 15},
+            new int[]{20, 20},
+            new int[]{7, 10},
+            new int[]{7, 5},
+            new int[]{7, 1}
+        ));
+
+        return posicoes;
     }
 
-    // Agora, adicione novamente o "J" na posição correta do jogador
-    int[] posJogador = jogador.getLocalizacao();
-    mapa[posJogador[0]][posJogador[1]] = "J";  // Coloca o "J" na posição atual
+    public void atualizarMapa() {
+        // Limpar a posição anterior do jogador no mapa
+        for (String[] linha : mapa) {
+            for (int j = 0; j < linha.length; j++) {
+                if (linha[j].equals("J") || linha[j].equals("I")) {
+                    linha[j] = ".";  // Remove o "J" e "I" de qualquer lugar anterior
+                }
+            }
+        }
 
-    // Atualizar os tesouros e perigos
-    for (Perigo p : perigos) {
-        int[] posPerigo = p.getLocalizacao();
-        mapa[posPerigo[0]][posPerigo[1]] = "P"; // Marca o perigo
+        // Agora, adicione novamente o "J" na posição correta do jogador
+        int[] posJogador = jogador.getLocalizacao();
+        mapa[posJogador[0]][posJogador[1]] = "J";  // Coloca o "J" na posição atual
+
+        // Atualizar os tesouros e perigos
+        for (Perigo p : perigos) {
+            int[] posPerigo = p.getLocalizacao();
+            mapa[posPerigo[0]][posPerigo[1]] = "P"; // Marca o perigo
+        }
+
+        for (Tesouro t : tesouros) {
+            int[] posTesouro = t.getLocalizacao();
+            mapa[posTesouro[0]][posTesouro[1]] = "T"; // Marca o tesouro
+        }
+
+        if (salaSecretaDesbloqueada) mapa[2][4] = "S";
+        else mapa[2][4] = "X";
     }
-
-    for (Tesouro t : tesouros) {
-        int[] posTesouro = t.getLocalizacao();
-        mapa[posTesouro[0]][posTesouro[1]] = "T"; // Marca o tesouro
-    }
-
-    if (salaSecretaDesbloqueada) mapa[2][4] = "S";
-    else mapa[2][4] = "X";
-}
 
     public void exibirLabirinto() {
-    atualizarMapa();
+        atualizarMapa();
 
         for (String[] linha : mapa) {
             for (String celula : linha) {
@@ -106,7 +128,7 @@ public class Labirinto implements Serializable{
             System.out.println("Diego é gay"); 
         }
     }
-    public List<Inimigo> getInimigos() {
-        return inimigos;
+    public List<Inimigo> getInimigosGerados() {
+        return inimigosGerados;
     }
 }
