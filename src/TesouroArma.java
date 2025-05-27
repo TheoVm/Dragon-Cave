@@ -3,6 +3,10 @@ public class TesouroArma extends Tesouro {
         super(nome, localizacao, valor);
     }
 
+    public String getBuff(){
+        return ("Ataque +" + getValor());
+    }
+
     @Override
     public void efeito(Aventureiro jogador) {
         jogador.setAtaque(jogador.getAtaque() + getValor());

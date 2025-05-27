@@ -3,6 +3,10 @@ public class TesouroArmadura extends Tesouro {
         super(nome, localizacao, valor);
     }
 
+    public String getBuff(){
+        return ("Defesa +" + getValor());
+    }
+
     @Override
     public void efeito(Aventureiro jogador) {
         jogador.setDefesa(jogador.getDefesa() + getValor());

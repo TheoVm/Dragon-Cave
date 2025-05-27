@@ -21,10 +21,10 @@ public class Labirinto implements Serializable{
         this.perigos = config.getPerigos();
         this.salaSecretaDesbloqueada = false;
         this.inimigos = new ArrayList<>(Arrays.asList(
-            new Inimigo("Dragão Lacaio", 25, 10, 5), 
-            new Inimigo("Dragão Inferior", 50, 15, 10), 
-            new Inimigo("Dragão Superior", 80, 25, 12), 
-            new Inimigo("Dragão Ancião", 100, 40, 8) 
+            new Inimigo("Dragão Lacaio", 25, 10, 10), 
+            new Inimigo("Dragão Inferior", 50, 15, 20), 
+            new Inimigo("Dragão Superior", 80, 25, 30), 
+            new Inimigo("Dragão Ancião", 100, 40, 35)
         ));
         this.inimigosGerados = new ArrayList<>();
         gerarInimigos();
@@ -32,20 +32,32 @@ public class Labirinto implements Serializable{
 
     public void gerarInimigos(){
         Random random = new Random();
-        for(int j = 0; j < 5; j++){
-            int i = random.nextInt(3) + 1;
+        for(int j = 0; j < posicoesInimigos().size(); j++){
+            int i = random.nextInt(4);
             inimigosGerados.add(inimigos.get(i));
             System.out.println(inimigosGerados.get(j).getNome());
         }
     }
 
     public List<int[]> posicoesInimigos(){
-        List<int[]> posicoes = new ArrayList<>(Arrays.asList(
-            new int[]{3, 15},
-            new int[]{20, 20},
-            new int[]{7, 10},
-            new int[]{7, 5},
-            new int[]{7, 1}
+        List<int[]> posicoes = new ArrayList<>(Arrays.asList(        
+        new int[]{9, 44},
+        new int[]{9, 45},
+        new int[]{9, 46},
+        new int[]{9, 18},
+        new int[]{8, 18},
+        new int[]{3, 53},
+        new int[]{14, 20},
+        new int[]{15, 20},
+        new int[]{20, 3},
+        new int[]{20, 4},
+        new int[]{20, 5},
+        new int[]{18, 56},
+        new int[]{18, 57}, 
+        new int[]{18, 58},
+        new int[]{18, 25},
+        new int[]{18, 26},
+        new int[]{18, 27}
         ));
 
         return posicoes;

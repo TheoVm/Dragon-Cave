@@ -96,7 +96,6 @@ public class JogoLabirinto {
                     case 'S' -> jogador.mover(1, 0, labirinto, scanner);
                     case 'D' -> jogador.mover(0, 1, labirinto, scanner);
                     case 'E' -> exibirMenu(jogador, labirinto, scanner);
-                    case 'L'-> Save.lerSaves(-1);
                     default -> System.out.println("Comando inválido.");
                 }
             }

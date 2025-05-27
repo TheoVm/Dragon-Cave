@@ -59,7 +59,7 @@ public abstract class Aventureiro implements Serializable{
                 System.out.println("Você entrou em um perigo! Sofreu " + dano + " de dano. Vida restante: " + vida);
             }
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < labirinto.posicoesInimigos().size(); i++) {
             if (Arrays.equals(labirinto.posicoesInimigos().get(i), localizacao) && labirinto.getInimigosGerados().get(i).getVida() > 0) {
                 System.out.println(labirinto.posicoesInimigos().get(i)[0]);
                 boolean venceu = Combate.iniciarCombate(this, labirinto.getInimigosGerados().get(i), scanner);
@@ -144,11 +144,11 @@ public abstract class Aventureiro implements Serializable{
         }
     }
 
-    public int atacar(Inimigo inimigo) {
-        int dano = Math.max(0, this.getAtaque() - inimigo.getDefesa());
-        inimigo.setVida(inimigo.getVida() - dano);
-        return dano;
-    }
+    // public int atacar(Inimigo inimigo) {
+    //     int dano = Math.max(0, this.getAtaque() - inimigo.getDefesa());
+    //     inimigo.setVida(inimigo.getVida() - dano);
+    //     return dano;
+    // }
 
     public void exibirStatus(){
         System.out.println("Nome: "+ this.nome);
@@ -164,7 +164,7 @@ public abstract class Aventureiro implements Serializable{
         } else {
             System.out.println("Tesouros: ");
             for (Tesouro tesouro : this.tesouros){
-                System.out.println("- " + tesouro);
+                System.out.println("- " + tesouro.getNome() + ": " + tesouro.getBuff());
             }
         }
     }
@@ -185,11 +185,30 @@ public abstract class Aventureiro implements Serializable{
             for (int i = 0; i < this.consumiveis.size(); i++) {
                 System.out.println((i + 1) + " - " + this.consumiveis.get(i).getTipo() + " x" + this.consumiveis.get(i).getQuantidade());
             }
-            System.out.println("Qual consumivel deseja utilizar?");
-            int escolha = scanner.nextInt();
-            scanner.nextLine();
-            Consumivel.usar(joogador, this.consumiveis.get(escolha - 1));
-            verificarQuantidade();
+
+            int continuar = 1;
+                while (continuar == 1) {
+                    System.out.println("===== Menu de Opções =====");
+                    System.out.println("Escolha uma das opções:");
+                    System.out.println("1 - Usar consumível");
+                    System.out.println("2 - Voltar");
+                    int escolha = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (escolha) {
+                        case 1 -> { 
+                            System.out.println("Qual consumivel deseja utilizar?");
+                            int item = scanner.nextInt();
+                            scanner.nextLine();
+                            Consumivel.usar(joogador, this.consumiveis.get(item - 1));
+                            verificarQuantidade();
+                        }
+                        case 2 -> {
+                            continuar = 0;
+                        }
+                        default -> System.out.println("Opção inválida.");
+                    }
+                }
+
         }
         verificarQuantidade();
     } 

@@ -41,15 +41,23 @@ public class GeradorMapaManual {
         // Listas de tesouros e perigos
         List<Tesouro> tesouros = new ArrayList<>();
         List<Perigo> perigos = new ArrayList<>();
-        
+
+
         // Tesouros
-        tesouros.add(new TesouroArma("Espada", new int[]{1, 9}, 20)); // Tesouro em (1,9)
-        tesouros.add(new TesouroArmadura("Armadura leve", new int[]{7, 10}, 15)); // Tesouro em (7,10)
-        tesouros.add(new TesouroArma("Machado", new int[]{8, 18}, 25)); // Tesouro em (9,18)
+        tesouros.add(new TesouroArmadura("Armadura leve", new int[]{7, 10}, 15));
+        tesouros.add(new TesouroArma("Espada", new int[]{1, 26}, 20)); 
+        tesouros.add(new TesouroArma("Espada", new int[]{1, 36}, 20)); 
+        tesouros.add(new TesouroArma("Espada", new int[]{4, 64}, 20));
+        tesouros.add(new TesouroArma("Machado", new int[]{28, 9}, 25));
+        tesouros.add(new TesouroArma("Machado", new int[]{13, 1}, 25));
+        tesouros.add(new TesouroArma("Machado", new int[]{28, 19}, 25));
+        tesouros.add(new TesouroArma("Machado", new int[]{28, 46}, 25));
+        tesouros.add(new TesouroArma("Machado", new int[]{20, 46}, 25));
+        tesouros.add(new TesouroArma("Espada", new int[]{20, 64}, 20));
 
         // Perigos
-        perigos.add(new Perigo(new int[]{1, 18}, 10 * dificuldade)); // Perigo em (1,19)
-        perigos.add(new Perigo(new int[]{8, 3}, 15 * dificuldade)); // Perigo em (9,3)
+        // perigos.add(new Perigo(new int[]{1, 18}, 10 * dificuldade)); // Perigo em (1,19)
+        // perigos.add(new Perigo(new int[]{8, 3}, 15 * dificuldade)); // Perigo em (9,3)
 
         // Inserir tesouros e perigos no mapa
         for (Tesouro t : tesouros) {
@@ -62,7 +70,7 @@ public class GeradorMapaManual {
             mapa[loc[0]][loc[1]] = "P"; // Marcador de perigo
         }
 
-        mapa[9][18] = "F"; 
+        mapa[28][59] = "F"; 
         // Retornar um novo objeto MapaConfigurado
         return new MapaConfigurado(mapa, tesouros, perigos);
     }
