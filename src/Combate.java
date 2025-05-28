@@ -23,7 +23,7 @@ public class Combate {
                 switch (acao) {
                     case "1" -> {
                         int dano = Math.max(0, calcDano(jogador, inimigo, turnoJogador));
-                        inimigo.setVida(jogador.getVida() - dano);
+                        inimigo.setVida(inimigo.getVida() - dano);
                         System.out.println("Você golpeou o inimigo e causou " + dano + " de dano!");
                     }
                     case "2" -> {
@@ -36,7 +36,7 @@ public class Combate {
                             inimigo.setVida(0);
                             return true;
                         } else {
-                            System.out.println("O inimigo ve voce se aproximando de braço abertos e golpea voce.");
+                            System.out.println("O inimigo vê você se aproximando de braço abertos e golpea você.");
                         }
                     }
                     case "4" -> {
@@ -63,6 +63,34 @@ public class Combate {
         if (jogador.getVida() <= 0) {
             return false;
         } else {
+            for(int i = 0; i < jogador.getEfeitos().size(); i ++){
+                String[] efeito = jogador.getEfeitos().get(i);
+                if (Integer.parseInt(efeito[1]) > 0){
+                    String valor = efeito[1];
+                    String novoValor = String.valueOf(Integer.parseInt(valor) - 1);
+                    jogador.setEfeito(novoValor, i);
+                    
+                    if (Integer.parseInt(efeito[1]) == 0){
+                        String tipo = efeito[0];
+                        switch (tipo) {
+                            case "Ataque":
+                                jogador.setAtaque(jogador.getAtaque() - 20);
+                                System.out.println("Efeito da poção terminado, ataque voltou ao valor original.");
+                                break;
+                            case "Defesa":
+                                jogador.setDefesa((jogador.getDefesa() - 20));
+                                System.out.println("Efeito da poção terminado, defesa voltou ao valor original.");
+                                break;
+                            case "Velocidade":
+                                jogador.setVelocidade((jogador.getVelocidade() - 20));
+                                System.out.println("Efeito da poção terminado, velocidade voltou ao valor original.");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
             return true;
         }
     }

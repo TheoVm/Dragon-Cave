@@ -48,8 +48,9 @@ public class JogoLabirinto {
                         }
 
                         jogador.addConsumivel(20, 2, "Cura");
-                        jogador.addConsumivel(20, 1, "Ataque");
-                        jogador.addConsumivel(20, 1, "Defesa");
+                        jogador.addConsumivel(20, 2, "Ataque");
+                        jogador.addConsumivel(20, 2, "Defesa");
+                        jogador.addConsumivel(20, 2, "Velocidade");
 
                         System.out.println("Escolha a dificuldade (1 = Fácil, 2 = Médio, 3 = Difícil):");
                         int dificuldade = scanner.nextInt();

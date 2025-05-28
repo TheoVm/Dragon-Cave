@@ -7,6 +7,7 @@ public abstract class Aventureiro implements Serializable{
     private int velocidade;
     private int defesa;
     private int ataque;
+    private List<String[]> efeitos;
     private final List<Tesouro> tesouros;
     private List<Consumivel> consumiveis;
     private int[] localizacao;
@@ -20,6 +21,7 @@ public abstract class Aventureiro implements Serializable{
         this.tesouros = new ArrayList<>();
         this.consumiveis = new ArrayList<>();
         this.localizacao = new int[]{1, 1};
+        this.efeitos = new ArrayList<>(Arrays.asList(new String[] {"Ataque", "0"}, new String[] {"Defesa", "0"}, new String[] {"Velocidade", "0"}));
     }
 
     public void mover(int dx, int dy, Labirinto labirinto, Scanner scanner) {
@@ -59,7 +61,7 @@ public abstract class Aventureiro implements Serializable{
                 System.out.println("Você entrou em um perigo! Sofreu " + dano + " de dano. Vida restante: " + vida);
             }
         }
-        for (int i = 0; i < labirinto.posicoesInimigos().size(); i++) {
+        for (int i = 0; i < labirinto.posicoesInimigos().size(); i++){
             if (Arrays.equals(labirinto.posicoesInimigos().get(i), localizacao) && labirinto.getInimigosGerados().get(i).getVida() > 0) {
                 System.out.println(labirinto.posicoesInimigos().get(i)[0]);
                 boolean venceu = Combate.iniciarCombate(this, labirinto.getInimigosGerados().get(i), scanner);
@@ -104,12 +106,20 @@ public abstract class Aventureiro implements Serializable{
         return tesouros;
     }
 
-        public List<Consumivel> getConsumiveis() {
+    public List<Consumivel> getConsumiveis() {
         return consumiveis;
+    }
+    
+    public List<String[]> getEfeitos() {
+        return efeitos;
     }
 
     public int[] getLocalizacao() {
         return localizacao;
+    }
+
+    public void setEfeito(String novoTurno, int i){
+        this.efeitos.get(i)[1] = novoTurno;
     }
 
     public void setAtaque(int ataque) {

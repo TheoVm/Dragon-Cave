@@ -17,7 +17,7 @@ public class Labirinto implements Serializable{
         // Inicializa o MapaConfigurado e as listas de tesouros e perigos
         this.config = GeradorMapaManual.criarMapaPadrao(dificuldade);
         this.mapa = config.getMapa();
-        this.tesouros = config.getTesouros();  // Agora as listas de tesouros e perigos são configuradas aqui
+        this.tesouros = config.getTesouros();
         this.perigos = config.getPerigos();
         this.salaSecretaDesbloqueada = false;
         this.inimigos = new ArrayList<>(Arrays.asList(
@@ -40,7 +40,7 @@ public class Labirinto implements Serializable{
     }
 
     public List<int[]> posicoesInimigos(){
-        List<int[]> posicoes = new ArrayList<>(Arrays.asList(        
+        List<int[]> posicoes = new ArrayList<>(Arrays.asList(
         new int[]{9, 44},
         new int[]{9, 45},
         new int[]{9, 46},
