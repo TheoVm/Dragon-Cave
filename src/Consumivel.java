@@ -1,19 +1,14 @@
 public class Consumivel extends Itens {
     private int quantidade = 0;
-    private String tipo = "";
-    public Consumivel(int valor, int quantidade, String tipo) {
-        super(valor);
+    public Consumivel(String nome, int valor, int quantidade) {
+        super(nome, valor);
         this.quantidade = quantidade;
-        this.tipo = tipo;
     }
     
     public int getQuantidade() {
         return quantidade;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
 
     public void setQuantidade(int quantidade){
         this.quantidade = quantidade;
@@ -26,7 +21,7 @@ public class Consumivel extends Itens {
 
     public static void usar(Aventureiro jogador, Consumivel consumivel){
         int novoValor = 0;
-        String tipo = consumivel.getTipo();
+        String tipo = consumivel.getNome();
         String turnos;
         String novoTurno;
         switch (tipo) {

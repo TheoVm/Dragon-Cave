@@ -7,11 +7,11 @@ public class Combate {
         boolean defendendo = false;
 
         System.out.println("Um inimigo APARECEU! Combate iniciado...");
+        System.out.println("\nUm " + inimigo.getNome() + " apareceu! Ele está furioso.");
         
         scanner.nextLine();
         while (jogador.getVida() > 0 && inimigo.getVida() > 0) {
             if (turnoJogador) {
-                System.out.println("\nUm " + inimigo.getNome() + " apareceu! Ele está furioso.");
                 System.out.println("\nVida do inimigo: " + inimigo.getVida() + "/" + vidaInicial);
                 System.out.println("\nSeu turno! Escolha uma ação:");
                 System.out.println("1 - Atacar");

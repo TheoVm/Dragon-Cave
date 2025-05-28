@@ -7,6 +7,7 @@ public abstract class Aventureiro implements Serializable{
     private int velocidade;
     private int defesa;
     private int ataque;
+    private int ouro;
     private List<String[]> efeitos;
     private final List<Tesouro> tesouros;
     private List<Consumivel> consumiveis;
@@ -18,6 +19,7 @@ public abstract class Aventureiro implements Serializable{
         this.velocidade = velocidade;
         this.defesa = defesa;
         this.ataque = ataque;
+        this.ouro = 100;
         this.tesouros = new ArrayList<>();
         this.consumiveis = new ArrayList<>();
         this.localizacao = new int[]{1, 1};
@@ -73,6 +75,11 @@ public abstract class Aventureiro implements Serializable{
                 return;
             }
         }
+        if(Arrays.equals(labirinto.getLoja().getLocalizacao(), localizacao)){
+            System.out.println("Achou a loja!");
+            labirinto.getLoja().menuLoja(this, scanner);
+        }
+
     }
 
     public String getNome() {
@@ -100,6 +107,10 @@ public abstract class Aventureiro implements Serializable{
 
     public int getAtaque() {
         return ataque;
+    }
+    
+    public int getOuro() {
+        return ouro;
     }
 
     public List<Tesouro> getTesouros() {
@@ -135,21 +146,24 @@ public abstract class Aventureiro implements Serializable{
         this.velocidade = velocidade;
     }
 
+    public void setOuro(int ouro) {
+        this.ouro = ouro;
+    }
 
     public void setLocalizacao(int[] localizacao) {
         this.localizacao = localizacao;
     }
 
-    public void addConsumivel(int valor, int quantidade, String tipo){
+    public void addConsumivel(String nome, int valor, int quantidade){
         int criar = 0;
         for (int i = 0; i < this.consumiveis.size(); i++) {
-            if (consumiveis.get(i).getTipo().equals(tipo)){
+            if (consumiveis.get(i).getNome().equals(nome)){
                 consumiveis.get(i).alterarQuantidade(1);
                 criar = 1;
             }
         }
         if (criar == 0){
-            Consumivel consumivel = new Consumivel(valor, quantidade, tipo);
+            Consumivel consumivel = new Consumivel(nome, valor, quantidade);
             consumiveis.add(consumivel);
         }
     }
@@ -166,6 +180,7 @@ public abstract class Aventureiro implements Serializable{
         System.out.println("Velocidade: "+ this.velocidade);
         System.out.println("Defesa: "+ this.defesa);
         System.out.println("Ataque: "+ this.ataque);
+        System.out.println("Ouro: "+ this.ouro);
     }
 
     public void exibirTesouros(){
@@ -193,7 +208,7 @@ public abstract class Aventureiro implements Serializable{
         } else {
             System.out.println("Consumiveis: ");
             for (int i = 0; i < this.consumiveis.size(); i++) {
-                System.out.println((i + 1) + " - " + this.consumiveis.get(i).getTipo() + " x" + this.consumiveis.get(i).getQuantidade());
+                System.out.println((i + 1) + " - " + this.consumiveis.get(i).getNome() + " x" + this.consumiveis.get(i).getQuantidade());
             }
 
             int continuar = 1;

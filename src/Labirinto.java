@@ -5,6 +5,7 @@ public class Labirinto implements Serializable{
     private final String[][] mapa;
     private final List<Tesouro> tesouros;
     private final List<Perigo> perigos;
+    private final Loja loja;
     private final MapaConfigurado config;
     private final Aventureiro jogador;
     private boolean salaSecretaDesbloqueada;
@@ -19,6 +20,7 @@ public class Labirinto implements Serializable{
         this.mapa = config.getMapa();
         this.tesouros = config.getTesouros();
         this.perigos = config.getPerigos();
+        this.loja = config.getLoja();
         this.salaSecretaDesbloqueada = false;
         this.inimigos = new ArrayList<>(Arrays.asList(
             new Inimigo("Dragão Lacaio", 25, 10, 10), 
@@ -68,12 +70,14 @@ public class Labirinto implements Serializable{
         for (String[] linha : mapa) {
             for (int j = 0; j < linha.length; j++) {
                 if (linha[j].equals("J") || linha[j].equals("I")) {
-                    linha[j] = ".";  // Remove o "J" e "I" de qualquer lugar anterior
+                    linha[j] = ".";
                 }
             }
         }
+        
+        mapa[loja.getLocalizacao()[0]][loja.getLocalizacao()[1]] = "M";
 
-        // Agora, adicione novamente o "J" na posição correta do jogador
+        // Adiciona o "J" na posição correta do jogador
         int[] posJogador = jogador.getLocalizacao();
         mapa[posJogador[0]][posJogador[1]] = "J";  // Coloca o "J" na posição atual
 
@@ -120,6 +124,10 @@ public class Labirinto implements Serializable{
 
     public List<Perigo> getPerigos() {
         return perigos;
+    }
+
+    public Loja getLoja() {
+        return loja;
     }
 
     public int getAltura() {

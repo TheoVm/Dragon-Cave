@@ -57,6 +57,8 @@ public class Boss {
             "                  (vvv(VVV)(VVV)vvv)"
         };
 
+        
+
         // Inserir o dragão a partir da linha 1 e coluna 20 (em vermelho)
         int offsetCol = 20;
         for (int i = 0; i < dragao.length; i++) {
@@ -72,6 +74,8 @@ public class Boss {
         // Listas de tesouros e perigos
         List<Tesouro> tesouros = new ArrayList<>();
         List<Perigo> perigos = new ArrayList<>();
+
+        Loja loja = new Loja(new int[]{1, 3});
 
         // Tesouros
         tesouros.add(new TesouroArmadura("Armadura leve", new int[]{7, 10}, 15));
@@ -89,7 +93,7 @@ public class Boss {
             mapa[loc[0]][loc[1]] = "P";
         }
 
-        return new MapaConfigurado(mapa, tesouros, perigos);
+        return new MapaConfigurado(mapa, tesouros, perigos, loja);
     }
 
     public static String[] append(String[] arr, String element) {

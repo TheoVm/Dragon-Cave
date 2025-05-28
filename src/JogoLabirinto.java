@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class JogoLabirinto {
     public static void main(String[] args) {
-        
+
         try (Scanner scanner = new Scanner(System.in)) {
             boolean jogoIniciado = false;
 
@@ -47,16 +48,32 @@ public class JogoLabirinto {
                             }
                         }
 
-                        jogador.addConsumivel(20, 2, "Cura");
-                        jogador.addConsumivel(20, 2, "Ataque");
-                        jogador.addConsumivel(20, 2, "Defesa");
-                        jogador.addConsumivel(20, 2, "Velocidade");
+                        jogador.addConsumivel("Cura", 20, 2);
+                        jogador.addConsumivel("Ataque", 20, 2);
+                        jogador.addConsumivel("Defesa", 20, 2);
+                        jogador.addConsumivel("Velocidade", 20, 2);
 
                         System.out.println("Escolha a dificuldade (1 = Fácil, 2 = Médio, 3 = Difícil):");
                         int dificuldade = scanner.nextInt();
                         scanner.nextLine();
                         labirinto = new Labirinto(jogador, dificuldade);
                         jogoIniciado = true;
+
+                        Itens teste1 = new Consumivel("Cura" ,20, 100);
+                        Itens teste2 = new Consumivel("Defesa" ,20, 100);
+                        Itens teste3 = new Consumivel("Ataque" ,20, 100);
+                        Itens teste4 = new Consumivel("Velocidade" ,20, 100);
+                        Itens teste5 = new TesouroArmadura("Armadura leve", new int[]{7, 10}, 15);
+                        Itens teste6 = new TesouroArma("Espada", new int[]{1, 26}, 20);
+                        Itens teste7 = new TesouroArma("Machado", new int[]{28, 46}, 25);
+                        
+                        labirinto.getLoja().addProduto(teste1);
+                        labirinto.getLoja().addProduto(teste2);
+                        labirinto.getLoja().addProduto(teste3);
+                        labirinto.getLoja().addProduto(teste4);
+                        labirinto.getLoja().addProduto(teste5);
+                        labirinto.getLoja().addProduto(teste6);
+                        labirinto.getLoja().addProduto(teste7);
                     }
                     case 2 -> {
                         ArrayList<Save> saves = Save.carregarListaSaves();

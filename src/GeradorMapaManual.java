@@ -42,6 +42,7 @@ public class GeradorMapaManual {
         List<Tesouro> tesouros = new ArrayList<>();
         List<Perigo> perigos = new ArrayList<>();
 
+        Loja loja = new Loja(new int[]{1, 3});
 
         // Tesouros
         tesouros.add(new TesouroArmadura("Armadura leve", new int[]{7, 10}, 15));
@@ -59,7 +60,9 @@ public class GeradorMapaManual {
         // perigos.add(new Perigo(new int[]{1, 18}, 10 * dificuldade)); // Perigo em (1,19)
         // perigos.add(new Perigo(new int[]{8, 3}, 15 * dificuldade)); // Perigo em (9,3)
 
-        // Inserir tesouros e perigos no mapa
+        // Inserir Loja, Tesouros e Perigos no mapa
+        mapa[loja.getLocalizacao()[0]][loja.getLocalizacao()[1]] = "M";
+
         for (Tesouro t : tesouros) {
             int[] loc = t.getLocalizacao();
             mapa[loc[0]][loc[1]] = "T"; // Marcador de tesouro
@@ -72,6 +75,6 @@ public class GeradorMapaManual {
 
         mapa[28][59] = "F"; 
         // Retornar um novo objeto MapaConfigurado
-        return new MapaConfigurado(mapa, tesouros, perigos);
+        return new MapaConfigurado(mapa, tesouros, perigos, loja);
     }
 }

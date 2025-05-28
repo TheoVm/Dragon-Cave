@@ -42,6 +42,8 @@ public class GeradorMapaManual2 {
         List<Tesouro> tesouros = new ArrayList<>();
         List<Perigo> perigos = new ArrayList<>();
         
+        Loja loja = new Loja(new int[]{1, 3});
+
         // Tesouros
         tesouros.add(new TesouroArma("Espada", new int[]{1, 9}, 20)); // Tesouro em (1,9)
         tesouros.add(new TesouroArmadura("Armadura leve", new int[]{7, 10}, 15)); // Tesouro em (7,10)
@@ -64,6 +66,6 @@ public class GeradorMapaManual2 {
 
         mapa[9][18] = "F"; 
         // Retornar um novo objeto MapaConfigurado
-        return new MapaConfigurado(mapa, tesouros, perigos);
+        return new MapaConfigurado(mapa, tesouros, perigos, loja);
     }
 }

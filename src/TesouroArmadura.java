@@ -12,4 +12,9 @@ public class TesouroArmadura extends Tesouro {
         jogador.setDefesa(jogador.getDefesa() + getValor());
         System.out.println("Equipou armadura " + getNome() + ", defesa aumentada em " + getValor());
     }
+    
+    @Override
+    public void removerEfeito(Aventureiro jogador){
+        jogador.setDefesa(jogador.getDefesa() - getValor());
+    }
 }
