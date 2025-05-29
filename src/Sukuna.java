@@ -1,5 +1,5 @@
 public class Sukuna extends Aventureiro{
-    public Jorge() {
-        super("Jorge", 6666, 6666, 6666, 6666);
+    public Sukuna() {
+        super("Sukuna", 6666, 6666, 6666, 6666);
     }
 }
