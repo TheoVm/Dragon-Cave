@@ -1,26 +1,31 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import javax.sound.sampled.*;
 
 
 public class JogoLabirinto {
     public static void main(String[] args) {
 
-        try (Scanner scanner = new Scanner(System.in)) {
+        try (Scanner scanner = new Scanner(System.in)) {        
+            tocarMusica("JavaProject-main/assets/sounds/awesomeness.wav");
 
-            System.out.println("┌─────────────────────────────────────────────────────────────────────────────────────────────┐");
-            System.out.println("│                                                                                             │");
-            System.out.println("│  ██████╗ ██████╗  █████╗  ██████╗  ██████╗ ███╗   ██╗     ██████╗ █████╗ ██╗   ██╗███████╗  │");
-            System.out.println("│  ██╔══██╗██╔══██╗██╔══██╗██╔════╝ ██╔═══██╗████╗  ██║    ██╔════╝██╔══██╗██║   ██║██╔════╝  │");
-            System.out.println("│  ██║  ██║██████╔╝███████║██║  ███╗██║   ██║██╔██╗ ██║    ██║     ███████║██║   ██║█████╗    │");
-            System.out.println("│  ██║  ██║██╔══██╗██╔══██║██║   ██║██║   ██║██║╚██╗██║    ██║     ██╔══██║╚██╗ ██╔╝██╔══╝    │");
-            System.out.println("│  ██████╔╝██║  ██║██║  ██║╚██████╔╝╚██████╔╝██║ ╚████║    ╚██████╗██║  ██║ ╚████╔╝ ███████╗  │");
-            System.out.println("│  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝     ╚═════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝  │");
-            System.out.println("│                                                                                             │");
-            System.out.println("│                                 Pressione ENTER para começar                                │");
-            System.out.println("└─────────────────────────────────────────────────────────────────────────────────────────────┘");
+            printComDelay("┌─────────────────────────────────────────────────────────────────────────────────────────────┐",1);
+            printComDelay("│                                                                                             │",1);
+            printComDelay("│  ██████╗ ██████╗  █████╗  ██████╗  ██████╗ ███╗   ██╗     ██████╗ █████╗ ██╗   ██╗███████╗  │",1);
+            printComDelay("│  ██╔══██╗██╔══██╗██╔══██╗██╔════╝ ██╔═══██╗████╗  ██║    ██╔════╝██╔══██╗██║   ██║██╔════╝  │",1);
+            printComDelay("│  ██║  ██║██████╔╝███████║██║  ███╗██║   ██║██╔██╗ ██║    ██║     ███████║██║   ██║█████╗    │",1);
+            printComDelay("│  ██║  ██║██╔══██╗██╔══██║██║   ██║██║   ██║██║╚██╗██║    ██║     ██╔══██║╚██╗ ██╔╝██╔══╝    │",1);
+            printComDelay("│  ██████╔╝██║  ██║██║  ██║╚██████╔╝╚██████╔╝██║ ╚████║    ╚██████╗██║  ██║ ╚████╔╝ ███████╗  │",1);
+            printComDelay("│  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝     ╚═════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝  │",1);
+            printComDelay("│                                                                                             │",1);
+            printComDelay("│                                 Pressione ENTER para começar                                │",1);
+            printComDelay("└─────────────────────────────────────────────────────────────────────────────────────────────┘",1);
 
             scanner.nextLine(); 
+ 
+            pararMusica();
             
             boolean jogoIniciado = false;
             int escolha;
@@ -245,6 +250,33 @@ public class JogoLabirinto {
                 scanner.nextLine(); 
             }
             
+        }
+    }
+
+    private static Clip clip;
+
+    public static void tocarMusica(String caminho) {
+        try {
+            if (clip != null && clip.isRunning()) {
+                clip.stop();
+                clip.close();
+            }
+
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(caminho));
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY); // toca em loop
+            clip.start();
+
+        } catch (Exception e) {
+            System.out.println("Erro ao tocar música: " + e.getMessage());
+        }
+    }
+
+    public static void pararMusica() {
+        if (clip != null) {
+            clip.stop();
+            clip.close();
         }
     }
 }
