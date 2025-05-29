@@ -147,10 +147,10 @@ public class CombateBoss {
                 }
             }
             JogoLabirinto.printComDelay("Após uma longa e exaustiva batalha contra Azkaryel, você finalmente o derrota.", 50);
-            JogoLabirinto.printComDelay("Logo em seguida, seu olhar cruza com o da princesa — os olhos dela, cheios de alívio e admiração, ainda brilhavam com a emoção da luta recente.", 50);
+            JogoLabirinto.printComDelay("Logo em seguida, seu olhar cruza com o da princesa - os olhos dela, cheios de alívio e admiração, ainda brilhavam com a emoção da luta recente.", 50);
             JogoLabirinto.printComDelay("Vocês se encaram por alguns segundos, em silêncio. Com um semblante tranquilo, você diz:", 50);
             JogoLabirinto.printComDelay("\n- Está tudo bem agora, Vossa Majestade.", 50);
-            JogoLabirinto.printComDelay("\n- Isabella corre até você, chorando, e se lança em seus braços. Ela beija sua bochecha com carinho e sussurra:", 50);
+            JogoLabirinto.printComDelay("\nIsabella corre até você, chorando, e se lança em seus braços. Ela beija sua bochecha com carinho e sussurra:", 50);
             JogoLabirinto.printComDelay("\n- Meu herói...", 50);
 
             JogoLabirinto.printComDelay("┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐", 1);

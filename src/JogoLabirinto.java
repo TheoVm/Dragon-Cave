@@ -9,7 +9,7 @@ public class JogoLabirinto {
     public static void main(String[] args) {
 
         try (Scanner scanner = new Scanner(System.in)) {        
-            tocarMusica("assets/sounds/awesomeness.wav");
+            tocarMusica("assets/sounds/guitar.wav");
 
             printComDelay("┌─────────────────────────────────────────────────────────────────────────────────────────────┐",1);
             printComDelay("│                                                                                             │",1);
@@ -113,6 +113,10 @@ public class JogoLabirinto {
                                         System.out.println("Escolha a dificuldade (1 = Fácil, 2 = Médio, 3 = Difícil):");
                                         dificuldade = scanner.nextInt();
                                         scanner.nextLine();
+                                        if (dificuldade < 1 || dificuldade > 3) {
+                                            System.out.println("Dificuldade inválida! Escolha entre 1, 2 ou 3.");
+                                            continue;
+                                        }
                                         break;
                                     } catch (InputMismatchException e) {
                                         System.out.println("Entrada invalida! Digite apenas numeros inteiros.");
@@ -124,7 +128,7 @@ public class JogoLabirinto {
                                 printComDelay("Lembre-se aventureiro.", 60);
                                 printComDelay("Todo passo, é um passo mais perto.", 60);
                                 
-                                labirinto = new Labirinto(jogador, dificuldade, 1);
+                                labirinto = new Labirinto(jogador, dificuldade, 4);
                                 jogoIniciado = true;
 
                             }
@@ -222,6 +226,7 @@ public class JogoLabirinto {
         int continuar = 1;
         while (continuar == 1) {
             try {
+                System.out.println("\nDificuldade: " + labirinto.getDificuldade());
                 System.out.println("===== Menu de Opções =====");
                 System.out.println("Escolha uma das opções:");
                 System.out.println("1 - Verificar Status");
