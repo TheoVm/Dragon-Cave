@@ -7,6 +7,21 @@ public class JogoLabirinto {
     public static void main(String[] args) {
 
         try (Scanner scanner = new Scanner(System.in)) {
+
+            System.out.println("┌─────────────────────────────────────────────────────────────────────────────────────────────┐");
+            System.out.println("│                                                                                             │");
+            System.out.println("│  ██████╗ ██████╗  █████╗  ██████╗  ██████╗ ███╗   ██╗     ██████╗ █████╗ ██╗   ██╗███████╗  │");
+            System.out.println("│  ██╔══██╗██╔══██╗██╔══██╗██╔════╝ ██╔═══██╗████╗  ██║    ██╔════╝██╔══██╗██║   ██║██╔════╝  │");
+            System.out.println("│  ██║  ██║██████╔╝███████║██║  ███╗██║   ██║██╔██╗ ██║    ██║     ███████║██║   ██║█████╗    │");
+            System.out.println("│  ██║  ██║██╔══██╗██╔══██║██║   ██║██║   ██║██║╚██╗██║    ██║     ██╔══██║╚██╗ ██╔╝██╔══╝    │");
+            System.out.println("│  ██████╔╝██║  ██║██║  ██║╚██████╔╝╚██████╔╝██║ ╚████║    ╚██████╗██║  ██║ ╚████╔╝ ███████╗  │");
+            System.out.println("│  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝     ╚═════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝  │");
+            System.out.println("│                                                                                             │");
+            System.out.println("│                                 Pressione ENTER para começar                                │");
+            System.out.println("└─────────────────────────────────────────────────────────────────────────────────────────────┘");
+
+            scanner.nextLine(); 
+            
             boolean jogoIniciado = false;
             int escolha;
 
@@ -60,6 +75,7 @@ public class JogoLabirinto {
                                             case 1 -> jogador = new Tank();
                                             case 2 -> jogador = new Rogue();
                                             case 3 -> jogador = new Jorge();
+                                            case 666 -> jogador = new Sukuna();
                                             default -> System.out.println("Opção inválida.");
                                         }
                                         break;
