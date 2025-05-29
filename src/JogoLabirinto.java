@@ -25,15 +25,15 @@ public class JogoLabirinto {
             boolean jogoIniciado = false;
             int escolha;
 
-            System.out.println("===== Bem-vindo ao Labirinto! =====");
+            System.out.println("===== Bem-vindo ao Labirinto! =====\n");
             System.out.println("Símbolos do mapa:");
             System.out.println("J - Você (Aventureiro)");
             System.out.println("T - Tesouro (armas ou armaduras para melhorar seu personagem)");
             System.out.println("P - Perigo (cuidado! Reduz sua vida ao entrar)");
             System.out.println("F - Saída do labirinto (objetivo final)");
             System.out.println("X - Sala secreta bloqueada (desbloqueia após coletar 3 tesouros)");
-            System.out.println("S - Sala secreta desbloqueada (contém surpresas!)");
-            System.out.println("Use as teclas W (cima), A (esquerda), S (baixo) e D (direita) para se movimentar.");
+            System.out.println("S - Sala secreta desbloqueada (contém surpresas!)\n");
+            System.out.println("Use as teclas W (cima), A (esquerda), S (baixo) e D (direita) para se movimentar.\n");
             System.out.println("Boa sorte!");
 
             
