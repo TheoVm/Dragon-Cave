@@ -4,10 +4,12 @@ import java.util.*;
 public abstract class Aventureiro implements Serializable{
     private final String nome;
     private int vida;
+    private int vidaMAX;
     private int velocidade;
     private int defesa;
     private int ataque;
     private int ouro;
+    private boolean chave;
     private List<String[]> efeitos;
     private final List<Tesouro> tesouros;
     private List<Consumivel> consumiveis;
@@ -16,10 +18,11 @@ public abstract class Aventureiro implements Serializable{
     public Aventureiro(String nome, int vida, int velocidade, int defesa, int ataque) {
         this.nome = nome;
         this.vida = vida;
+        this.vidaMAX = vida;
         this.velocidade = velocidade;
         this.defesa = defesa;
         this.ataque = ataque;
-        this.ouro = 100;
+        this.ouro = 300;
         this.tesouros = new ArrayList<>();
         this.consumiveis = new ArrayList<>();
         this.localizacao = new int[]{1, 1};
@@ -63,23 +66,32 @@ public abstract class Aventureiro implements Serializable{
                 System.out.println("Você entrou em um perigo! Sofreu " + dano + " de dano. Vida restante: " + vida);
             }
         }
-        for (int i = 0; i < labirinto.posicoesInimigos().size(); i++){
-            if (Arrays.equals(labirinto.posicoesInimigos().get(i), localizacao) && labirinto.getInimigosGerados().get(i).getVida() > 0) {
-                System.out.println(labirinto.posicoesInimigos().get(i)[0]);
+        
+        for (int i = 0; i < labirinto.getPosicoes().size(); i++){
+            int[] posicao = labirinto.getPosicoes().get(i);
+            if (posicao[0] == this.localizacao[0] && posicao[1] == this.localizacao[1] && labirinto.getInimigosGerados().get(i).getVida() > 0) {
+                System.out.println("salve");
                 boolean venceu = Combate.iniciarCombate(this, labirinto.getInimigosGerados().get(i), scanner);
                 if (!venceu) {
                     System.out.println("Você perdeu ou fugiu do combate!");
                 } else {
                     System.out.println("Você venceu o combate!");
                 }
-                return;
             }
         }
         if(Arrays.equals(labirinto.getLoja().getLocalizacao(), localizacao)){
             System.out.println("Achou a loja!");
             labirinto.getLoja().menuLoja(this, scanner);
         }
-
+        
+        if(Arrays.equals(labirinto.getFim(), localizacao)){
+            if (this.chave){
+                System.out.println("Você possuí a chave para o próximo andar, deseja avançar? (Após avançar não será possível voltar a este andar)");
+                labirinto.setTrocar(true);
+            } else {
+                System.out.println("Você se depara com uma grande porta e um mecanismo com alguma espécie de fechadura, uma chave deve ser necessária para abri-la e seguir adiante");
+            }
+        }
     }
 
     public String getNome() {
@@ -90,6 +102,10 @@ public abstract class Aventureiro implements Serializable{
         return vida;
     }
 
+    public int getVidaMAX() {
+        return vidaMAX;
+    }
+
     public int getVelocidade() {
         return velocidade;
     }
@@ -97,6 +113,10 @@ public abstract class Aventureiro implements Serializable{
     public void setVida(int vida) {
         if (vida < 0){
             vida = 0;
+        }
+        if (vida > vidaMAX){
+            vida = vidaMAX;
+            System.out.println("Sua vida está no máximo!");
         }
         this.vida = vida;
     }
@@ -150,6 +170,10 @@ public abstract class Aventureiro implements Serializable{
         this.ouro = ouro;
     }
 
+    public void possuiChave(){
+        this.chave = true;
+    }
+
     public void setLocalizacao(int[] localizacao) {
         this.localizacao = localizacao;
     }
@@ -181,6 +205,11 @@ public abstract class Aventureiro implements Serializable{
         System.out.println("Defesa: "+ this.defesa);
         System.out.println("Ataque: "+ this.ataque);
         System.out.println("Ouro: "+ this.ouro);
+        if(this.chave){
+            System.out.println("Possuí chave");
+        } else {
+            System.out.println("Não possuí chave");
+        }
     }
 
     public void exibirTesouros(){

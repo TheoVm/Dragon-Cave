@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Loja {
+public class Loja implements Serializable{
     private final List<Itens> produtos;
     private int[] localizacao;
 
@@ -34,22 +35,110 @@ public class Loja {
             System.out.println("Escolha uma das opções:");
             System.out.println("1 - Comprar");
             System.out.println("2 - Vender");
-            System.out.println("3 - Voltar");
+            System.out.println("3 - Conversar");
+            System.out.println("4 - Voltar");
             int escolha = scanner.nextInt();
             scanner.nextLine();
             switch (escolha) {
-                case 1 -> {
+                case 1:
                     comprar(jogador, scanner);
-                }
-                case 2 -> {
+                    break;
+                case 2:
                     vender(jogador, scanner);
+                    break;
+                case 3:
+                        int continuarConversa = 1;
+                            boolean primeiraVez = true;
+                while (continuarConversa == 1) {
+                    if (primeiraVez) {
+                        printComDelay("Hm? Você deseja conversar comigo? Muito bem, o que deseja saber?", 30);
+                        primeiraVez = false;
+                    }
+                    System.out.println("1 - Como você conseguiu estabelecer uma loja aqui?");
+                    System.out.println("2 - Por que os Dragonites não te atacam?");
+                    System.out.println("3 - O que você sabe sobre esse lugar?");
+                    System.out.println("4 - Voltar");
+                    
+                    int pergunta = scanner.nextInt();
+                    scanner.nextLine();
+                    switch(pergunta){
+                        case 1:
+                            printComDelay("Naumti", 30);
+                            System.out.println("1 - ?");
+                            System.out.println("2 - ??");
+                            System.out.println("3 - Voltar");
+                            int subPergunta = scanner.nextInt();
+                            scanner.nextLine();
+                            switch(subPergunta){
+                                case 1:
+                                    printComDelay ("Naumtiressa, otário", 30);
+                                    System.out.println();
+                                    break;
+                                case 2:
+                                    printComDelay ("Naumtiressa, otário", 30);
+                                    System.out.println();
+                                    break;
+                                case 3:
+                                    break;
+                                default:
+                                    System.out.println("Opção inválida.");
+                                    break;
+                            }
+                            break;
+                        case 2:
+                            printComDelay("Antes de entrar nesse lugar eu sempre tomo uma poção que apaga por completo minha presença. E não, ela não está a venda", 10);        
+                            System.out.println();                
+                            break;
+                        case 3:
+                            printComDelay ("Pouco se sabe sobre a caverna dos Dragonites. Soube de um aventureiro que ousou se aventurar por aqui e compartilhou suas experiências em seu diário particular.", 10);
+
+                            System.out.println("1 - Você sabe onde posso encontrar esse diário?");
+                            System.out.println("2 - Voltar");
+                            System.out.println();
+
+                            int subPergunta2 = scanner.nextInt();
+                            scanner.nextLine();
+                            switch(subPergunta2){
+                                case 1:
+                                    printComDelay("Dizem as lendas que páginas perdidas estão espalhadas pela caverna...", 10);
+                                    System.out.println();
+                                    break;
+                                case 2:
+                                    // Voltar
+                                    break;
+                                default:
+                                    System.out.println("Opção inválida.");
+                                    break;
+                            }
+                            break;
+                        case 4:
+                            continuarConversa = 0;
+                            break;
+                        default:
+                            System.out.println("Opção inválida.");
+                            break;
+                    }
                 }
-                case 3 -> {
+                case 4:
                     continuar = 0;
-                }
-                default -> System.out.println("Opção inválida.");
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+                    break;
             }
         }
+    }
+
+    public static void printComDelay(String mensagem, int delayMs) {
+        for (char c : mensagem.toCharArray()) {
+            System.out.print(c);
+            try {
+                Thread.sleep(delayMs);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        System.out.println();
     }
 
     public void comprar(Aventureiro jogador, Scanner scanner){
@@ -74,10 +163,12 @@ public class Loja {
                         TesouroArma item = new TesouroArma(produtos.get(escolha - 1).getNome(), new int[]{0, 0}, produtos.get(escolha - 1).getValor());
                         jogador.getTesouros().add(item);
                         item.efeito(jogador);
-                    } else {
+                    } else if (produtos.get(escolha - 1) instanceof TesouroArmadura){
                         TesouroArmadura item = new TesouroArmadura(produtos.get(escolha - 1).getNome(), new int[]{0, 0}, produtos.get(escolha - 1).getValor());
                         jogador.getTesouros().add(item);
                         item.efeito(jogador);
+                    } else if (produtos.get(escolha - 1) instanceof Chave){
+                        jogador.possuiChave();
                     }
                     
                     
@@ -92,7 +183,7 @@ public class Loja {
         int index = 1;
 
         System.out.println("---- Consumiveis ----");
-        List<Consumivel> consumiveis = jogador.getConsumiveis(); // Supondo que existe esse método
+        List<Consumivel> consumiveis = jogador.getConsumiveis();
         for (Consumivel c : consumiveis) {
             System.out.println(index + " - " + c.getNome() + " (x" + c.getQuantidade() + ") - Valor: " + c.getValor());
             inventario.add(c);

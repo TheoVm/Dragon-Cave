@@ -41,6 +41,7 @@ public class GeradorMapaManual {
         // Listas de tesouros e perigos
         List<Tesouro> tesouros = new ArrayList<>();
         List<Perigo> perigos = new ArrayList<>();
+        List<int[]> posicoes = new ArrayList<>();
 
         Loja loja = new Loja(new int[]{1, 3});
 
@@ -73,8 +74,34 @@ public class GeradorMapaManual {
             mapa[loc[0]][loc[1]] = "P"; // Marcador de perigo
         }
 
-        mapa[28][59] = "F"; 
-        // Retornar um novo objeto MapaConfigurado
-        return new MapaConfigurado(mapa, tesouros, perigos, loja);
+        posicoes = posicoesInimigos();
+        
+        int[] fim = new int[]{28, 59};
+        mapa[fim[0]][fim[1]] = "F"; 
+        return new MapaConfigurado(mapa, tesouros, perigos, loja, fim, posicoes);
+    }
+
+    public static List<int[]> posicoesInimigos(){
+        List<int[]> posicoes = new ArrayList<>(Arrays.asList(
+        new int[]{9, 44},
+        new int[]{9, 45},
+        new int[]{9, 46},
+        new int[]{9, 18},
+        new int[]{8, 18},
+        new int[]{3, 53},
+        new int[]{14, 20},
+        new int[]{15, 20},
+        new int[]{20, 3},
+        new int[]{20, 4},
+        new int[]{20, 5},
+        new int[]{18, 56},
+        new int[]{18, 57}, 
+        new int[]{18, 58},
+        new int[]{18, 25},
+        new int[]{18, 26},
+        new int[]{18, 27}
+        ));
+
+        return posicoes;
     }
 }

@@ -20,6 +20,7 @@ public class Combate {
                 System.out.println("4 - Fugir");
                 System.out.print("Escolha: ");
                 String acao = scanner.nextLine();
+                System.out.println("");
                 switch (acao) {
                     case "1" -> {
                         int dano = Math.max(0, calcDano(jogador, inimigo, turnoJogador));
@@ -31,16 +32,16 @@ public class Combate {
                         defendendo = true;
                     }
                     case "3" -> {
-                        if (Math.random() < 0.25) {
-                            System.out.println("Você deu um abraço! Ele ficou tão confuso que desmaiou");
-                            inimigo.setVida(0);
+                        if (Math.random() < 0.05) {
+                            System.out.println("Você deu um abraço! Ele ficou tão confuso que ficou vulneravel pelo resto da batalha!");
+                            inimigo.setDefesa(0);
                             return true;
                         } else {
-                            System.out.println("O inimigo vê você se aproximando de braço abertos e golpea você.");
+                            System.out.println("O inimigo vê você se aproximando de braço abertos e ataca você.");
                         }
                     }
                     case "4" -> {
-                        if (Math.random() < 0.25) {
+                        if (Math.random() < 0.20) {
                             System.out.println("Você fugiu do combate!");
                             return false;
                         } else {
@@ -50,13 +51,16 @@ public class Combate {
                     default -> System.out.println("Ação inválida! Tente novamente.");
                 }
             } else {
-                int dano = Math.max(0, calcDano(jogador, inimigo, turnoJogador));
-                if (defendendo) {
+                int dano = calcDano(jogador, inimigo, turnoJogador);
+                if (defendendo && dano >= 0) {
                     dano = dano / 2;
                     defendendo = false;
+                } else if (dano == -1){
+                    System.out.println("O inimigo atacou! Mas usando sua velocidade, você esquiva do ataque!");
+                } else {
+                    jogador.setVida(jogador.getVida() - dano);
+                    System.out.println("O inimigo atacou! Você perdeu " + dano + " de vida. Sua vida: " + jogador.getVida());
                 }
-                jogador.setVida(jogador.getVida() - dano);
-                System.out.println("O inimigo atacou! Você perdeu " + dano + " de vida. Sua vida: " + jogador.getVida());
             }
             turnoJogador = !turnoJogador;
         }
@@ -106,22 +110,20 @@ public class Combate {
             
             double velocidadeDecimal = jogador.getVelocidade() / 100.0;
             if (Math.random() < velocidadeDecimal){
-                danoFinal = 0;
+                danoFinal = -1;
             }
 
             int dano = (int)danoFinal;
-            System.out.println(dano);
             return dano;
         } else {
             double defesaDecimal = inimigo.getDefesa() / 100.0;
             double danoFinal = jogador.getAtaque() * (1 - defesaDecimal);
             
             if (danoFinal < 0) {
-                danoFinal = 0;
+                danoFinal = -1;
             }
             
             int dano = (int) danoFinal;
-            System.out.println(dano);
             return dano;
         }
     }

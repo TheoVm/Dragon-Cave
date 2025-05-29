@@ -74,6 +74,7 @@ public class Boss {
         // Listas de tesouros e perigos
         List<Tesouro> tesouros = new ArrayList<>();
         List<Perigo> perigos = new ArrayList<>();
+        List<int[]> posicoes = new ArrayList<>();
 
         Loja loja = new Loja(new int[]{1, 3});
 
@@ -93,7 +94,9 @@ public class Boss {
             mapa[loc[0]][loc[1]] = "P";
         }
 
-        return new MapaConfigurado(mapa, tesouros, perigos, loja);
+        int[] fim = new int[]{};
+
+        return new MapaConfigurado(mapa, tesouros, perigos, loja, fim, posicoes);
     }
 
     public static String[] append(String[] arr, String element) {
