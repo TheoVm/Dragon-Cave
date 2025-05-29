@@ -9,7 +9,7 @@ public class JogoLabirinto {
     public static void main(String[] args) {
 
         try (Scanner scanner = new Scanner(System.in)) {        
-            tocarMusica("JavaProject-main/assets/sounds/awesomeness.wav");
+            tocarMusica("assets/sounds/awesomeness.wav");
 
             printComDelay("┌─────────────────────────────────────────────────────────────────────────────────────────────┐",1);
             printComDelay("│                                                                                             │",1);
@@ -24,8 +24,7 @@ public class JogoLabirinto {
             printComDelay("└─────────────────────────────────────────────────────────────────────────────────────────────┘",1);
 
             scanner.nextLine(); 
- 
-            pararMusica();
+
             
             boolean jogoIniciado = false;
             int escolha;
@@ -166,6 +165,8 @@ public class JogoLabirinto {
                 }
                 
             }
+
+            pararMusica();
             
 
             while (!labirinto.verificarFim()) {

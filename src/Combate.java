@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Combate {
@@ -5,6 +6,7 @@ public class Combate {
         int vidaInicial = inimigo.getVida();
         boolean turnoJogador = true;
         boolean defendendo = false;
+        int continuar;
 
         System.out.println("Um inimigo APARECEU! Combate iniciado...");
         System.out.println("\nUm " + inimigo.getNome() + " apareceu! Ele está furioso.");
@@ -12,43 +14,51 @@ public class Combate {
         scanner.nextLine();
         while (jogador.getVida() > 0 && inimigo.getVida() > 0) {
             if (turnoJogador) {
-                System.out.println("\nVida do inimigo: " + inimigo.getVida() + "/" + vidaInicial);
-                System.out.println("\nSeu turno! Escolha uma ação:");
-                System.out.println("1 - Atacar");
-                System.out.println("2 - Defender");
-                System.out.println("3 - Abraçar");
-                System.out.println("4 - Fugir");
-                System.out.print("Escolha: ");
-                String acao = scanner.nextLine();
-                System.out.println("");
-                switch (acao) {
-                    case "1" -> {
-                        int dano = Math.max(0, calcDano(jogador, inimigo, turnoJogador));
-                        inimigo.setVida(inimigo.getVida() - dano);
-                        System.out.println("Você golpeou o inimigo e causou " + dano + " de dano!");
-                    }
-                    case "2" -> {
-                        System.out.println("Você se defendeu!");
-                        defendendo = true;
-                    }
-                    case "3" -> {
-                        if (Math.random() < 0.05) {
-                            System.out.println("Você deu um abraço! Ele ficou tão confuso que ficou vulneravel pelo resto da batalha!");
-                            inimigo.setDefesa(0);
-                            return true;
-                        } else {
-                            System.out.println("O inimigo vê você se aproximando de braço abertos e ataca você.");
+                continuar = 0;
+                while (continuar == 0) {
+                    System.out.println("\nSua vida: " + jogador.getVida() + "/" + jogador.getVidaMAX());
+                    System.out.println("\nVida do inimigo: " + inimigo.getVida() + "/" + vidaInicial);
+                    System.out.println("\nSeu turno! Escolha uma ação:");
+                    System.out.println("1 - Atacar");
+                    System.out.println("2 - Defender");
+                    System.out.println("3 - Abraçar");
+                    System.out.println("4 - Fugir");
+                    System.out.print("Escolha: ");
+                    String acao = scanner.nextLine();
+                    System.out.println("");
+                    switch (acao) {
+                        case "1" -> {
+                            int dano = Math.max(0, calcDano(jogador, inimigo, turnoJogador));
+                            inimigo.setVida(inimigo.getVida() - dano);
+                            System.out.println("Você golpeou o inimigo e causou " + dano + " de dano!");
+                            continuar = 1; 
                         }
-                    }
-                    case "4" -> {
-                        if (Math.random() < 0.20) {
-                            System.out.println("Você fugiu do combate!");
-                            return false;
-                        } else {
-                            System.out.println("Você não conseguiu fugir!");
+                        case "2" -> {
+                            System.out.println("Você se defendeu!");
+                            defendendo = true;
+                            continuar = 1; 
                         }
+                        case "3" -> {
+                            if (Math.random() < 0.05) {
+                                System.out.println("Você deu um abraço! Ele ficou tão confuso que ficou vulneravel pelo resto da batalha!");
+                                inimigo.setDefesa(0);
+                                return true;
+                            } else {
+                                System.out.println("O inimigo vê você se aproximando de braço abertos e ataca você.");
+                            }
+                            continuar = 1; 
+                        }
+                        case "4" -> {
+                            if (Math.random() < 0.20) {
+                                System.out.println("Você fugiu do combate!");
+                                return false;
+                            } else {
+                                System.out.println("Você não conseguiu fugir!");
+                            }
+                            continuar = 1; 
+                        }
+                        default -> System.out.println("Ação inválida! Tente novamente.");
                     }
-                    default -> System.out.println("Ação inválida! Tente novamente.");
                 }
             } else {
                 int dano = calcDano(jogador, inimigo, turnoJogador);
@@ -59,10 +69,14 @@ public class Combate {
                     System.out.println("O inimigo atacou! Mas usando sua velocidade, você esquiva do ataque!");
                 } else {
                     jogador.setVida(jogador.getVida() - dano);
-                    System.out.println("O inimigo atacou! Você perdeu " + dano + " de vida. Sua vida: " + jogador.getVida());
+                    System.out.println("O inimigo atacou! Você perdeu " + dano + " de vida.");
                 }
             }
             turnoJogador = !turnoJogador;
+            if(inimigo.getVida() <= 0){
+                System.out.println("Você adiquiriu " + inimigo.getValor() + " de ouro!");
+                jogador.setOuro(jogador.getOuro() + inimigo.getValor());
+            }
         }
         if (jogador.getVida() <= 0) {
             return false;

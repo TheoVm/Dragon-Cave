@@ -42,35 +42,38 @@ public class GeradorMapaManual2 {
         List<Tesouro> tesouros = new ArrayList<>();
         List<Perigo> perigos = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
+        List<Inimigo> inimigos = new ArrayList<>(Arrays.asList(
+            new Inimigo("Dragão Zumbi", 25, 10, 10,  20),
+            new Inimigo("Dragão Apodrecido", 50, 15, 20, 30), 
+            new Inimigo("Dragão Minerador", 80, 25, 30, 40), 
+            new Inimigo("Dragão Monge", 100, 40, 35, 50)
+        ));
         
         Loja loja = new Loja(new int[]{1, 3});
 
-        // Tesouros
         tesouros.add(new TesouroArma("Espada", new int[]{1, 9}, 20)); // Tesouro em (1,9)
         tesouros.add(new TesouroArmadura("Armadura leve", new int[]{7, 10}, 15)); // Tesouro em (7,10)
         tesouros.add(new TesouroArma("Machado", new int[]{8, 18}, 25)); // Tesouro em (9,18)
 
-        // Perigos
+
         perigos.add(new Perigo(new int[]{1, 18}, 10 * dificuldade)); // Perigo em (1,19)
         perigos.add(new Perigo(new int[]{8, 3}, 15 * dificuldade)); // Perigo em (9,3)
 
-        // Inserir tesouros e perigos no mapa
         for (Tesouro t : tesouros) {
             int[] loc = t.getLocalizacao();
-            mapa[loc[0]][loc[1]] = "T"; // Marcador de tesouro
+            mapa[loc[0]][loc[1]] = "T";
         }
         
         for (Perigo p : perigos) {
             int[] loc = p.getLocalizacao();
-            mapa[loc[0]][loc[1]] = "P"; // Marcador de perigo
+            mapa[loc[0]][loc[1]] = "P";
         }
         
         posicoes = posicoesInimigos();
 
         int[] fim = new int[]{9, 18};
         mapa[fim[0]][fim[1]] = "F"; 
-        // Retornar um novo objeto MapaConfigurado
-        return new MapaConfigurado(mapa, tesouros, perigos, loja, fim, posicoes);
+        return new MapaConfigurado(mapa, tesouros, perigos, loja, fim, inimigos, posicoes);
     }
 
     public static List<int[]> posicoesInimigos(){

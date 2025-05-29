@@ -7,15 +7,17 @@ public class MapaConfigurado implements Serializable{
     private final List<Perigo> perigos;
     private final Loja loja;
     private final int[] fim;
+    private List<Inimigo> inimigosPossiveis;
     private final List<int[]> posicoesInimigos;
 
     // Construtor que inicializa a classe com os valores recebidos
-    public MapaConfigurado(String[][] mapa, List<Tesouro> tesouros, List<Perigo> perigos, Loja loja, int[] fim, List<int[]> posicoesInimigos) {
+    public MapaConfigurado(String[][] mapa, List<Tesouro> tesouros, List<Perigo> perigos, Loja loja, int[] fim, List<Inimigo> inimigosPossiveis, List<int[]> posicoesInimigos) {
         this.mapa = mapa;
         this.tesouros = tesouros;
         this.perigos = perigos;
         this.loja = loja;
         this.fim = fim;
+        this.inimigosPossiveis = inimigosPossiveis;
         this.posicoesInimigos = posicoesInimigos;
     }
 
@@ -42,5 +44,9 @@ public class MapaConfigurado implements Serializable{
 
     public List<int[]> getPosicoes(){
         return posicoesInimigos;
+    }
+
+    public List<Inimigo> getInimigosPossiveis(){
+        return inimigosPossiveis;
     }
 }
