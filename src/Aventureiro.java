@@ -22,7 +22,7 @@ public abstract class Aventureiro implements Serializable{
         this.velocidade = velocidade;
         this.defesa = defesa;
         this.ataque = ataque;
-        this.ouro = 300;
+        this.ouro = 3000;
         this.tesouros = new ArrayList<>();
         this.consumiveis = new ArrayList<>();
         this.localizacao = new int[]{1, 1};
@@ -41,7 +41,11 @@ public abstract class Aventureiro implements Serializable{
             || "┌".equals(aux[novaX][novaY])
             || "┐".equals(aux[novaX][novaY])
             || "└".equals(aux[novaX][novaY]) 
-            || "┘".equals(aux[novaX][novaY])) {
+            || "┘".equals(aux[novaX][novaY])
+            || "┬".equals(aux[novaX][novaY]) 
+            || "┴".equals(aux[novaX][novaY]) 
+            || "┤".equals(aux[novaX][novaY]) 
+            || "├".equals(aux[novaX][novaY]) ) {
             System.out.println("Movimento inválido! Fora dos limites do labirinto.");
             return;
         }
@@ -70,10 +74,25 @@ public abstract class Aventureiro implements Serializable{
         for (int i = 0; i < labirinto.getPosicoes().size(); i++){
             int[] posicao = labirinto.getPosicoes().get(i);
             if (posicao[0] == this.localizacao[0] && posicao[1] == this.localizacao[1] && labirinto.getInimigosGerados().get(i).getVida() > 0) {
-                System.out.println("salve");
                 boolean venceu = Combate.iniciarCombate(this, labirinto.getInimigosGerados().get(i), scanner);
                 if (!venceu) {
-                    System.out.println("Você perdeu ou fugiu do combate!");
+                    if(vida > 0){
+                        System.out.println("Você fugiu do combate!");
+                    } else {
+                        JogoLabirinto.printComDelay("Você morreu...", 400);
+                        JogoLabirinto.printComDelay("┌──────────────────────────────────────────────────────────────────────────────────┐", 1);
+                        JogoLabirinto.printComDelay("│                                                                                  │", 1);
+                        JogoLabirinto.printComDelay("│    ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗      │", 1);
+                        JogoLabirinto.printComDelay("│    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗    │", 1);
+                        JogoLabirinto.printComDelay("│    ██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝    │", 1);
+                        JogoLabirinto.printComDelay("│    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗    │", 1);
+                        JogoLabirinto.printComDelay("│    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║    │", 1);
+                        JogoLabirinto.printComDelay("│    ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝     │", 1);
+                        JogoLabirinto.printComDelay("│                                                                                  │", 1);
+                        JogoLabirinto.printComDelay("└──────────────────────────────────────────────────────────────────────────────────┘", 1);
+                        
+                        System.exit(0);
+                        }
                 } else {
                     System.out.println("Você venceu o combate!");
                 }
@@ -170,15 +189,15 @@ public abstract class Aventureiro implements Serializable{
         this.ouro = ouro;
     }
 
-    public void possuiChave(){
-        this.chave = true;
+    public void possuiChave(boolean possui){
+        this.chave = possui;
     }
 
     public void setLocalizacao(int[] localizacao) {
         this.localizacao = localizacao;
     }
 
-    public void addConsumivel(String nome, int valor, int quantidade){
+    public void addConsumivel(String nome, int valor, int quantidade, int dinheiro){
         int criar = 0;
         for (int i = 0; i < this.consumiveis.size(); i++) {
             if (consumiveis.get(i).getNome().equals(nome)){
@@ -187,7 +206,7 @@ public abstract class Aventureiro implements Serializable{
             }
         }
         if (criar == 0){
-            Consumivel consumivel = new Consumivel(nome, valor, quantidade);
+            Consumivel consumivel = new Consumivel(nome, valor, quantidade, dinheiro);
             consumiveis.add(consumivel);
         }
     }
@@ -199,12 +218,12 @@ public abstract class Aventureiro implements Serializable{
     // }
 
     public void exibirStatus(){
-        System.out.println("Nome: "+ this.nome);
+        System.out.println("\nNome: "+ this.nome);
         System.out.println("Vida: "+ this.vida);
         System.out.println("Velocidade: "+ this.velocidade);
         System.out.println("Defesa: "+ this.defesa);
         System.out.println("Ataque: "+ this.ataque);
-        System.out.println("Ouro: "+ this.ouro);
+        System.out.println("Ouro: $"+ this.ouro);
         if(this.chave){
             System.out.println("Possuí chave");
         } else {

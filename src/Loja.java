@@ -8,6 +8,23 @@ public class Loja implements Serializable{
     Loja(int[] localizacao){
         this.produtos = new ArrayList<>();
         this.localizacao = localizacao;
+        Itens porduto1 = new Consumivel("Cura" ,20, 1, 20);
+        Itens porduto2 = new Consumivel("Defesa" ,20, 1, 20);
+        Itens porduto3 = new Consumivel("Ataque" ,20, 1, 20);
+        Itens porduto4 = new Consumivel("Velocidade" ,20, 1, 20);
+        Itens porduto5 = new TesouroArmadura("Essência de Inter", new int[]{7, 10}, 2, 80);
+        Itens porduto6 = new TesouroArma("Garra de Inter Esquecido", new int[]{1, 26}, 2, 80);
+        Itens porduto7 = new TesouroArma("Machado", new int[]{28, 46}, 2, 80);
+        Itens porduto8 = new Chave("Chave", 160, 1, 160);
+        
+        addProduto(porduto1);
+        addProduto(porduto2);
+        addProduto(porduto3);
+        addProduto(porduto4);
+        addProduto(porduto5);
+        addProduto(porduto6);
+        addProduto(porduto7);
+        addProduto(porduto8);
     }
 
     public List<Itens> getProdutos(){
@@ -145,30 +162,43 @@ public class Loja implements Serializable{
         System.out.println("======== ITENS A VENDA ========");
         System.out.println("0 - Sair");
         for(int i = 0; i < produtos.size(); i++){
-            System.out.println(i+1 + "- " + produtos.get(i).getNome());
-
+            if(produtos.get(i) instanceof Consumivel){
+                System.out.println(i+1 + " - Poção de " + produtos.get(i).getNome() + " $" + produtos.get(i).getDinheiro());
+            } else {
+                if(produtos.get(i) instanceof TesouroArma){
+                    TesouroArma item = new TesouroArma(produtos.get(i).getNome(), new int[]{}, produtos.get(i).getValor(), produtos.get(i).getDinheiro());
+                    System.out.println(i+1 + " - " + item.getNome() + " (" + item.getBuff() + ")" + " $" + item.getDinheiro());
+                } else if(produtos.get(i) instanceof TesouroArmadura){
+                    TesouroArmadura item = new TesouroArmadura(produtos.get(i).getNome(), new int[]{}, produtos.get(i).getValor(), produtos.get(i).getDinheiro());
+                    System.out.println(i+1 + " - " + item.getNome() + " (" + item.getBuff() + ")" + " $" + item.getDinheiro());
+                } else {
+                    Chave item = new Chave(produtos.get(i).getNome(), produtos.get(i).getValor(), 1, produtos.get(i).getDinheiro());
+                    System.out.println(i+1 + " - " + item.getNome() + " $" + item.getDinheiro());
+                } 
+            }
         }
-        System.out.println("Qual produto deseja comprar?");
+        System.out.println("\nOuro atual: $"+jogador.getOuro());
+        System.out.println("\nQual produto deseja comprar?");
         int escolha = scanner.nextInt();
         scanner.nextLine();
         if(escolha != 0){
-            if (jogador.getOuro() < produtos.get(escolha - 1).getValor()){
+            if (jogador.getOuro() < produtos.get(escolha - 1).getDinheiro()){
                 System.out.println("Você não tem ouro o suficiente para comprar esse item");
             } else {
-                jogador.setOuro((jogador.getOuro() - produtos.get(escolha - 1).getValor()));
+                jogador.setOuro((jogador.getOuro() - produtos.get(escolha - 1).getDinheiro()));
                 if (produtos.get(escolha - 1) instanceof Consumivel){
-                    jogador.addConsumivel(produtos.get(escolha - 1).getNome(), produtos.get(escolha - 1).getValor(), 1);
+                    jogador.addConsumivel(produtos.get(escolha - 1).getNome(), produtos.get(escolha - 1).getValor(), 1, produtos.get(escolha -1).getDinheiro());
                 } else {
                     if (produtos.get(escolha - 1) instanceof TesouroArma){
-                        TesouroArma item = new TesouroArma(produtos.get(escolha - 1).getNome(), new int[]{0, 0}, produtos.get(escolha - 1).getValor());
+                        TesouroArma item = new TesouroArma(produtos.get(escolha - 1).getNome(), new int[]{0, 0}, produtos.get(escolha - 1).getValor(), produtos.get(escolha -1).getDinheiro());
                         jogador.getTesouros().add(item);
                         item.efeito(jogador);
                     } else if (produtos.get(escolha - 1) instanceof TesouroArmadura){
-                        TesouroArmadura item = new TesouroArmadura(produtos.get(escolha - 1).getNome(), new int[]{0, 0}, produtos.get(escolha - 1).getValor());
+                        TesouroArmadura item = new TesouroArmadura(produtos.get(escolha - 1).getNome(), new int[]{0, 0}, produtos.get(escolha - 1).getValor(), produtos.get(escolha -1).getDinheiro());
                         jogador.getTesouros().add(item);
                         item.efeito(jogador);
                     } else if (produtos.get(escolha - 1) instanceof Chave){
-                        jogador.possuiChave();
+                        jogador.possuiChave(true);
                     }
                     
                     
@@ -185,7 +215,7 @@ public class Loja implements Serializable{
         System.out.println("---- Consumiveis ----");
         List<Consumivel> consumiveis = jogador.getConsumiveis();
         for (Consumivel c : consumiveis) {
-            System.out.println(index + " - " + c.getNome() + " (x" + c.getQuantidade() + ") - Valor: " + c.getValor());
+            System.out.println(index + " - " + c.getNome() + " (x" + c.getQuantidade() + ") - Valor: " + c.getDinheiro());
             inventario.add(c);
             index++;
         }
@@ -194,7 +224,7 @@ public class Loja implements Serializable{
         List<Tesouro> tesouros = jogador.getTesouros();
         if(!tesouros.isEmpty()){
             for (Tesouro t : tesouros) {
-                System.out.println(index + " - " + t.getNome() + " - Valor: " + t.getValor());
+                System.out.println(index + " - " + t.getNome() + " - Valor: " + t.getDinheiro());
                 inventario.add(t);
                 index++;
             }
@@ -210,7 +240,7 @@ public class Loja implements Serializable{
 
         if (escolha != 0 && escolha <= inventario.size()) {
             Itens item = inventario.get(escolha - 1);
-            jogador.setOuro(jogador.getOuro() + item.getValor());
+            jogador.setOuro(jogador.getOuro() + item.getDinheiro());
 
             if (item instanceof Consumivel) {
                 Consumivel c = (Consumivel) item;
@@ -224,7 +254,7 @@ public class Loja implements Serializable{
                 tesouros.remove(item);
             }
 
-            System.out.println("Item vendido por " + item.getValor() + " ouro.");
+            System.out.println("Item vendido por " + item.getDinheiro() + " ouro.");
         } else if (escolha != 0) {
             System.out.println("Escolha invalida.");
         }

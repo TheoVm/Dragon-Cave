@@ -26,6 +26,7 @@ public class JogoLabirinto {
             scanner.nextLine(); 
 
             
+            
             boolean jogoIniciado = false;
             int escolha;
 
@@ -63,10 +64,11 @@ public class JogoLabirinto {
                     try {
                         switch (escolha) {
                             case 1 -> {
-                                printComDelay("Isabella, a princesa do amanhecer foi raptada pelos Dragonites!", 20);                      
-                                printComDelay("Resgate-a aventureiro!", 20);
+                                printComDelay("Isabella, a princesa do amanhecer foi raptada pelos Dragonites!", 30);                      
+                                printComDelay("Resgate-a aventureiro!", 30);
                                 System.out.println();
-                                while (true) {
+                                int continuar = 0;
+                                while (continuar == 0) {
                                     try {
                                         printComDelay("Escolha seu personagem:", 20);
                                         printComDelay("1. Tank" , 10);
@@ -76,23 +78,36 @@ public class JogoLabirinto {
                                         int escolha2 = scanner.nextInt();
                                         scanner.nextLine();
                                         switch (escolha2) {
-                                            case 1 -> jogador = new Tank();
-                                            case 2 -> jogador = new Rogue();
-                                            case 3 -> jogador = new Jorge();
-                                            case 666 -> jogador = new Sukuna();
-                                            default -> System.out.println("Opção inválida.");
+                                            case 1 -> {
+                                                jogador = new Tank(); 
+                                                continuar = 1;
+                                            }
+                                            case 2 ->{
+                                                jogador = new Rogue();
+                                                continuar = 1;
+                                            }
+                                            case 3 -> {
+                                                jogador = new Jorge();
+                                                continuar = 1;
+                                            }
+                                            case 666 -> {
+                                                jogador = new Sukuna();
+                                                continuar = 1;
+                                            }
+                                            default -> {
+                                                System.out.println("Opção inválida.");
+                                            }
                                         }
-                                        break;
                                     } catch (InputMismatchException e) {
                                         System.out.println("Entrada invalida! Digite apenas numeros inteiros.");
                                         scanner.nextLine(); 
                                     }
                                 }
 
-                                jogador.addConsumivel("Cura", 20, 2);
-                                jogador.addConsumivel("Ataque", 20, 2);
-                                jogador.addConsumivel("Defesa", 20, 2);
-                                jogador.addConsumivel("Velocidade", 20, 2);
+                                jogador.addConsumivel("Cura", 20, 2, 20);
+                                jogador.addConsumivel("Ataque", 20, 2, 20);
+                                jogador.addConsumivel("Defesa", 20, 2, 20);
+                                jogador.addConsumivel("Velocidade", 20, 2, 20);
 
                                 while (true) {
                                     try {
@@ -110,26 +125,9 @@ public class JogoLabirinto {
                                 printComDelay("Lembre-se aventureiro.", 60);
                                 printComDelay("Todo passo, é um passo mais perto.", 60);
                                 
-                                labirinto = new Labirinto(jogador, dificuldade, 3);
+                                labirinto = new Labirinto(jogador, dificuldade, 2);
                                 jogoIniciado = true;
 
-                                Itens teste1 = new Consumivel("Cura" ,20, 100);
-                                Itens teste2 = new Consumivel("Defesa" ,20, 100);
-                                Itens teste3 = new Consumivel("Ataque" ,20, 100);
-                                Itens teste4 = new Consumivel("Velocidade" ,20, 100);
-                                Itens teste5 = new TesouroArmadura("Armadura leve", new int[]{7, 10}, 15);
-                                Itens teste6 = new TesouroArma("Espada", new int[]{1, 26}, 20);
-                                Itens teste7 = new TesouroArma("Machado", new int[]{28, 46}, 25);
-                                Itens teste8 = new Chave("Chave 2° andar", 200, 1);
-                                
-                                labirinto.getLoja().addProduto(teste1);
-                                labirinto.getLoja().addProduto(teste2);
-                                labirinto.getLoja().addProduto(teste3);
-                                labirinto.getLoja().addProduto(teste4);
-                                labirinto.getLoja().addProduto(teste5);
-                                labirinto.getLoja().addProduto(teste6);
-                                labirinto.getLoja().addProduto(teste7);
-                                labirinto.getLoja().addProduto(teste8);
                             }
                             case 2 -> {
                                 ArrayList<Save> saves = Save.carregarListaSaves();
@@ -170,9 +168,11 @@ public class JogoLabirinto {
             
 
             while (!labirinto.verificarFim()) {
+                System.out.println(jogador.getLocalizacao()[0] + " " + jogador.getLocalizacao()[1]);
                 if(labirinto.getTrocar()){
                     labirinto = new Labirinto(jogador, dificuldade, labirinto.getTipo() + 1);
                     jogador.setLocalizacao(new int[]{1, 1});
+                    jogador.possuiChave(false);
                 }
                 labirinto.exibirLabirinto();
                 System.out.println("Movimente-se (WASD):");
@@ -266,7 +266,7 @@ public class JogoLabirinto {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(caminho));
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-            clip.loop(Clip.LOOP_CONTINUOUSLY); // toca em loop
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
             clip.start();
 
         } catch (Exception e) {

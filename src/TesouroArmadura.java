@@ -1,6 +1,6 @@
 public class TesouroArmadura extends Tesouro {
-    public TesouroArmadura(String nome, int[] localizacao, int valor) {
-        super(nome, localizacao, valor);
+    public TesouroArmadura(String nome, int[] localizacao, int valor, int dinheiro) {
+        super(nome, localizacao, valor, dinheiro);
     }
 
     public String getBuff(){

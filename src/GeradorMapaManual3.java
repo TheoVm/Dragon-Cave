@@ -43,21 +43,21 @@ public class GeradorMapaManual3 {
         List<Perigo> perigos = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>(Arrays.asList(
-            new Inimigo("Dragão Zumbi", 25, 10, 10,  20),
-            new Inimigo("Dragão Apodrecido", 50, 15, 20, 30), 
-            new Inimigo("Dragão Minerador", 80, 25, 30, 40), 
-            new Inimigo("Dragão Monge", 100, 40, 35, 50)
+            new Inimigo("Mosca da Pele Fria", 39, 9, 10,  40),
+            new Inimigo("Arauto da Carne Eterna", 48, 4, 15, 40), 
+            new Inimigo("Servo Gemente", 43, 8, 6, 40), 
+            new Inimigo("Dragão Abissal", 45, 6, 10, 40)
         ));
         
-        Loja loja = new Loja(new int[]{1, 3});
+        Loja loja = new Loja(new int[]{19, 30});
 
-        tesouros.add(new TesouroArma("Espada", new int[]{1, 9}, 20)); // Tesouro em (1,9)
-        tesouros.add(new TesouroArmadura("Armadura leve", new int[]{7, 10}, 15)); // Tesouro em (7,10)
-        tesouros.add(new TesouroArma("Machado", new int[]{8, 18}, 25)); // Tesouro em (9,18)
+        tesouros.add(new TesouroArma("Espada", new int[]{1, 9}, 3, 80));
+        tesouros.add(new TesouroArmadura("Armadura leve", new int[]{7, 10}, 4, 80));
+        tesouros.add(new TesouroArma("Machado", new int[]{8, 18}, 3, 80));
 
 
-        perigos.add(new Perigo(new int[]{1, 18}, 10 * dificuldade)); // Perigo em (1,19)
-        perigos.add(new Perigo(new int[]{8, 3}, 15 * dificuldade)); // Perigo em (9,3)
+        // perigos.add(new Perigo(new int[]{1, 18}, 10 * dificuldade));
+        // perigos.add(new Perigo(new int[]{8, 3}, 15 * dificuldade));
 
         for (Tesouro t : tesouros) {
             int[] loc = t.getLocalizacao();

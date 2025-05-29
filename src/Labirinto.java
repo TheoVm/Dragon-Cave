@@ -25,13 +25,16 @@ public class Labirinto implements Serializable{
         while(true){
             switch (tipo) {
                 case 1:
-                    this.config = GeradorMapaManual.criarMapaPadrao(dificuldade);
+                    this.config = GeradorMapaManual1.criarMapaPadrao(dificuldade);
                     break;
                 case 2:
                     this.config = GeradorMapaManual2.criarMapaPadrao(dificuldade);
                     break;
                 case 3:
                     this.config = GeradorMapaManual3.criarMapaPadrao(dificuldade);
+                    break;
+                case 4:
+                    this.config = Boss.criarMapaPadrao(dificuldade);
                     break;
                 default:
                     break;
@@ -84,10 +87,10 @@ public class Labirinto implements Serializable{
             mapa[posTesouro[0]][posTesouro[1]] = "T";
         }
 
-        // for (int i = 0; i < posicoesInimigos.size(); i++) {
-        //     int[] posicao = posicoesInimigos.get(i);
-        //     mapa[posicao[0]][posicao[1]] = "X";
-        // }
+        for (int i = 0; i < posicoesInimigos.size(); i++) {
+            int[] posicao = posicoesInimigos.get(i);
+            mapa[posicao[0]][posicao[1]] = "X";
+        }
 
         if (salaSecretaDesbloqueada) mapa[2][4] = "S";
         else mapa[2][4] = "X";

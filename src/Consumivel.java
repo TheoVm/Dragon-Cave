@@ -1,7 +1,7 @@
 public class Consumivel extends Itens {
     private int quantidade = 0;
-    public Consumivel(String nome, int valor, int quantidade) {
-        super(nome, valor);
+    public Consumivel(String nome, int valor, int quantidade, int dinheiro) {
+        super(nome, valor, dinheiro);
         this.quantidade = quantidade;
     }
     
@@ -32,7 +32,7 @@ public class Consumivel extends Itens {
                 System.out.println("Pocao de Cura usada! Vida aumentada em 20!");
                 break;
             case "Ataque":
-                novoValor = jogador.getAtaque() + 20;
+                novoValor = jogador.getAtaque() + 10;
                 jogador.setAtaque(novoValor);
                 turnos = jogador.getEfeitos().get(0)[1];
                 novoTurno = String.valueOf(Integer.parseInt(turnos) + 3);
@@ -41,7 +41,7 @@ public class Consumivel extends Itens {
                 System.out.println("Pocao de Ataque usada! Ataque aumentada em 20!");
                 break;
             case "Defesa":
-                novoValor = jogador.getDefesa() + 20;
+                novoValor = jogador.getDefesa() + 10;
                 jogador.setDefesa(novoValor);
                 turnos = jogador.getEfeitos().get(1)[1];
                 novoTurno = String.valueOf(Integer.parseInt(turnos) + 3);
@@ -50,7 +50,7 @@ public class Consumivel extends Itens {
                 System.out.println("Pocao de Defesa usada! Velocidade aumentada em 20!");
                 break;
             case "Velocidade":
-                novoValor = jogador.getVelocidade() + 20;
+                novoValor = jogador.getVelocidade() + 10;
                 jogador.setVelocidade(novoValor);
                 turnos = jogador.getEfeitos().get(2)[1];
                 novoTurno = String.valueOf(Integer.parseInt(turnos) + 3);

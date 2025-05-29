@@ -86,8 +86,8 @@ public class Boss2 {
 
         Loja loja = new Loja(new int[]{1, 3});
 
-        tesouros.add(new TesouroArmadura("Armadura leve", new int[]{7, 10}, 15));
-        tesouros.add(new TesouroArma("Espada", new int[]{2, 15}, 20));
+        tesouros.add(new TesouroArmadura("Armadura leve", new int[]{7, 10}, 15, 70));
+        tesouros.add(new TesouroArma("Espada", new int[]{2, 15}, 20, 70));
 
         for (Tesouro t : tesouros) {
             int[] loc = t.getLocalizacao();

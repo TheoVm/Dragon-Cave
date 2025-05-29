@@ -1,7 +1,7 @@
 public class Chave extends Itens {
     private int quantidade;
-    Chave(String nome, int valor, int quantidade){
-        super(nome, valor);
+    Chave(String nome, int valor, int quantidade, int dinheiro){
+        super(nome, valor, dinheiro);
         this.quantidade = quantidade;
     }
 

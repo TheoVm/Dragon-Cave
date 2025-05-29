@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Combate {
@@ -36,13 +35,12 @@ public class Combate {
                         case "2" -> {
                             System.out.println("Você se defendeu!");
                             defendendo = true;
-                            continuar = 1; 
+                            continuar = 1;
                         }
                         case "3" -> {
                             if (Math.random() < 0.05) {
                                 System.out.println("Você deu um abraço! Ele ficou tão confuso que ficou vulneravel pelo resto da batalha!");
                                 inimigo.setDefesa(0);
-                                return true;
                             } else {
                                 System.out.println("O inimigo vê você se aproximando de braço abertos e ataca você.");
                             }
@@ -65,7 +63,8 @@ public class Combate {
                 if (defendendo && dano >= 0) {
                     dano = dano / 2;
                     defendendo = false;
-                } else if (dano == -1){
+                }
+                if (dano == -1){
                     System.out.println("O inimigo atacou! Mas usando sua velocidade, você esquiva do ataque!");
                 } else {
                     jogador.setVida(jogador.getVida() - dano);
