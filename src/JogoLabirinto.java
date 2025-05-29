@@ -63,8 +63,8 @@ public class JogoLabirinto {
                     try {
                         switch (escolha) {
                             case 1 -> {
-                                printComDelay("Isabella, a princesa do amanhecer foi raptada pelos Dragonites!", 30);                      
-                                printComDelay("Resgate-a aventureiro!", 30);
+                                printComDelay("Isabella, a princesa do amanhecer foi raptada pelos Dragonites!", 20);                      
+                                printComDelay("Resgate-a aventureiro!", 20);
                                 System.out.println();
                                 while (true) {
                                     try {
@@ -110,7 +110,7 @@ public class JogoLabirinto {
                                 printComDelay("Lembre-se aventureiro.", 60);
                                 printComDelay("Todo passo, é um passo mais perto.", 60);
                                 
-                                labirinto = new Labirinto(jogador, dificuldade, 1);
+                                labirinto = new Labirinto(jogador, dificuldade, 3);
                                 jogoIniciado = true;
 
                                 Itens teste1 = new Consumivel("Cura" ,20, 100);

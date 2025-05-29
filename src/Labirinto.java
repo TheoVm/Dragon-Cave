@@ -1,5 +1,5 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Labirinto implements Serializable{
     private int dificuldade;
@@ -29,6 +29,9 @@ public class Labirinto implements Serializable{
                     break;
                 case 2:
                     this.config = GeradorMapaManual2.criarMapaPadrao(dificuldade);
+                    break;
+                case 3:
+                    this.config = GeradorMapaManual3.criarMapaPadrao(dificuldade);
                     break;
                 default:
                     break;
