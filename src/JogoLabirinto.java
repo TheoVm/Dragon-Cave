@@ -24,7 +24,6 @@ public class JogoLabirinto {
             printComDelay("└─────────────────────────────────────────────────────────────────────────────────────────────┘",1);
 
             scanner.nextLine(); 
-
             
             
             boolean jogoIniciado = false;
@@ -125,7 +124,7 @@ public class JogoLabirinto {
                                 printComDelay("Lembre-se aventureiro.", 60);
                                 printComDelay("Todo passo, é um passo mais perto.", 60);
                                 
-                                labirinto = new Labirinto(jogador, dificuldade, 2);
+                                labirinto = new Labirinto(jogador, dificuldade, 1);
                                 jogoIniciado = true;
 
                             }
@@ -173,6 +172,16 @@ public class JogoLabirinto {
                     labirinto = new Labirinto(jogador, dificuldade, labirinto.getTipo() + 1);
                     jogador.setLocalizacao(new int[]{1, 1});
                     jogador.possuiChave(false);
+
+                    if (labirinto.getTipo() == 2) {
+                        printComDelay("Com os olhos já acostumados à escuridão, você finalmente enxerga com clareza o chão da caverna", 20);
+                        printComDelay("Corpos em estado pútrido de outros aventureiros estão espalhados pelo caminho.", 20);
+                        printComDelay("Ainda assim, você continua, pois cada passo é um passo mais perto.", 20);
+                    } else if (labirinto.getTipo() == 3) {
+                        printComDelay("Exausto após enfrentar inúmeros inimigos, você se apoia nas paredes da imensa caverna para recuperar o fôlego — apenas para perceber a textura viscosa sob seus dedos.", 20);
+                        printComDelay("Aquilo já não era mais pedra...", 60);
+                        printComDelay("Ainda assim, determinado, você continua, pois cada passo é um passo mais perto.", 20);
+                    }
                 }
                 labirinto.exibirLabirinto();
                 System.out.println("Movimente-se (WASD):");

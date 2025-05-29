@@ -38,9 +38,7 @@ public class GeradorMapaManual3 {
         mapa[29] = new String[]{"└","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","┘"};
 
 
-        // Listas de tesouros e perigos
         List<Tesouro> tesouros = new ArrayList<>();
-        List<Perigo> perigos = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>(Arrays.asList(
             new Inimigo("Mosca da Pele Fria", 39, 9, 10,  40),
@@ -51,50 +49,37 @@ public class GeradorMapaManual3 {
         
         Loja loja = new Loja(new int[]{19, 30});
 
-        tesouros.add(new TesouroArma("Espada", new int[]{1, 9}, 3, 80));
-        tesouros.add(new TesouroArmadura("Armadura leve", new int[]{7, 10}, 4, 80));
-        tesouros.add(new TesouroArma("Machado", new int[]{8, 18}, 3, 80));
-
-
-        // perigos.add(new Perigo(new int[]{1, 18}, 10 * dificuldade));
-        // perigos.add(new Perigo(new int[]{8, 3}, 15 * dificuldade));
+        tesouros.add(new TesouroArmadura("Manto das Sombras Eternas", new int[]{4, 1}, 4, 80));
+        tesouros.add(new TesouroArmadura("Elmo da Fúria Ancestral", new int[]{25, 10}, 4, 80));
+        tesouros.add(new TesouroArma("Espada do Eclipse Sangrento", new int[]{21, 31}, 4, 80));
+        tesouros.add(new TesouroArma("Anel da Vontade Indômita", new int[]{22, 64}, 4, 80));
 
         for (Tesouro t : tesouros) {
             int[] loc = t.getLocalizacao();
             mapa[loc[0]][loc[1]] = "T";
         }
         
-        for (Perigo p : perigos) {
-            int[] loc = p.getLocalizacao();
-            mapa[loc[0]][loc[1]] = "P";
-        }
+
         
         posicoes = posicoesInimigos();
 
-        int[] fim = new int[]{9, 18};
+        int[] fim = new int[]{1, 31};
         mapa[fim[0]][fim[1]] = "F"; 
-        return new MapaConfigurado(mapa, tesouros, perigos, loja, fim, inimigos, posicoes);
+        return new MapaConfigurado(mapa, tesouros, loja, fim, inimigos, posicoes);
     }
 
     public static List<int[]> posicoesInimigos(){
         List<int[]> posicoes = new ArrayList<>(Arrays.asList(
-        new int[]{9, 44},
-        new int[]{9, 45},
-        new int[]{9, 46},
-        new int[]{9, 18},
-        new int[]{8, 18},
-        new int[]{3, 53},
-        new int[]{14, 20},
-        new int[]{15, 20},
-        new int[]{20, 3},
-        new int[]{20, 4},
-        new int[]{20, 5},
-        new int[]{18, 56},
-        new int[]{18, 57}, 
-        new int[]{18, 58},
-        new int[]{18, 25},
-        new int[]{18, 26},
-        new int[]{18, 27}
+        new int[]{10, 1},
+        new int[]{10, 2},
+        new int[]{17, 4},
+        new int[]{17, 5},
+        new int[]{20, 57},
+        new int[]{20, 58},
+        new int[]{15, 63},
+        new int[]{15, 64},
+        
+        new int[]{0, 0}
         ));
 
         return posicoes;

@@ -200,9 +200,8 @@ public class Loja implements Serializable{
                     } else if (produtos.get(escolha - 1) instanceof Chave){
                         jogador.possuiChave(true);
                     }
-                    
-                    
                 }
+                System.out.println("\nItem Comprado Com Sucesso!");
             }
         } 
     }

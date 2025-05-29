@@ -39,7 +39,6 @@ public class GeradorMapaManual1 {
 
 
         List<Tesouro> tesouros = new ArrayList<>();
-        List<Perigo> perigos = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>(Arrays.asList(
             new Inimigo("Draco-Sentinela", 25, 10, 10,  20),
@@ -50,8 +49,8 @@ public class GeradorMapaManual1 {
 
         Loja loja = new Loja(new int[]{1, 3});
 
-        tesouros.add(new TesouroArmadura("Manoplas de Ossos Secos", new int[]{7, 10}, 2, 60));
-        tesouros.add(new TesouroArmadura("Anel da Bruma Pálida", new int[]{1, 26}, 3, 60)); 
+        tesouros.add(new TesouroArmadura("Manoplas de Ossos Secos", new int[]{7, 10}, 1, 60));
+        tesouros.add(new TesouroArmadura("Anel da Bruma Pálida", new int[]{1, 26}, 1, 60)); 
         tesouros.add(new TesouroArmadura("Botas do Eco Vazio", new int[]{13, 1}, 2, 60));
         tesouros.add(new TesouroArmadura("Corda da Penumbra", new int[]{4, 64}, 1, 60));
         tesouros.add(new TesouroArmadura("Bracelete da Vigília Noturna", new int[]{28, 46}, 2, 60));
@@ -61,8 +60,6 @@ public class GeradorMapaManual1 {
         tesouros.add(new TesouroArma(" Chicote de Escamas Murchas", new int[]{28, 19}, 1, 60));
         tesouros.add(new TesouroArma("Olho de Pedra Semi-Cerrado", new int[]{20, 46}, 1, 60));
 
-        // perigos.add(new Perigo(new int[]{1, 18}, 10 * dificuldade)); // Perigo em (1,19)
-        // perigos.add(new Perigo(new int[]{8, 3}, 15 * dificuldade)); // Perigo em (9,3)
 
         mapa[loja.getLocalizacao()[0]][loja.getLocalizacao()[1]] = "M";
 
@@ -70,17 +67,12 @@ public class GeradorMapaManual1 {
             int[] loc = t.getLocalizacao();
             mapa[loc[0]][loc[1]] = "T";
         }
-        
-        for (Perigo p : perigos) {
-            int[] loc = p.getLocalizacao();
-            mapa[loc[0]][loc[1]] = "P";
-        }
 
         posicoes = posicoesInimigos();
         
         int[] fim = new int[]{28, 59};
         mapa[fim[0]][fim[1]] = "F"; 
-        return new MapaConfigurado(mapa, tesouros, perigos, loja, fim, inimigos, posicoes);
+        return new MapaConfigurado(mapa, tesouros, loja, fim, inimigos, posicoes);
     }
 
     public static List<int[]> posicoesInimigos(){

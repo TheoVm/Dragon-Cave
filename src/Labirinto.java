@@ -5,7 +5,6 @@ public class Labirinto implements Serializable{
     private int dificuldade;
     private final String[][] mapa;
     private final List<Tesouro> tesouros;
-    private final List<Perigo> perigos;
     private final Loja loja;
     private MapaConfigurado config;
     private final Aventureiro jogador;
@@ -43,7 +42,6 @@ public class Labirinto implements Serializable{
         }
         this.mapa = config.getMapa();
         this.tesouros = config.getTesouros();
-        this.perigos = config.getPerigos();
         this.loja = config.getLoja();
         this.fim = config.getFim();
         this.salaSecretaDesbloqueada = false;
@@ -55,10 +53,16 @@ public class Labirinto implements Serializable{
 
     public void gerarInimigos(){
         Random random = new Random();
+        Inimigo aux;
+        if(tipo == 4){
+            aux = inimigos.get(0);
+            inimigosGerados.add(new Inimigo(aux.getNome(), aux.getVida(), aux.getAtaque(), aux.getDefesa(), aux.getValor()));
+        } else {
         for(int j = 0; j < posicoesInimigos.size(); j++){
             int i = random.nextInt(4);
-            Inimigo aux = inimigos.get(i);
+            aux = inimigos.get(i);
             inimigosGerados.add(new Inimigo(aux.getNome(), aux.getVida(), aux.getAtaque(), aux.getDefesa(), aux.getValor()));
+        }
         }
     }
 
@@ -77,23 +81,15 @@ public class Labirinto implements Serializable{
         int[] posJogador = jogador.getLocalizacao();
         mapa[posJogador[0]][posJogador[1]] = "J";
 
-        for (Perigo p : perigos) {
-            int[] posPerigo = p.getLocalizacao();
-            mapa[posPerigo[0]][posPerigo[1]] = "P"; 
-        }
-
         for (Tesouro t : tesouros) {
             int[] posTesouro = t.getLocalizacao();
             mapa[posTesouro[0]][posTesouro[1]] = "T";
         }
 
-        for (int i = 0; i < posicoesInimigos.size(); i++) {
-            int[] posicao = posicoesInimigos.get(i);
-            mapa[posicao[0]][posicao[1]] = "X";
-        }
-
-        if (salaSecretaDesbloqueada) mapa[2][4] = "S";
-        else mapa[2][4] = "X";
+        // for (int i = 0; i < posicoesInimigos.size(); i++) {
+        //     int[] posicao = posicoesInimigos.get(i);
+        //     mapa[posicao[0]][posicao[1]] = "X";
+        // }
     }
 
     public static void limparTela() {
@@ -131,11 +127,6 @@ public class Labirinto implements Serializable{
     public List<Tesouro> getTesouros() {
         return tesouros;
     }
-
-    public List<Perigo> getPerigos() {
-        return perigos;
-    }
-
     public Loja getLoja() {
         return loja;
     }

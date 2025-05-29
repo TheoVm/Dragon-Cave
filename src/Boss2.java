@@ -80,7 +80,6 @@ public class Boss2 {
 
         // Tesouros e perigos
         List<Tesouro> tesouros = new ArrayList<>();
-        List<Perigo> perigos = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>();
 
@@ -93,14 +92,9 @@ public class Boss2 {
             int[] loc = t.getLocalizacao();
             mapa[loc[0]][loc[1]] = "T";
         }
-
-        for (Perigo p : perigos) {
-            int[] loc = p.getLocalizacao();
-            mapa[loc[0]][loc[1]] = "P";
-        }
         
         int[] fim = new int[]{};
 
-        return new MapaConfigurado(mapa, tesouros, perigos, loja, fim, inimigos, posicoes);
+        return new MapaConfigurado(mapa, tesouros, loja, fim, inimigos, posicoes);
     }
 }

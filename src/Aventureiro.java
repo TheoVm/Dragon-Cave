@@ -62,19 +62,16 @@ public abstract class Aventureiro implements Serializable{
                 it.remove();
             }
         }
-
-        for (Perigo p : labirinto.getPerigos()) {
-            if (Arrays.equals(p.getLocalizacao(), localizacao)) {
-                int dano = Math.max(0, p.getDano() - defesa);
-                vida -= dano;
-                System.out.println("Você entrou em um perigo! Sofreu " + dano + " de dano. Vida restante: " + vida);
-            }
-        }
         
         for (int i = 0; i < labirinto.getPosicoes().size(); i++){
             int[] posicao = labirinto.getPosicoes().get(i);
             if (posicao[0] == this.localizacao[0] && posicao[1] == this.localizacao[1] && labirinto.getInimigosGerados().get(i).getVida() > 0) {
-                boolean venceu = Combate.iniciarCombate(this, labirinto.getInimigosGerados().get(i), scanner);
+                boolean venceu;
+                if(labirinto.getTipo() == 4){
+                    venceu = CombateBoss.iniciarCombate(this, labirinto.getInimigosGerados().get(i), scanner);
+                } else {
+                    venceu = Combate.iniciarCombate(this, labirinto.getInimigosGerados().get(i), scanner);
+                }
                 if (!venceu) {
                     if(vida > 0){
                         System.out.println("Você fugiu do combate!");
