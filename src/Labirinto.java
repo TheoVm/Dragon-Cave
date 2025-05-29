@@ -122,7 +122,13 @@ public class Labirinto implements Serializable{
         else mapa[2][4] = "X";
     }
 
+    public static void limparTela() {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+    }    
+    
     public void exibirLabirinto() {
+        limparTela();
         atualizarMapa();
 
         for (String[] linha : mapa) {
