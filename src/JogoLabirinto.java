@@ -9,7 +9,7 @@ public class JogoLabirinto {
     public static void main(String[] args) {
 
         try (Scanner scanner = new Scanner(System.in)) {        
-            tocarMusica("assets/sounds/guitar.wav");
+            MusicaUtils.tocarMusica("assets/sounds/awesomeness.wav");
 
             printComDelay("┌─────────────────────────────────────────────────────────────────────────────────────────────┐",1);
             printComDelay("│                                                                                             │",1);
@@ -29,6 +29,7 @@ public class JogoLabirinto {
             boolean jogoIniciado = false;
             int escolha;
 
+            limparTela();
             System.out.println("===== Bem-vindo ao Labirinto! =====\n");
             System.out.println("Símbolos do mapa:");
             System.out.println("J - Você (Aventureiro)");
@@ -44,7 +45,8 @@ public class JogoLabirinto {
             Aventureiro jogador = null;
             Labirinto labirinto = null;
             int dificuldade = 0;
-
+            
+            limparTela();
             while (!jogoIniciado) {
                 while (true) {
                     try {
@@ -60,6 +62,7 @@ public class JogoLabirinto {
                     }
                 }
                 while (true) {
+                    limparTela();
                     try {
                         switch (escolha) {
                             case 1 -> {
@@ -68,6 +71,7 @@ public class JogoLabirinto {
                                 System.out.println();
                                 int continuar = 0;
                                 while (continuar == 0) {
+                                    limparTela();
                                     try {
                                         printComDelay("Escolha seu personagem:", 20);
                                         printComDelay("1. Tank" , 10);
@@ -109,6 +113,7 @@ public class JogoLabirinto {
                                 jogador.addConsumivel("Velocidade", 20, 2, 20);
 
                                 while (true) {
+                                    limparTela();
                                     try {
                                         System.out.println("Escolha a dificuldade (1 = Fácil, 2 = Médio, 3 = Difícil):");
                                         dificuldade = scanner.nextInt();
@@ -123,6 +128,7 @@ public class JogoLabirinto {
                                         scanner.nextLine(); 
                                     }
                                 }
+                                limparTela();
                                 printComDelay("A escuridão aqui é absoluta. Seus olhos, mesmo acostumados às sombras, lutam para enxergar.", 20);                        
                                 printComDelay("Mas seu nariz não falha: você sente o cheiro de um ar pesado com o cheiro de mofo apodrecido.", 20);                        
                                 printComDelay("Lembre-se aventureiro.", 60);
@@ -167,7 +173,7 @@ public class JogoLabirinto {
                 
             }
 
-            pararMusica();
+            MusicaUtils.pararMusica();
             
 
             while (!labirinto.verificarFim()) {
@@ -268,30 +274,8 @@ public class JogoLabirinto {
         }
     }
 
-    private static Clip clip;
-
-    public static void tocarMusica(String caminho) {
-        try {
-            if (clip != null && clip.isRunning()) {
-                clip.stop();
-                clip.close();
-            }
-
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(caminho));
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            clip.start();
-
-        } catch (Exception e) {
-            System.out.println("Erro ao tocar música: " + e.getMessage());
-        }
-    }
-
-    public static void pararMusica() {
-        if (clip != null) {
-            clip.stop();
-            clip.close();
-        }
+    public static void limparTela() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }
