@@ -1,18 +1,48 @@
-## Getting Started
+# Dragon Cave
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Bem-vindo ao **Dragon Cave**, um jogo de aventura em Java onde você explora cavernas perigosas, enfrenta inimigos, coleta tesouros e busca resgatar a princesa Isabella das garras do temível dragão Azkaryel.
 
-## Folder Structure
+## Contexto e História
 
-The workspace contains two folders by default, where:
+A princesa Isabella, herdeira do reino do amanhecer, foi raptada pelos Dragonites e levada para as profundezas de um labirinto sombrio. Cabe a você, aventureiro, adentrar esse local repleto de perigos, monstros e mistérios para salvá-la. Cada passo é um desafio, e apenas os mais corajosos sobreviverão aos horrores que espreitam nas sombras.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Como Jogar:
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+# - Controles
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+W: mover para cima
+A: mover para a esquerda
+S: mover para baixo
+D: mover para a direita
+E: abrir o menu do jogador (status, tesouros, consumíveis, salvar)
+F: avançar para o próximo andar (quando disponível)
 
-## Dependency Management
+# - Objetivo
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Explore o labirinto, colete tesouros e enfrente inimigos.
+Encontre a loja para comprar e vender itens.
+Procure a chave para avançar de andar.
+Derrote o boss final para resgatar a princesa Isabella.
+
+# - Símbolos do Mapa
+
+J: Você (Aventureiro)
+P: Princesa (Objetivo final)
+T: Tesouro (armas ou armaduras)
+F: Passagem para o próximo andar
+M: Loja
+
+# - Salvando e Carregando o Jogo
+
+Use a opção de salvar no menu do jogador para criar um save.
+Para carregar, escolha a opção correspondente no início do jogo e selecione o save pelo ID.
+
+# - Créditos
+
+# Desenvolvedores:
+- Caio Cordeiro Simões de Oliveira
+- Enzo Gabriel de Souza Morais
+- Theo Vieira Marcelino
+
+# Professor Orientador:
+- Lucas Rodolfo Celestino de Farias

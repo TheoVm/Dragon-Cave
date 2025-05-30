@@ -41,15 +41,15 @@ public class GeradorMapaManual1 {
         List<Tesouro> tesouros = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>(Arrays.asList(
-            new Inimigo("Draco-Sentinela", 25, 10, 10,  20),
-            new Inimigo("Arraia do Crepúsculo", 28, 8, 20, 20), 
-            new Inimigo("Cão da Penumbra", 22,9, 30, 20), 
-            new Inimigo("Sombra Ladrante", 28, 10, 35, 20)
+            new Inimigo("Draco-Sentinela", 25 + dificuldade, 10 + dificuldade, 10 + dificuldade,  20),
+            new Inimigo("Arraia do Crepúsculo", 28 + dificuldade, 8 + dificuldade, 20 + dificuldade, 20), 
+            new Inimigo("Cão da Penumbra", 22 + dificuldade,9 + dificuldade, 30 + dificuldade, 20), 
+            new Inimigo("Sombra Ladrante", 28 + dificuldade, 10 + dificuldade, 35 + dificuldade, 20)
         ));
 
         Loja loja = new Loja(new int[]{1, 3});
 
-        tesouros.add(new TesouroArmadura("Manoplas de Ossos Secos", new int[]{7, 10}, 1, 60));
+        tesouros.add(new TesouroArmadura("Manoplas de Ossos Secos", new int[]{9, 10}, 1, 60));
         tesouros.add(new TesouroArmadura("Anel da Bruma Pálida", new int[]{1, 26}, 1, 60)); 
         tesouros.add(new TesouroArmadura("Botas do Eco Vazio", new int[]{13, 1}, 2, 60));
         tesouros.add(new TesouroArmadura("Corda da Penumbra", new int[]{4, 64}, 1, 60));

@@ -46,7 +46,7 @@ public class CombateBoss {
         }
 
         MusicaUtils.tocarMusica("assets/sounds/Blackmoor Colossus Loop.wav");
-        JogoLabirinto.printComDelay("Você finalmente encontra a princesa Isabella - acorrentada, com a boca vendada, debatendo-se em ansiedade. Aproxima-se dela com a esperança de que tudo, enfim, tenha terminado.", 20);
+        JogoLabirinto.printComDelay("Você finalmente encontra a princesa Isabella - acorrentada, com a boca vendada, debatendo-se em ansiedade. Você se aproxima dela com a esperança de que tudo, enfim, tenha terminado.", 20);
         JogoLabirinto.printComDelay("Mas, ao remover a venda de sua boca, ela grita:", 20);
         JogoLabirinto.printComDelay("Atrás de você!", 10);
         JogoLabirinto.printComDelay("Então você o vê", 60);
@@ -57,12 +57,12 @@ public class CombateBoss {
         scanner.nextLine();
         limparTela();
         while (jogador.getVida() > 0 && inimigo.getVida() > 0) {
-            for (String linha : dragao) {
-                System.out.println(vermelho + linha + reset);
-            }
             if (turnoJogador) {
                 continuar = 0;
                 while (continuar == 0) {
+                    for (String linha : dragao) {
+                        System.out.println(vermelho + linha + reset);
+                    }
                     System.out.println("\nSua vida: " + jogador.getVida() + "/" + jogador.getVidaMAX());
                     System.out.println("\nVida do inimigo: " + inimigo.getVida() + "/" + vidaInicial);
                     System.out.println("\nSeu turno! Escolha uma ação:");
@@ -86,22 +86,13 @@ public class CombateBoss {
                             continuar = 1;
                         }
                         case "3" -> {
-                            if (Math.random() < 0.05) {
-                                System.out.println("Você deu um abraço! Ele ficou tão confuso que ficou vulneravel pelo resto da batalha!");
-                                inimigo.setDefesa(0);
-                            } else {
-                                System.out.println("O inimigo vê você se aproximando de braço abertos e ataca você.");
-                            }
-                            continuar = 1; 
+                            JogoLabirinto.printComDelay("sério...?", 400);
                         }
                         case "4" -> {
-                            if (Math.random() < 0.20) {
-                                System.out.println("Você fugiu do combate!");
-                                return false;
-                            } else {
-                                System.out.println("Você não conseguiu fugir!");
-                            }
-                            continuar = 1; 
+                            JogoLabirinto.printComDelay("A fuga não é uma opção!", 30);
+                            JogoLabirinto.printComDelay("Você exita por um segundo em lutar contra Azkaryel.", 30);
+                            JogoLabirinto.printComDelay("Mas sua mentalidade e seus olhos não conseguem desviar do oponente a sua frente.", 30);
+                            JogoLabirinto.printComDelay("Você DEVE enfrentar Azkaryel.", 30);
                         }
                         default -> System.out.println("Ação inválida! Tente novamente.");
                     }
@@ -156,8 +147,9 @@ public class CombateBoss {
                     }
                 }
             }
-
+            MusicaUtils.pararMusica();
             limparTela();
+
             JogoLabirinto.printComDelay("Após uma longa e exaustiva batalha contra Azkaryel, você finalmente o derrota.", 50);
             JogoLabirinto.printComDelay("Logo em seguida, seu olhar cruza com o da princesa - os olhos dela, cheios de alívio e admiração, ainda brilhavam com a emoção da luta recente.", 50);
             JogoLabirinto.printComDelay("Vocês se encaram por alguns segundos, em silêncio. Com um semblante tranquilo, você diz:", 50);
@@ -177,7 +169,7 @@ public class CombateBoss {
             JogoLabirinto.printComDelay("└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘", 1);
 
         try {
-            Thread.sleep(2000); // Delay de 2 segundos
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -235,45 +227,7 @@ public class CombateBoss {
                                                      @@@@@@@@@@@@@@@@@@@@@@@@@#**#@@@@*  :**+=====%%@%%==+#%%%#+====+**:   @@@@@%%%%@@@@@@@@@                                                          
                                                    @@%#*+++++==========********#@@@@@#: %%+==-----=**@@@@@@@#*==----=+*%%. *@@@@@%##@@@@@@@@@                                                          
                                                  @@**======-============****#%@@@@@@@. .@%==---------========--:-:---==#%=: %@@@@@%#%%@@@%%@@                                                          
-                                              :@@%%==----==========+%%%%%%%@@@@@@@@@@. =@%=-::::::...:::.:..:.::.....:-*@#= %@@@@@@%##%@@*#@@                                                          
-                                              *@@==-::-=++++++++++%@@@@@@@@@@@@@@@@@@..+@%::::::..........:..........::*@%= %@@@@@@@@#####%@@                                                          
-                                            =@@==-::-+++*%%%%%***************%@@@@%:  :+@%:............................+@%=.  #%@@@@@@@@%%@@@                                                          
-                                          =@@*=-::-=++*%%@@@@@@@@@@@@@@@@@@@@@@@%*==**=+@%:..   ...   ....:..   ...   .+@#=+*+--#@@@@@@@@@@@@                                                          
-                                         @@@@*=-:-++*%%%@@@@@@@@@@@@@@@@@@@@@@=:=*%@@@*+@@:.    ...    ....:    ...   .+@%+%@@@%*=-%@@@@@@@.                                                           
-                                         @@#*==:=++%@@@@@@@@@@@@@@@@@@@@@@@@@@#**%@=#@*+::..    ...    ...:.    ...   ..:=*%@#-@***%@@@@@*                                                             
-                                         @@#*==++*%@@@@@@@@@@@@@@@@@@@@@@@@@@@%*@%=-:-@@. ..    ...    ...::    ...   ...%@@+::-@%*%@@@@                                                               
-                                         @@#*==++#@@@@@@@@@@@@@@@@@@@@@@%*%@@%@%::....    ..    ...    ...:.    ...   ...   .::..=@%+*%@+=                                                             
-                                         @@#*++++#@@@@@@@@@@@@@@@@@@@@@@+ *@@+-::.....    ..    ...    ...::    ...   ...   ......::=+%%@@                                                             
-                                         @@#*++++#@@@@@@@@@@@@@@@@@@@@  #@@*-....   ..    ..    ...    ...::    ...   ...   ...  .....-=%%@@                                                           
-                                         @@%%**++%@@@@@@@@@@@@@@@@@@@@. *@%-: ...   ..    ..    ...    ...:.    ...   ...   ...  ... .::=*@@                                                           
-                                         @@@@%%***@@@@@@@@@@@@@@@@@@@@@@@%+:. ...   ..    ..    ...    ...::    ...   ...   ...  ...  .:-=%@@#                                                         
-                                          -@@@%***#@@@@@@@@@@@@@@@@@@@@@%*=:. ...   ::   .::    ...    ...::    ::.   .:.   :::   .....::-%%@@:                                                        
-                                          :@@@@@%###%@@@@@@@@@@@@@@@@@@%+-::. ...  .::.  .::.   ...    ...::   .::.   :::.  :::   .....:::+*%@@=                                                       
-                                            =@@@@@@@@@@@@@@@@@@@@@@@@@%*=-:   ...  .::.  .::.   ::.    ..:::   .:::   :::. .:::   :::::.::-=#@@=                                                       
-                                              +@@@@@@@@@@@@@@@@@@@@@@@*=-::  .::.  .::.  .::.   :::   ...:::.  .:::   :::.  :::.  ::::::.::--*@@@#                                                     
-                                                *@@@@@@@@@@@@@@@@@@@@@*-:::...::...:::...::::...:::   .::::::...:::...:-:...:-:...:::::::.---*@@@%                                                     
-                                                   @@@@@@@@@@@@#  %@%*=-:::...::::::--...:--:...:::  ..:::--:..::::..::--:..---:..::::::.::--=*%@%                                                     
-                                                                  %@*-:::::..::::..:-::..:-::...:::.  :::::-:..::::...:-::..---:..:--:::::-:::=#@%                                                     
-                                                                *@@#=::::::..:--:.::-:...:--:...:::  ..:::-::..:-::...:--:..:--:..:-=::::--:::-=#%@@                                                   
-                                                                *@@*=::::::..:--:..===:::-==::::---...:::--=::::---...-==::::--:..:-=::::--:::-=##@@                                                   
-                                                                *@%+-:::-::..:--:..=++:::-==::::---...:::-==::::-=-:..-==::::--:..:--::::-==::--=+@@@@                                                 
-                                                              +@@@#=::::-:.::-++:::=+=:::-==::::---...:::-==::.:=--:.:===:::-+=-:::=+=:::==-:::-=+@@@@%                                                
-                                                             *@@@#*=:::--:.::=**:::=+=:::-==::::---...:::-=-::::=--::.=+=:::=**-:::+*=:::===::---+##%@@*-                                              
-                                                             @@%*=--:::=--.::=**-::=+=:::-==::::===:::---===::::===:::=+=-::=**=:::+*+:::===::------=@@@@                                              
-                                                             @@%*---::-==-:.:=**:::=+=:::-==::::===:::-=====-::-===:::=+=:::-**=:::+**---=+=--------=@@@@                                              
-                                                             @@%*---:::==-.::-**===***====**=======:::-=====-::-======+**====**=-:-=**-:-=+=--------=%@@@                                              
-                                                           .=@@%*---:::===::-=**===***====**=======:::-=====-::-======+**====**+---=##---=+=--------=%@@@:                                             
-                                                        .:=@@@@%*---:::===--=+**===***====**=======:::-=====:::-======+**====**+===*%%---=+=--------=%@@@@@::.                                         
-                                                       =@@@@@@@%*=-=-=====--=+%%===***====**====++=:::======-::-++====+**====**+===*%%---=++++=-----=#%@@@@@@@                                         
-                                                       -@@%%%%*===--=++=----=+%%===***====**====++=:::======::::+++===+**====**+===*%%=--===++=------=+%%%%%@@                                         
-                                                       -@@%%%%*-----=**=----=+%%===***====**====++=:::======:::-+=+===+**====**+===*%%==---=++=-------=%%%%%@@                                         
-                                                       -@@%%%%*-----=##=--=**#%%****#*+++***+==+***===+*****====***+==*##****##*****%%**=--=**##+-----=%%%%%@@                                         
-                                                       -@@%%%%*-----=##=--=**#%%***##*+++***+==+***===+*+*+*+===***===*##****##*****%%**=--=***#+-----=%%%%%@@                                         
-                                                       -@@@@@@#=====+%%****%%%%%****#*++=***+==+***===+***+*====***+==*##****##*****%%%%****%%%%*=====+@@@@@@@                                         
-                                                       :@@@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*******++++++*+*+++********######%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@@@@                                         
-                                                            .@@@@@@@@@@@@@@@@@%%@@@%%%%%%%@@%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@%%%@@@%%%%%%@@@@@@@@@@@@@@@@@@@                                              
-                                                                     :-:-:---*@@@::@@@@@@@::@@@@@@@@@@@@@@@@@@@@@@@@@@@::@@@@=:@@@@@@@---:----                                                         
-                                                                              --.  ------:  :--------------------------  :==-   =----:                                                                                                                                                                                                                                                                                                                                                                                                                                   
+                                                                                                                                                                                                                                                                                                                                                                                                                            
             \033[0m""";
 
             limparTela();

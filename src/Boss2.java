@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Boss {
+public class Boss2 {
     public static MapaConfigurado criarMapaPadrao(int dificuldade) {
         int altura = 30;
         int largura = 100;

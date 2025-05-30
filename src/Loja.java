@@ -160,23 +160,7 @@ public class Loja implements Serializable{
 
     public void comprar(Aventureiro jogador, Scanner scanner){
         System.out.println("======== ITENS A VENDA ========");
-        System.out.println("0 - Sair");
-        for(int i = 0; i < produtos.size(); i++){
-            if(produtos.get(i) instanceof Consumivel){
-                System.out.println(i+1 + " - Poção de " + produtos.get(i).getNome() + " $" + produtos.get(i).getDinheiro());
-            } else {
-                if(produtos.get(i) instanceof TesouroArma){
-                    TesouroArma item = new TesouroArma(produtos.get(i).getNome(), new int[]{}, produtos.get(i).getValor(), produtos.get(i).getDinheiro());
-                    System.out.println(i+1 + " - " + item.getNome() + " (" + item.getBuff() + ")" + " $" + item.getDinheiro());
-                } else if(produtos.get(i) instanceof TesouroArmadura){
-                    TesouroArmadura item = new TesouroArmadura(produtos.get(i).getNome(), new int[]{}, produtos.get(i).getValor(), produtos.get(i).getDinheiro());
-                    System.out.println(i+1 + " - " + item.getNome() + " (" + item.getBuff() + ")" + " $" + item.getDinheiro());
-                } else {
-                    Chave item = new Chave(produtos.get(i).getNome(), produtos.get(i).getValor(), 1, produtos.get(i).getDinheiro());
-                    System.out.println(i+1 + " - " + item.getNome() + " $" + item.getDinheiro());
-                } 
-            }
-        }
+        exibirProdutos();
         System.out.println("\nOuro atual: $"+jogador.getOuro());
         System.out.println("\nQual produto deseja comprar?");
         int escolha = scanner.nextInt();
@@ -206,6 +190,26 @@ public class Loja implements Serializable{
         } 
     }
 
+    public void exibirProdutos(){
+        System.out.println("0 - Sair");
+        for(int i = 0; i < produtos.size(); i++){
+            if(produtos.get(i) instanceof Consumivel){
+                System.out.println(i+1 + " - Poção de " + produtos.get(i).getNome() + " $" + produtos.get(i).getDinheiro());
+            } else {
+                if(produtos.get(i) instanceof TesouroArma){
+                    TesouroArma item = new TesouroArma(produtos.get(i).getNome(), new int[]{}, produtos.get(i).getValor(), produtos.get(i).getDinheiro());
+                    System.out.println(i+1 + " - " + item.getNome() + " (" + item.getBuff() + ")" + " $" + item.getDinheiro());
+                } else if(produtos.get(i) instanceof TesouroArmadura){
+                    TesouroArmadura item = new TesouroArmadura(produtos.get(i).getNome(), new int[]{}, produtos.get(i).getValor(), produtos.get(i).getDinheiro());
+                    System.out.println(i+1 + " - " + item.getNome() + " (" + item.getBuff() + ")" + " $" + item.getDinheiro());
+                } else {
+                    Chave item = new Chave(produtos.get(i).getNome(), produtos.get(i).getValor(), 1, produtos.get(i).getDinheiro());
+                    System.out.println(i+1 + " - " + item.getNome() + " $" + item.getDinheiro());
+                } 
+            }
+        }
+    }
+
     public void vender(Aventureiro jogador, Scanner scanner){
         System.out.println("======== ITENS PARA VENDER ========");
         List<Itens> inventario = new ArrayList<>();
@@ -223,7 +227,7 @@ public class Loja implements Serializable{
         List<Tesouro> tesouros = jogador.getTesouros();
         if(!tesouros.isEmpty()){
             for (Tesouro t : tesouros) {
-                System.out.println(index + " - " + t.getNome() + " - Valor: " + t.getDinheiro());
+                System.out.println(index + " - " + t.getNome() + " " + t.getBuff() + " - Valor: " + t.getDinheiro());
                 inventario.add(t);
                 index++;
             }

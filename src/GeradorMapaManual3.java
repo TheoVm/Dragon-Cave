@@ -41,10 +41,10 @@ public class GeradorMapaManual3 {
         List<Tesouro> tesouros = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>(Arrays.asList(
-            new Inimigo("Mosca da Pele Fria", 39, 9, 10,  40),
-            new Inimigo("Arauto da Carne Eterna", 48, 4, 15, 40), 
-            new Inimigo("Servo Gemente", 43, 8, 6, 40), 
-            new Inimigo("Dragão Abissal", 45, 6, 10, 40)
+            new Inimigo("Mosca da Pele Fria", 39 + dificuldade, 9 + dificuldade, 10 + dificuldade,  40),
+            new Inimigo("Arauto da Carne Eterna", 48 + dificuldade, 4 + dificuldade, 15 + dificuldade, 40), 
+            new Inimigo("Servo Gemente", 43 + dificuldade, 8 + dificuldade, 6 + dificuldade, 40), 
+            new Inimigo("Dragão Abissal", 45 + dificuldade, 6 + dificuldade, 10 + dificuldade, 40)
         ));
         
         Loja loja = new Loja(new int[]{19, 30});

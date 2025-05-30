@@ -22,7 +22,7 @@ public abstract class Aventureiro implements Serializable{
         this.velocidade = velocidade;
         this.defesa = defesa;
         this.ataque = ataque;
-        this.ouro = 3000;
+        this.ouro = 50;
         this.tesouros = new ArrayList<>();
         this.consumiveis = new ArrayList<>();
         this.localizacao = new int[]{1, 1};
@@ -251,15 +251,14 @@ public abstract class Aventureiro implements Serializable{
         if (this.consumiveis.isEmpty()){
             System.out.println("Voce nao tem consumiveis no momento");
         } else {
-            System.out.println("Consumiveis: ");
-            for (int i = 0; i < this.consumiveis.size(); i++) {
-                System.out.println((i + 1) + " - " + this.consumiveis.get(i).getNome() + " x" + this.consumiveis.get(i).getQuantidade());
-            }
-
             int continuar = 1;
                 while (continuar == 1) {
-                    System.out.println("===== Menu de Opções =====");
-                    System.out.println("Escolha uma das opções:");
+                    System.out.println("===== Menu de Consumíveis =====");
+                    System.out.println("Consumiveis: ");
+                    for (int i = 0; i < this.consumiveis.size(); i++) {
+                        System.out.println((i + 1) + " - Poção de " + this.consumiveis.get(i).getNome() + " x" + this.consumiveis.get(i).getQuantidade());
+                    }
+                    System.out.println("\nEscolha uma das opções:");
                     System.out.println("1 - Usar consumível");
                     System.out.println("2 - Voltar");
                     int escolha = scanner.nextInt();

@@ -1,8 +1,6 @@
-import java.io.File;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import javax.sound.sampled.*;
 
 
 public class JogoLabirinto {
@@ -33,11 +31,10 @@ public class JogoLabirinto {
             System.out.println("===== Bem-vindo ao Labirinto! =====\n");
             System.out.println("Símbolos do mapa:");
             System.out.println("J - Você (Aventureiro)");
+            System.out.println("P - Princesa (Objetivo final)");
             System.out.println("T - Tesouro (armas ou armaduras para melhorar seu personagem)");
-            System.out.println("P - Perigo (cuidado! Reduz sua vida ao entrar)");
-            System.out.println("F - Saída do labirinto (objetivo final)");
-            System.out.println("X - Sala secreta bloqueada (desbloqueia após coletar 3 tesouros)");
-            System.out.println("S - Sala secreta desbloqueada (contém surpresas!)\n");
+            System.out.println("F - Passagem para o próximo andar");
+            System.out.println("M - Loja para compra e venda de itens");
             System.out.println("Use as teclas W (cima), A (esquerda), S (baixo) e D (direita) para se movimentar.\n");
             System.out.println("Boa sorte!");
 
@@ -134,7 +131,7 @@ public class JogoLabirinto {
                                 printComDelay("Lembre-se aventureiro.", 60);
                                 printComDelay("Todo passo, é um passo mais perto.", 60);
                                 
-                                labirinto = new Labirinto(jogador, dificuldade, 4);
+                                labirinto = new Labirinto(jogador, dificuldade, 1);
                                 jogoIniciado = true;
 
                             }
@@ -175,7 +172,8 @@ public class JogoLabirinto {
 
             MusicaUtils.pararMusica();
             
-
+            
+            MusicaUtils.tocarMusica("assets/sounds/Exploring-a-Cave.wav");
             while (!labirinto.verificarFim()) {
                 System.out.println(jogador.getLocalizacao()[0] + " " + jogador.getLocalizacao()[1]);
                 if(labirinto.getTrocar()){

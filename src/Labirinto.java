@@ -33,7 +33,7 @@ public class Labirinto implements Serializable{
                     this.config = GeradorMapaManual3.criarMapaPadrao(dificuldade);
                     break;
                 case 4:
-                    this.config = BossRoom.criarMapaPadrao(dificuldade);
+                    this.config = Boss.criarMapaPadrao(dificuldade);
                     break;
                 default:
                     break;
@@ -75,8 +75,10 @@ public class Labirinto implements Serializable{
             }
         }
         
-        mapa[loja.getLocalizacao()[0]][loja.getLocalizacao()[1]] = "M";
-        mapa[fim[0]][fim[1]] = "F";
+        if(this.tipo != 4){
+            mapa[loja.getLocalizacao()[0]][loja.getLocalizacao()[1]] = "M";
+            mapa[fim[0]][fim[1]] = "F";
+        }
 
         int[] posJogador = jogador.getLocalizacao();
         mapa[posJogador[0]][posJogador[1]] = "J";
@@ -93,13 +95,12 @@ public class Labirinto implements Serializable{
     }
 
     public static void limparTela() {
-    System.out.print("\033[H\033[2J");
-    System.out.flush();
-    }    
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        }    
     
     public void exibirLabirinto() {
         limparTela();
-        MusicaUtils.tocarMusica("assets/sounds/Exploring a Cave.wav");
         atualizarMapa();
 
         for (String[] linha : mapa) {
@@ -114,10 +115,6 @@ public class Labirinto implements Serializable{
 
     public boolean verificarFim() {
         int[] loc = jogador.getLocalizacao();
-        if (!salaSecretaDesbloqueada && jogador.getTesouros().size() >= 3) {
-            salaSecretaDesbloqueada = true;
-            System.out.println("Sala secreta desbloqueada em [2,4]!");
-        }
         return loc[0] == 4 && loc[1] == 0;
     }
 

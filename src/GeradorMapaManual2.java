@@ -6,6 +6,7 @@ public class GeradorMapaManual2 {
         int largura = 60;
         String[][] mapa = new String[altura][largura];
 
+
         mapa[0]  = new String[]{"┌","─","─","─","─","─","─","─","─","─","─","─","─","─","─","┐"," "," "," "," "," "," "," ","┌","─","─","─","─","─","┐"," "," "," "," "," ","┌","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","─","┐"," "," ","┌","─","─","─","─","─","─","─","─","─","┐"};
         mapa[1]  = new String[]{"│",".",".",".",".",".",".",".",".",".",".",".",".",".",".","│"," "," "," "," "," "," "," ","│",".",".",".",".",".","│"," "," "," "," "," ","│",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".","│"," "," ","│",".",".",".",".",".",".",".",".",".","│"};
         mapa[2]  = new String[]{"│",".",".",".",".",".",".",".",".",".",".",".",".",".",".","│"," "," "," "," "," "," "," ","│",".",".",".",".",".","│"," "," "," "," "," ","│",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".","│"," "," ","│",".",".",".",".",".",".",".",".",".","│"};
@@ -41,10 +42,10 @@ public class GeradorMapaManual2 {
         List<Tesouro> tesouros = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>(Arrays.asList(
-            new Inimigo("Draco-Sentinela", 35, 10, 10,  30),
-            new Inimigo("Mestre da Corrupcao", 40, 15, 20, 30), 
-            new Inimigo("Aberracao de Ossos", 36, 25, 30, 30), 
-            new Inimigo("Guardiao do Sangue Vivo", 38, 8, 5, 30)
+            new Inimigo("Draco-Sentinela", 35 + dificuldade, 10 + dificuldade, 10 + dificuldade,  30),
+            new Inimigo("Mestre da Corrupcao", 40 + dificuldade, 15 + dificuldade, 20 + dificuldade, 30), 
+            new Inimigo("Aberracao de Ossos", 36 + dificuldade, 17 + dificuldade, 30 + dificuldade, 30), 
+            new Inimigo("Guardiao do Sangue Vivo", 38 + dificuldade, 8 + dificuldade, 5 + dificuldade, 30)
         ));
         
         Loja loja = new Loja(new int[]{1, 3});

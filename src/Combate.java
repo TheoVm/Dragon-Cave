@@ -7,8 +7,8 @@ public class Combate {
         boolean defendendo = false;
         int continuar;
 
-        System.out.println("Um inimigo APARECEU! Combate iniciado...");
-        System.out.println("\nUm " + inimigo.getNome() + " apareceu! Ele está furioso.");
+        System.out.println("Inimigo encontrado! Combate iniciado...");
+        System.out.println("\nUm " + inimigo.getNome() + " apareceu!");
         
         scanner.nextLine();
         while (jogador.getVida() > 0 && inimigo.getVida() > 0) {
@@ -91,15 +91,15 @@ public class Combate {
                         String tipo = efeito[0];
                         switch (tipo) {
                             case "Ataque":
-                                jogador.setAtaque(jogador.getAtaque() - 20);
+                                jogador.setAtaque(jogador.getAtaque() - 10);
                                 System.out.println("Efeito da poção terminado, ataque voltou ao valor original.");
                                 break;
                             case "Defesa":
-                                jogador.setDefesa((jogador.getDefesa() - 20));
+                                jogador.setDefesa((jogador.getDefesa() - 10));
                                 System.out.println("Efeito da poção terminado, defesa voltou ao valor original.");
                                 break;
                             case "Velocidade":
-                                jogador.setVelocidade((jogador.getVelocidade() - 20));
+                                jogador.setVelocidade((jogador.getVelocidade() - 10));
                                 System.out.println("Efeito da poção terminado, velocidade voltou ao valor original.");
                                 break;
                             default:
