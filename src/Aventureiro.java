@@ -23,7 +23,7 @@ public abstract class Aventureiro implements Serializable{
         this.velocidade = velocidade;
         this.defesa = defesa;
         this.ataque = ataque;
-        this.ouro = 50;
+        this.ouro = 500;
         this.tesouros = new ArrayList<>();
         this.consumiveis = new ArrayList<>();
         this.diarios = new ArrayList<>();
@@ -112,8 +112,26 @@ public abstract class Aventureiro implements Serializable{
         
         if(Arrays.equals(labirinto.getFim(), localizacao)){
             if (this.chave){
-                System.out.println("Você possuí a chave para o próximo andar, deseja avançar? (Após avançar não será possível voltar a este andar)");
-                labirinto.setTrocar(true);
+                int continuar = 1;
+                while (continuar == 1) {
+                    System.out.println("Você possuí a chave para o próximo andar, deseja avançar? (Após avançar não será possível voltar a este andar)");
+                    System.out.println("1 - Avançar");
+                    System.out.println("2 - Continuar no andar");
+                    int escolha = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (escolha) {
+                        case 1:
+                            labirinto.setTrocar(true);
+                            continuar = 0;
+                            break;
+                        case 2: 
+                            continuar = 0;
+                            break;
+                        default: 
+                            System.out.println("Opção inválida.");
+                    }
+                    
+                }
             } else {
                 System.out.println("Você se depara com uma grande porta e um mecanismo com alguma espécie de fechadura, uma chave deve ser necessária para abri-la e seguir adiante");
             }
