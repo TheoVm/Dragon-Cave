@@ -69,7 +69,7 @@ public class JogoLabirinto {
                                 int continuar = 0;
                                 while (continuar == 0) {
                                             try {
-                                                Thread.sleep(1000);
+                                                Thread.sleep(800);
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
                     }
@@ -85,19 +85,43 @@ public class JogoLabirinto {
                                         switch (escolha2) {
                                             case 1 -> {
                                                 jogador = new Tank(); 
+                                                printComDelay("Você escolheu o Tank, Um muro de carne e ferro. Bate pouco, apanha muito… e não cai." , 10);
+                                                try {
+                                                    Thread.sleep(800);
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }                                                
                                                 continuar = 1;
                                             }
                                             case 2 ->{
                                                 jogador = new Rogue();
+                                                printComDelay("Você escolheu o Rogue, Um sopro no escuro. Você só percebe quando já é tarde demais." , 10);
+                                                try {
+                                                    Thread.sleep(800);
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }                                                
                                                 continuar = 1;
                                             }
                                             case 3 -> {
                                                 jogador = new Jorge();
+                                                printComDelay("Você escolheu Jorge, ele é apenas um cara comum que se perdeu por aqui" , 10);
+                                                try {
+                                                    Thread.sleep(800);
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }
                                                 continuar = 1;
                                             }
                                             case 666 -> {
                                                 jogador = new Sukuna();
-                                                continuar = 1;
+                                                printComDelay("Você despertou Sukuna, o rei das maldições, ele destrói por prazer com um sorriso cruel e um poder esmagador" , 10);
+                                                try {
+                                                    Thread.sleep(800);
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                    continuar = 1;
+                                                }
                                             }
                                             default -> {
                                                 System.out.println("Opção inválida.");
