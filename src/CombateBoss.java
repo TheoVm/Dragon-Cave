@@ -7,6 +7,9 @@ public class CombateBoss {
         boolean defendendo = false;
         int continuar;
 
+        String vermelho = "\u001B[31m";
+        String reset = "\u001B[0m";
+
         String[] dragao = new String[]{
             "                                                  /===-                        ",
             "                                                 /===-_---~~~~~~~~~------____  ",
@@ -37,6 +40,12 @@ public class CombateBoss {
             "                                            ~~~~~~~~~~                          "
         };
 
+        limparTela();
+        for (String linha : dragao) {
+            System.out.println(vermelho + linha + reset);
+        }
+
+        MusicaUtils.tocarMusica("assets/sounds/Blackmoor Colossus Loop.wav");
         JogoLabirinto.printComDelay("Você finalmente encontra a princesa Isabella - acorrentada, com a boca vendada, debatendo-se em ansiedade. Aproxima-se dela com a esperança de que tudo, enfim, tenha terminado.", 20);
         JogoLabirinto.printComDelay("Mas, ao remover a venda de sua boca, ela grita:", 20);
         JogoLabirinto.printComDelay("Atrás de você!", 10);
@@ -46,9 +55,10 @@ public class CombateBoss {
         JogoLabirinto.printComDelay("Será que...  ainda posso dar um passo de cada vez?", 50);
         
         scanner.nextLine();
+        limparTela();
         while (jogador.getVida() > 0 && inimigo.getVida() > 0) {
             for (String linha : dragao) {
-                System.out.println(linha);
+                System.out.println(vermelho + linha + reset);
             }
             if (turnoJogador) {
                 continuar = 0;
@@ -146,6 +156,8 @@ public class CombateBoss {
                     }
                 }
             }
+
+            limparTela();
             JogoLabirinto.printComDelay("Após uma longa e exaustiva batalha contra Azkaryel, você finalmente o derrota.", 50);
             JogoLabirinto.printComDelay("Logo em seguida, seu olhar cruza com o da princesa - os olhos dela, cheios de alívio e admiração, ainda brilhavam com a emoção da luta recente.", 50);
             JogoLabirinto.printComDelay("Vocês se encaram por alguns segundos, em silêncio. Com um semblante tranquilo, você diz:", 50);
@@ -164,10 +176,15 @@ public class CombateBoss {
             JogoLabirinto.printComDelay("│                                                                                                                                                    │", 1);
             JogoLabirinto.printComDelay("└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘", 1);
 
+        try {
+            Thread.sleep(2000); // Delay de 2 segundos
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            
+            limparTela();
             String arte = """                                                                                                                                                                          
-                                                                                                                                                                                                       
+            \033[38;5;213m                                                                                                                                                                                           
                                                                                                        :::                                                                                             
                                                                                                      =#@@@@#-                                                                                          
                                                                                                      @@@  @@@                                                                                          
@@ -257,7 +274,9 @@ public class CombateBoss {
                                                             .@@@@@@@@@@@@@@@@@%%@@@%%%%%%%@@%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@%%%@@@%%%%%%@@@@@@@@@@@@@@@@@@@                                              
                                                                      :-:-:---*@@@::@@@@@@@::@@@@@@@@@@@@@@@@@@@@@@@@@@@::@@@@=:@@@@@@@---:----                                                         
                                                                               --.  ------:  :--------------------------  :==-   =----:                                                                                                                                                                                                                                                                                                                                                                                                                                   
-            """;
+            \033[0m""";
+
+            limparTela();
             System.out.println(arte);
             System.exit(0);
             return true;
@@ -291,5 +310,10 @@ public class CombateBoss {
             int dano = (int) danoFinal;
             return dano;
         }
+    }
+
+    public static void limparTela() {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
     }
 }
