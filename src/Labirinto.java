@@ -33,7 +33,7 @@ public class Labirinto implements Serializable{
                     this.config = GeradorMapaManual3.criarMapaPadrao(dificuldade);
                     break;
                 case 4:
-                    this.config = Boss.criarMapaPadrao(dificuldade);
+                    this.config = BossRoom.criarMapaPadrao(dificuldade);
                     break;
                 default:
                     break;
@@ -99,6 +99,7 @@ public class Labirinto implements Serializable{
     
     public void exibirLabirinto() {
         limparTela();
+        MusicaUtils.tocarMusica("assets/sounds/Exploring a Cave.wav");
         atualizarMapa();
 
         for (String[] linha : mapa) {
