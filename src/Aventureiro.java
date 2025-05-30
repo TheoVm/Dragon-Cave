@@ -314,12 +314,6 @@ public abstract class Aventureiro implements Serializable{
         }
     }
 
-    // public int atacar(Inimigo inimigo) {
-    //     int dano = Math.max(0, this.getAtaque() - inimigo.getDefesa());
-    //     inimigo.setVida(inimigo.getVida() - dano);
-    //     return dano;
-    // }
-
     public void exibirStatus(){
         System.out.println("\nNome: "+ this.nome);
         System.out.println("Vida: "+ this.vida);

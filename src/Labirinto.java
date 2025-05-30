@@ -89,11 +89,6 @@ public class Labirinto implements Serializable{
             int[] posTesouro = t.getLocalizacao();
             mapa[posTesouro[0]][posTesouro[1]] = "T";
         }
-
-        // for (int i = 0; i < posicoesInimigos.size(); i++) {
-        //     int[] posicao = posicoesInimigos.get(i);
-        //     mapa[posicao[0]][posicao[1]] = "X";
-        // }
     }
 
     public static void limparTela() {

@@ -173,7 +173,6 @@ public class Loja implements Serializable{
                                     System.out.println();
                                     break;
                                 case 2:
-                                    // Voltar
                                     break;
                                 default:
                                     System.out.println("Opção inválida.");

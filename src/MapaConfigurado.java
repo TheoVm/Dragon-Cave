@@ -10,7 +10,6 @@ public class MapaConfigurado implements Serializable{
     private List<Inimigo> inimigosPossiveis;
     private final List<int[]> posicoesInimigos;
 
-    // Construtor que inicializa a classe com os valores recebidos
     public MapaConfigurado(String[][] mapa, List<Tesouro> tesouros, List<Diario> diarios ,Loja loja, int[] fim, List<Inimigo> inimigosPossiveis, List<int[]> posicoesInimigos) {
         this.mapa = mapa;
         this.tesouros = tesouros;
@@ -21,7 +20,6 @@ public class MapaConfigurado implements Serializable{
         this.posicoesInimigos = posicoesInimigos;
     }
 
-    // Métodos para acessar as informações do mapa
     public String[][] getMapa() {
         return mapa;
     }
