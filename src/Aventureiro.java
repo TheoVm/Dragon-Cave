@@ -23,13 +23,66 @@ public abstract class Aventureiro implements Serializable{
         this.velocidade = velocidade;
         this.defesa = defesa;
         this.ataque = ataque;
-        this.ouro = 500;
+        this.ouro = 5000;
         this.tesouros = new ArrayList<>();
         this.consumiveis = new ArrayList<>();
         this.diarios = new ArrayList<>();
         this.localizacao = new int[]{1, 1};
         this.efeitos = new ArrayList<>(Arrays.asList(new String[] {"Ataque", "0"}, new String[] {"Defesa", "0"}, new String[] {"Velocidade", "0"}));
     }
+
+    String arte = """
+                   ............                      
+                    ...:#==-*:. .                    
+                    .:+*#*++*+*-...                  
+                   ..++%*#+++%+%....                 
+                   ..:**%***#+*:....                 
+                   ....:#++=*-.....                  
+                      ..%%%%%:.                      
+                       .%##*%:.                      
+                       .%%%%%:.                      
+                       .%%%#%:.                      
+                    ....%##*%:.                      
+                   .....%%%#%:.                      
+                   ....:#%%%%-. .                    
+         ....----------#+++++%----------......       
+         ...#:-=+=----==-:::-===---=*=-:#.....       
+          ..#===*######*=:::-*#######===#.....       
+          ...===:.....**##***+# .....===:..          
+            ......  ..*+++-==-# .  ........          
+                    ..*++=----# .                    
+                    ..*++=----# .                    
+                    ..*++=----#..                    
+                    ..*++=----#..                    
+                    . *++=----# .                    
+                    . *+-:----# .                    
+                    ..*===----# .                    
+                    ..*+=:----# .                    
+                    ..*===----# .                    
+                    ..*++=----# .                    
+                    ..*++=----#..                    
+                    ..*++=---:#..                    
+                   ...*++=----# .                    
+                    ..*+=-----# .                    
+         .............*=-=----%======......          
+         ....+++++++++%++=----%======#*:...          
+     ....****=========#*+=---=%========***=...       
+    ..*##+===+++++++++%**+-=++%+++++++++===+##....   
+  ...+#*+++===+=======+*%%#%%*+=======+====+###*..   
+  ..=#+++++++==========+++++++=========+*#######:..  
+....+#+++++++++=======================*##########..  
+....**+++++++++++================+++*###########%=...
+...:#++++++++++++++++===+++++********############@=..
+..:#++++++++++++++++++++**************###########%#..
+..:@+++++++++++++++++++***************##########%%=..
+..-@++++++++++++++++++*****************########%*..  
+..#**++++++++++++++++++****************########...   
+..:*##++++++++++++====+****************#####*:....   
+   ..:#####+++=======+******************###-..       
+     ..........=%+===+****************#@%..          
+     ..............%*****@@@@@@@@=...........        
+                 ..................                                                                  
+            """;
 
     public void mover(int dx, int dy, Labirinto labirinto, Scanner scanner) {
         int novaX = localizacao[0] + dx;
@@ -58,6 +111,7 @@ public abstract class Aventureiro implements Serializable{
         for(int i = 0; i < labirinto.getDiarios().size(); i++){
             Diario diario = labirinto.getDiarios().get(i);
             if (Arrays.equals(diario.getLocalizacao(), localizacao)){
+                System.out.println("add");
                 JogoLabirinto.printComDelay("Diário encontrado: " + diario.getNome(), 20);
                 adicionarDiario(diario);
             }
@@ -66,10 +120,26 @@ public abstract class Aventureiro implements Serializable{
         for (Iterator<Tesouro> it = labirinto.getTesouros().iterator(); it.hasNext();) {
             Tesouro t = it.next();
             if (Arrays.equals(t.getLocalizacao(), localizacao)) {
-                JogoLabirinto.printComDelay("Tesouro encontrado: " + t.getNome(), 20);
-                t.efeito(this);
-                tesouros.add(t);
-                it.remove();
+                if(t.getNome().equals("Excalibur")){
+                    JogoLabirinto.limparTela();
+                    System.out.println(arte);
+
+                    JogoLabirinto.printComDelay("Você encontrou a lendária espada Excalibur!", 50);
+                    JogoLabirinto.printComDelay("Você tenta puxar ela mas nada acontece.", 50);
+                    JogoLabirinto.printComDelay("E como ela já está sendo usada em outros jogos, ela some na sua frente sem deixar vestígios", 20);
+
+                    try {
+                        Thread.sleep(7000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    it.remove();
+                } else {
+                    JogoLabirinto.printComDelay("Tesouro encontrado: " + t.getNome(), 20);
+                    t.efeito(this);
+                    tesouros.add(t);
+                    it.remove();
+                }
             }
         }
         
@@ -279,29 +349,28 @@ public abstract class Aventureiro implements Serializable{
         if (this.diarios.isEmpty()){
             System.out.println("Voce nao tem diarios no momento");
         } else {
-            System.out.println("Diários: ");
             for(int i = 0; i < this.diarios.size(); i++){
                 Diario diario = this.diarios.get(i);
                 System.out.println((i + 1) + " - " + diario.getNome() + " (" + diario.getData() + ")");
-                int continuar = 1;
-                while (continuar == 1) {
-                    try {
-                        System.out.println("Qual diario deseja ler?");
-                        int escolha = scanner.nextInt();
-                        scanner.nextLine();
-                        if (escolha < 1 || escolha > this.diarios.size()) {
-                            System.out.println("Opção inválida.");
-                        } else {
-                            Diario d = this.diarios.get(escolha - 1);
-                            JogoLabirinto.printComDelay("Conteúdo do diário: " + d.getConteudo(), 20);
-                            continuar = 0;
-                        }
-                    } catch (InputMismatchException e) {
-                        System.out.println("Entrada inválida. Por favor, insira um número.");
-                        scanner.nextLine();
+            }
+            int continuar = 1;
+            while (continuar == 1) {
+                try {
+                    System.out.println("Qual diario deseja ler?");
+                    int escolha = scanner.nextInt();
+                    scanner.nextLine();
+                    if (escolha < 1 || escolha > this.diarios.size()) {
+                        System.out.println("Opção inválida.");
+                    } else {
+                        Diario d = this.diarios.get(escolha - 1);
+                        JogoLabirinto.printComDelay("Conteúdo do diário: " + d.getConteudo(), 20);
+                        continuar = 0;
                     }
+                } catch (InputMismatchException e) {
+                    System.out.println("Entrada inválida. Por favor, insira um número.");
+                    scanner.nextLine();
                 }
-            }  
+            }
         }
     }
 

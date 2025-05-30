@@ -112,7 +112,7 @@ public class Boss {
         List<int[]> posicoes = new ArrayList<>();
         List<Diario> diarios = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>(Arrays.asList(
-            new Inimigo("Azrakyel, o Olho de Inter", 400, 20, 20,  1000)
+            new Inimigo("Azrakyel, o Olho de Inter", 200, 20, 20,  1000)
         ));
 
         Loja loja = new Loja(new int[]{1, 3});

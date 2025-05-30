@@ -51,8 +51,22 @@ public class GeradorMapaManual2 {
         
         Loja loja = new Loja(new int[]{1, 3});
 
-        diarios.add(new Diario("Diário do Sentinela", "01/10/2023", "Hoje, o Draco-Sentinela patrulhou a área ao redor do templo. A presença de criaturas sombrias é cada vez mais forte, e precisamos estar preparados.", new int[]{20, 38}));
-        diarios.add(new Diario("Diário do Arraia", "02/10/2023", "A Arraia do Crepúsculo voou alto, observando os arredores. Ela relatou avistamentos de criaturas estranhas, e a tensão no ar é palpável.", new int[]{20, 59}));
+        diarios.add(new Diario("Registro III - Respostas.", "05/10/302", 
+                        "\nApós muita pesquisa, finalmente descobri algo revelador:\n" + //
+                        "Os Dragonites, ao contrário de nós, humanos, não cultuam a mesma deusa. Eles veneram uma entidade chamada Inter - um deus exterior!\r\n" + //
+                        "\n" + //
+                        "Segundo suas crenças, eles são fragmentos vivos desse deus, como se cada um carregasse uma parte de sua essência.\n" + //
+                        "Curiosamente, sua aversão à luz não vem de uma fraqueza, como eu pensava...\n" + //
+                        "Mas sim de um senso distorcido de superioridade. Acreditam que a luz pode deteriorar sua pele dracônica - uma pele que eles consideram perfeita.\n" + //
+                        "Que bando de lunáticos!\n", new int[]{20, 38}));
+        diarios.add(new Diario("Registro IV - Aquele que governa.", "10/10/302", 
+                        "\nEncontrei relatos fragmentados sobre uma figura central entre os Dragonites. \n" + //
+                        "Um nome surgia repetidamente, como um sussurro proibido nas paredes das cavernas: Azkaryel.\n" + //
+                        "Diferente dos demais, Azkaryel não é apenas um Dragonite comum. Ele é descrito como um colosso — um ser dracônico de proporções descomunais, com escamas negras como carvão e olhos que brilham como brasas acesas no abismo.\n" + //
+                        "Os mais antigos o chamam de O Olho de Inter, o elo direto com a divindade que veneram.\n" + //
+                        " Aparentemente, é ele quem lidera os rituais nas profundezas e guarda o santuário oculto, onde, dizem, a luz jamais tocou.\n" + //
+                        "Estou certo de que descobrir mais sobre Azkaryel é a chave para entender não apenas os Dragonites, mas Inter em si.\n" + //
+                        " Ainda assim... algo dentro de mim diz que, ao conhecê-lo, talvez eu deseje nunca ter começado essa jornada.\n", new int[]{20, 59}));
 
 
         tesouros.add(new TesouroArmadura(" Anel da Escama Reluzente", new int[]{1, 26}, 2, 70));

@@ -10,12 +10,13 @@ A princesa Isabella, herdeira do reino do amanhecer, foi raptada pelos Dragonite
 
 # - Controles
 
-W: mover para cima
-A: mover para a esquerda
-S: mover para baixo
-D: mover para a direita
-E: abrir o menu do jogador (status, tesouros, consumíveis, salvar)
-F: avançar para o próximo andar (quando disponível)
+W: Mover para cima
+A: Mover para a esquerda
+S: Mover para baixo
+D: Mover para a direita
+E: Abrir o menu do jogador (status, tesouros, consumíveis, salvar)
+P: Icone da princesa
+F: Avançar para o próximo andar (quando disponível)
 
 # - Objetivo
 
@@ -46,3 +47,6 @@ Para carregar, escolha a opção correspondente no início do jogo e selecione o
 
 # Professor Orientador:
 - Lucas Rodolfo Celestino de Farias
+
+# Funcionamento
+![alt text](image.png)

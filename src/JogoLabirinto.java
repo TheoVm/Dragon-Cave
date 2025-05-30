@@ -72,13 +72,16 @@ public class JogoLabirinto {
                                                 Thread.sleep(800);
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
-                    }
+                                            }
                                     limparTela();
                                     try {
                                         printComDelay("Escolha seu personagem:", 20);
                                         printComDelay("1. Tank" , 10);
+                                        printComDelay("Vida: 120\nAtaque 10\nDefesa: 20\nVelocidade: 20\n" , 10);
                                         printComDelay("2. Rogue" , 10);
+                                        printComDelay("Vida: 70\nAtaque 15\nDefesa: 10\nVelocidade: 40\n" , 10);
                                         printComDelay("3. Jorge" , 10);
+                                        printComDelay("Vida: 90\nAtaque 12\nDefesa: 15\nVelocidade: 30\n" , 10);
 
                                         int escolha2 = scanner.nextInt();
                                         scanner.nextLine();
@@ -264,7 +267,6 @@ public class JogoLabirinto {
         int continuar = 1;
         while (continuar == 1) {
             try {
-                limparTela();
                 System.out.println("\nDificuldade: " + labirinto.getDificuldade());
                 System.out.println("===== Menu de Opções =====");
                 System.out.println("Escolha uma das opções:");
@@ -280,7 +282,6 @@ public class JogoLabirinto {
                         jogador.exibirStatus();
                     }
                     case 2 -> {
-                        limparTela();
                         System.out.println("===== Inventário =====");
                         System.out.println("Escolha uma das opções:");
                         System.out.println("1 - Verificar Tesouros");
@@ -294,7 +295,10 @@ public class JogoLabirinto {
                                 jogador.exibirTesouros();
                             }
                             case 2 -> jogador.usarConsumiveis(jogador, scanner);
-                            case 3 -> jogador.exibirDiarios(jogador, scanner);
+                            case 3 -> {
+                                System.out.println("===== Diários =====");
+                                jogador.exibirDiarios(jogador, scanner);
+                            }
                             default -> System.out.println("Opção inválida.");
                         }                 
                     }

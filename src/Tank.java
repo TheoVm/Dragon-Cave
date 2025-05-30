@@ -1,5 +1,5 @@
 public class Tank extends Aventureiro{
     public Tank() {
-        super("Tank", 120, 20, 20, 12);
+        super("Tank", 120, 20, 20, 10);
     }
 }

@@ -50,28 +50,25 @@ public class GeradorMapaManual1 {
 
         Loja loja = new Loja(new int[]{1, 3});
 
-        diarios.add(new Diario(
-                    "Diário do Sentinela", "01/10/2023", "\"Olá, caro leitor. Sou apenas um aventureiro sem nome, querendo esquecer o passado...\n" + //
-                        " Se você encontrou este diário, é porque anseia por respostas — sobre o que são, e quem são, os Dragonites.\n" + //
+        diarios.add(new Diario("Registro I - Seres estranhos.", "01/10/302", 
+                        "\nOlá, caro leitor. Sou apenas um aventureiro sem nome, querendo esquecer o passado...\n" + //
+                        "Se você encontrou este diário, é porque anseia por respostas - sobre o que são, e quem são, os Dragonites.\n" + //
                         "Bem... pouco se sabe sobre eles.\n" + //
-                        " A única coisa evidente é sua aparência: seres humanoides, de traços dracônicos.\n" + //
-                        " O que mais me chama a atenção, porém, é seu modo de vida.\n" + //
-                        " Habitam lugares profundamente escuros, como se evitassem a luz a qualquer custo. Mas por quê? Qual seria o motivo dessa aversão?\n" + //
-                        "Temo que, para descobrir, eu precise me aprofundar ainda mais em suas cavernas...\n" + //
-                        "\n" + //
-                        "Registro I - Seres estranhos.", new int[]{9, 10}));
+                        "A única coisa evidente é sua aparência: seres humanoides, de traços dracônicos.\n" + //
+                        "O que mais me chama a atenção, porém, é seu modo de vida.\n" + //
+                        "Habitam lugares profundamente escuros, como se evitassem a luz a qualquer custo. Mas por quê? Qual seria o motivo dessa aversão?\n" + //
+                        "Temo que, para descobrir, eu precise me aprofundar ainda mais em suas cavernas...\n", new int[]{9, 10}));
 
-        diarios.add(new Diario("Diário do Arraia", "02/10/2023", "Escuto com frequência, aqui nas profundezas das cavernas, sons estranhos...\n" + //
-                        "Sussurros, cantos abafados — parecem rituais. E sempre há uma palavra repetida com reverência: Inter.\n" + //
+        diarios.add(new Diario("Registro II - Barulhos.", "03/10/302", 
+                        "\nEscuto com frequência, aqui nas profundezas das cavernas, sons estranhos...\n" + //
+                        "Sussurros, cantos abafados - parecem rituais. E sempre há uma palavra repetida com reverência: Inter.\n" + //
                         "\n" + //
                         "Quem seria essa entidade?\n" + //
                         "Seria Inter um deus? Um líder ancestral?\n" + //
                         "Ou talvez... algo muito pior?\n" + //
                         "\n" + //
                         "Começo a suspeitar que essa figura misteriosa esteja ligada à aversão que os Dragonites têm à luz.\n" + //
-                        "Será que a escuridão é uma exigência desse ser? Ou uma consequência de sua presença?\n" + //
-                        "\n" + //
-                        "Registro II - Barulhos.", new int[]{28, 19}));
+                        "Será que a escuridão é uma exigência desse ser? Ou uma consequência de sua presença?\n", new int[]{28, 19}));
 
         tesouros.add(new TesouroArmadura("Manoplas de Ossos Secos", new int[]{9, 10}, 1, 60));
         tesouros.add(new TesouroArmadura("Anel da Bruma Pálida", new int[]{1, 26}, 1, 60)); 

@@ -50,8 +50,29 @@ public class GeradorMapaManual3 {
         
         Loja loja = new Loja(new int[]{19, 30});
 
-        diarios.add(new Diario("Diário do Sentinela", "01/10/2023", "Hoje, o Draco-Sentinela patrulhou a área ao redor do templo. A presença de criaturas sombrias é cada vez mais forte, e precisamos estar preparados.", new int[]{25, 10}));
-        diarios.add(new Diario("Diário do Arraia", "02/10/2023", "A Arraia do Crepúsculo voou alto, observando os arredores. Ela relatou avistamentos de criaturas estranhas, e a tensão no ar é palpável.", new int[]{22, 64}));
+        diarios.add(new Diario("Registro V - Um plano maléfico", "03/11/302",
+                        "Tenho um pressentimento… e não é bom.\n" + //
+                        "A cada dia que passa, Azkaryel parece crescer em poder — não apenas em presença, mas em estratégia.\r\n" + //
+                        "\n" + //
+                        "Seus exércitos se multiplicam nas sombras. Vejo novos soldados dracônicos surgindo constantemente, forjados nas câmaras mais profundas das cavernas, onde a luz jamais ousa entrar.\n" + //
+                        "Eles treinam em silêncio, em fileiras perfeitas, com uma disciplina assustadora. Cada movimento deles ecoa pelas paredes como se fossem uma extensão da vontade de Azkaryel.\n" + //
+                        "\n" + //
+                        "Isso não é apenas defesa.\n" + //
+                        "É preparação.\n" + //
+                        "Para quê, ainda não sei. Mas temo que logo... todos nós saberemos.", new int[]{25, 10}));
+
+        diarios.add(new Diario("Registro VI - Sem escapatória", "06/11/302", 
+                        "Eu fui descuidado. Por um instante, apenas um — me aproximei demais do salão onde os guerreiros dracônicos treinavam. Achei que a escuridão me esconderia… mas eles me viram.\n" + //
+                        "\n" + //
+                        "Não sei como. Talvez tenham sentido meu cheiro. Ou talvez Inter os tenha alertado. Seja como for, não há mais como negar: estou sendo caçado.\n" + //
+                        "\n" + //
+                        "Ouvi os gritos. O som de garras rasgando pedra. O chão inteiro pareceu tremer.\n" + //
+                        "Consegui escapar por uma fenda estreita entre as rochas — apenas por sorte. Mas agora estou preso aqui, entre raízes úmidas e pedras afiadas.\n" + //
+                        "\n" + //
+                        "Minhas mãos tremem enquanto escrevo. Cada som ecoa como um trovão.\n" + //
+                        "Se este for meu último registro… saiba, caro leitor, que eles estão vindo.\n" + //
+                        "E Azkaryel... ele sabe da minha existência.\n" + //
+                        "Talvez sempre soube.\"", new int[]{22, 64}));
 
 
         tesouros.add(new TesouroArmadura("Manto das Sombras Eternas", new int[]{4, 1}, 4, 80));
@@ -64,13 +85,16 @@ public class GeradorMapaManual3 {
             mapa[loc[0]][loc[1]] = "T";
         }
         
-
+        
+        tesouros.add(new TesouroArma("Excalibur", new int[]{15, 29}, 0, 0));
         
         posicoes = posicoesInimigos();
 
         int[] fim = new int[]{1, 31};
         mapa[fim[0]][fim[1]] = "F"; 
         return new MapaConfigurado(mapa, tesouros, diarios, loja, fim, inimigos, posicoes);
+
+
     }
 
     public static List<int[]> posicoesInimigos(){
