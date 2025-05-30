@@ -5,6 +5,7 @@ public class Labirinto implements Serializable{
     private int dificuldade;
     private final String[][] mapa;
     private final List<Tesouro> tesouros;
+    private final List<Diario> diarios;
     private final Loja loja;
     private MapaConfigurado config;
     private final Aventureiro jogador;
@@ -42,6 +43,7 @@ public class Labirinto implements Serializable{
         }
         this.mapa = config.getMapa();
         this.tesouros = config.getTesouros();
+        this.diarios = config.getDiarios();
         this.loja = config.getLoja();
         this.fim = config.getFim();
         this.salaSecretaDesbloqueada = false;
@@ -125,6 +127,11 @@ public class Labirinto implements Serializable{
     public List<Tesouro> getTesouros() {
         return tesouros;
     }
+
+    public List<Diario> getDiarios() {
+        return diarios;
+    }
+
     public Loja getLoja() {
         return loja;
     }

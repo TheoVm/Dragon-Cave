@@ -40,6 +40,7 @@ public class GeradorMapaManual3 {
 
         List<Tesouro> tesouros = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
+        List<Diario> diarios = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>(Arrays.asList(
             new Inimigo("Mosca da Pele Fria", 39 + dificuldade, 9 + dificuldade, 10 + dificuldade,  40),
             new Inimigo("Arauto da Carne Eterna", 48 + dificuldade, 4 + dificuldade, 15 + dificuldade, 40), 
@@ -48,6 +49,10 @@ public class GeradorMapaManual3 {
         ));
         
         Loja loja = new Loja(new int[]{19, 30});
+
+        diarios.add(new Diario("Diário do Sentinela", "01/10/2023", "Hoje, o Draco-Sentinela patrulhou a área ao redor do templo. A presença de criaturas sombrias é cada vez mais forte, e precisamos estar preparados.", new int[]{25, 10}));
+        diarios.add(new Diario("Diário do Arraia", "02/10/2023", "A Arraia do Crepúsculo voou alto, observando os arredores. Ela relatou avistamentos de criaturas estranhas, e a tensão no ar é palpável.", new int[]{22, 64}));
+
 
         tesouros.add(new TesouroArmadura("Manto das Sombras Eternas", new int[]{4, 1}, 4, 80));
         tesouros.add(new TesouroArmadura("Elmo da Fúria Ancestral", new int[]{25, 10}, 4, 80));
@@ -65,7 +70,7 @@ public class GeradorMapaManual3 {
 
         int[] fim = new int[]{1, 31};
         mapa[fim[0]][fim[1]] = "F"; 
-        return new MapaConfigurado(mapa, tesouros, loja, fim, inimigos, posicoes);
+        return new MapaConfigurado(mapa, tesouros, diarios, loja, fim, inimigos, posicoes);
     }
 
     public static List<int[]> posicoesInimigos(){

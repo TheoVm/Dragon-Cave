@@ -41,6 +41,7 @@ public class GeradorMapaManual2 {
 
         List<Tesouro> tesouros = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
+        List<Diario> diarios = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>(Arrays.asList(
             new Inimigo("Draco-Sentinela", 35 + dificuldade, 10 + dificuldade, 10 + dificuldade,  30),
             new Inimigo("Mestre da Corrupcao", 40 + dificuldade, 15 + dificuldade, 20 + dificuldade, 30), 
@@ -50,11 +51,15 @@ public class GeradorMapaManual2 {
         
         Loja loja = new Loja(new int[]{1, 3});
 
+        diarios.add(new Diario("Diário do Sentinela", "01/10/2023", "Hoje, o Draco-Sentinela patrulhou a área ao redor do templo. A presença de criaturas sombrias é cada vez mais forte, e precisamos estar preparados.", new int[]{20, 38}));
+        diarios.add(new Diario("Diário do Arraia", "02/10/2023", "A Arraia do Crepúsculo voou alto, observando os arredores. Ela relatou avistamentos de criaturas estranhas, e a tensão no ar é palpável.", new int[]{20, 59}));
+
+
         tesouros.add(new TesouroArmadura(" Anel da Escama Reluzente", new int[]{1, 26}, 2, 70));
         tesouros.add(new TesouroArmadura("Coroa do Fiel Guardião", new int[]{14, 46}, 2, 70));
-        tesouros.add(new TesouroArmadura("Orbe da Névoa Crepuscular", new int[]{14, 46}, 2, 70));
-        tesouros.add(new TesouroArma("Adaga de Gelo Profundo", new int[]{28, 1}, 3, 80));
+        tesouros.add(new TesouroArmadura("Orbe da Névoa Crepuscular", new int[]{20, 59}, 2, 70));
         tesouros.add(new TesouroArma("Bracelete do Grito Sombrio", new int[]{20, 38}, 3, 80));
+        tesouros.add(new TesouroArma("Adaga de Gelo Profundo", new int[]{28, 1}, 3, 80));
         tesouros.add(new TesouroArma("Punhal da Ira Encarnada", new int[]{1, 64}, 2, 70));
 
 
@@ -68,7 +73,7 @@ public class GeradorMapaManual2 {
 
         int[] fim = new int[]{28, 56};
         mapa[fim[0]][fim[1]] = "F"; 
-        return new MapaConfigurado(mapa, tesouros, loja, fim, inimigos, posicoes);
+        return new MapaConfigurado(mapa, tesouros, diarios, loja, fim, inimigos, posicoes);
     }
 
     public static List<int[]> posicoesInimigos(){

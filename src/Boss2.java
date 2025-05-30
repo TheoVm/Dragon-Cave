@@ -81,6 +81,7 @@ public class Boss2 {
         // Tesouros e perigos
         List<Tesouro> tesouros = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
+        List<Diario> diarios = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>();
 
         Loja loja = new Loja(new int[]{1, 3});
@@ -95,6 +96,6 @@ public class Boss2 {
         
         int[] fim = new int[]{};
 
-        return new MapaConfigurado(mapa, tesouros, loja, fim, inimigos, posicoes);
+        return new MapaConfigurado(mapa, tesouros, diarios, loja, fim, inimigos, posicoes);
     }
 }

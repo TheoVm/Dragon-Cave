@@ -4,15 +4,17 @@ import java.util.List;
 public class MapaConfigurado implements Serializable{
     private final String[][] mapa;
     private final List<Tesouro> tesouros;
+    private final List<Diario> diarios;
     private final Loja loja;
     private final int[] fim;
     private List<Inimigo> inimigosPossiveis;
     private final List<int[]> posicoesInimigos;
 
     // Construtor que inicializa a classe com os valores recebidos
-    public MapaConfigurado(String[][] mapa, List<Tesouro> tesouros, Loja loja, int[] fim, List<Inimigo> inimigosPossiveis, List<int[]> posicoesInimigos) {
+    public MapaConfigurado(String[][] mapa, List<Tesouro> tesouros, List<Diario> diarios ,Loja loja, int[] fim, List<Inimigo> inimigosPossiveis, List<int[]> posicoesInimigos) {
         this.mapa = mapa;
         this.tesouros = tesouros;
+        this.diarios = diarios;
         this.loja = loja;
         this.fim = fim;
         this.inimigosPossiveis = inimigosPossiveis;
@@ -26,6 +28,10 @@ public class MapaConfigurado implements Serializable{
 
     public List<Tesouro> getTesouros() {
         return tesouros;
+    }
+
+    public List<Diario> getDiarios() {
+        return diarios;
     }
 
     public Loja getLoja(){

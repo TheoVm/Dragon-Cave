@@ -110,6 +110,7 @@ public class Boss {
 
         List<Tesouro> tesouros = new ArrayList<>();
         List<int[]> posicoes = new ArrayList<>();
+        List<Diario> diarios = new ArrayList<>();
         List<Inimigo> inimigos = new ArrayList<>(Arrays.asList(
             new Inimigo("Azrakyel, o Olho de Inter", 400, 20, 20,  1000)
         ));
@@ -119,7 +120,7 @@ public class Boss {
 
         posicoes = posicoesInimigos();
 
-        return new MapaConfigurado(mapa, tesouros, loja, fim, inimigos, posicoes);
+        return new MapaConfigurado(mapa, tesouros, diarios, loja, fim, inimigos, posicoes);
     }
 
     public static String[] append(String[] arr, String element) {

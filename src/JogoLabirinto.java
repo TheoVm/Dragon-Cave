@@ -175,7 +175,6 @@ public class JogoLabirinto {
             
             MusicaUtils.tocarMusica("assets/sounds/Exploring-a-Cave.wav");
             while (!labirinto.verificarFim()) {
-                System.out.println(jogador.getLocalizacao()[0] + " " + jogador.getLocalizacao()[1]);
                 if(labirinto.getTrocar()){
                     labirinto = new Labirinto(jogador, dificuldade, labirinto.getTipo() + 1);
                     jogador.setLocalizacao(new int[]{1, 1});
@@ -230,15 +229,15 @@ public class JogoLabirinto {
         int continuar = 1;
         while (continuar == 1) {
             try {
+                limparTela();
                 System.out.println("\nDificuldade: " + labirinto.getDificuldade());
                 System.out.println("===== Menu de Opções =====");
                 System.out.println("Escolha uma das opções:");
                 System.out.println("1 - Verificar Status");
-                System.out.println("2 - Verificar Tesouros");
-                System.out.println("3 - Verificar Consumiveis");
-                System.out.println("4 - Salvar Jogo");
-                System.out.println("5 - Voltar");
-                System.out.println("6 - Sair");
+                System.out.println("2 - Inventário");
+                System.out.println("3 - Salvar Jogo");
+                System.out.println("4 - Voltar");
+                System.out.println("5 - Sair");
                 int escolha = scanner.nextInt();
                 scanner.nextLine();
                 switch (escolha) {
@@ -246,23 +245,35 @@ public class JogoLabirinto {
                         jogador.exibirStatus();
                     }
                     case 2 -> {
-                        jogador.exibirTesouros();
+                        limparTela();
+                        System.out.println("===== Inventário =====");
+                        System.out.println("Escolha uma das opções:");
+                        System.out.println("1 - Verificar Tesouros");
+                        System.out.println("2 - Verificar Consumiveis");
+                        System.out.println("3 - Verificar Diarios");
+                        System.out.println("4 - Voltar");
+                        escolha = scanner.nextInt();
+                        switch (escolha) {
+                            case 1 -> {
+                                System.out.println("===== Tesouros =====");
+                                jogador.exibirTesouros();
+                            }
+                            case 2 -> jogador.usarConsumiveis(jogador, scanner);
+                            case 3 -> jogador.exibirDiarios(jogador, scanner);
+                            default -> System.out.println("Opção inválida.");
+                        }                 
                     }
                     case 3 -> {
-                        jogador.usarConsumiveis(jogador, scanner);
-                    }
-                    case 4 -> {
                         System.out.println("Digite o nome que deseja colocar no seu save:");
                         String nome = scanner.next();
                         Save.abrirArquivo(nome, jogador, labirinto);
                     }
-                    case 5 -> {
+                    case 4 -> {
                         continuar = 0;
                     }
-                    case 6 -> {
+                    case 5 -> {
                         System.exit(0);
                     }
-                    default -> System.out.println("Opção inválida.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada invalida! Digite apenas numeros inteiros.");

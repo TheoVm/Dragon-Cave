@@ -48,7 +48,7 @@ public class Loja implements Serializable{
     public void menuLoja(Aventureiro jogador, Scanner scanner){
         int continuar = 1;
         while (continuar == 1) {
-
+            limparTela();
             System.out.println("""
                  █▓▓▓▓▓▓█████     █████▓▓▓█████      █████▓▓▓▓█████    █████▓▓▓▓▓▓█                 
                  █▓▒▒▓▓▓▓▒▒▒▒▒▓█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▒▒▒▒▒▓▓▓▒▒▓▓█                 
@@ -95,11 +95,11 @@ public class Loja implements Serializable{
         """);
 
             try {
-                Thread.sleep(1500);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
+            System.err.println("\n");
             limparTela();
             System.out.println("======== BEM VINDO A LOJA ========");
             System.out.println("Escolha uma das opções:");
