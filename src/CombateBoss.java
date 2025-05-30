@@ -53,6 +53,12 @@ public class CombateBoss {
         JogoLabirinto.printComDelay("Um Dragonite com cinco metros de altura. Azkaryel, o Olho de Inter, observa você com um olhar malicioso.", 20);
         JogoLabirinto.printComDelay("Você sente o verdadeiro medo do caos personificado. Pela primeira vez, você tem medo de continuar.", 30);
         JogoLabirinto.printComDelay("Será que...  ainda posso dar um passo de cada vez?", 50);
+
+        try {
+            Thread.sleep(1300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         
         scanner.nextLine();
         limparTela();
@@ -149,6 +155,8 @@ public class CombateBoss {
             }
             MusicaUtils.pararMusica();
             limparTela();
+
+            MusicaUtils.tocarMusica("assets/sounds/RPG-Piano-Theme-1.wav");
 
             JogoLabirinto.printComDelay("Após uma longa e exaustiva batalha contra Azkaryel, você finalmente o derrota.", 50);
             JogoLabirinto.printComDelay("Logo em seguida, seu olhar cruza com o da princesa - os olhos dela, cheios de alívio e admiração, ainda brilhavam com a emoção da luta recente.", 50);
