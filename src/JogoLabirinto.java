@@ -120,8 +120,8 @@ public class JogoLabirinto {
                                                     Thread.sleep(800);
                                                 } catch (InterruptedException e) {
                                                     e.printStackTrace();
-                                                    continuar = 1;
                                                 }
+                                                continuar = 1;                                                
                                             }
                                             default -> {
                                                 System.out.println("Opção inválida.");
