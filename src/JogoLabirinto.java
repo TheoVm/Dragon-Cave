@@ -68,6 +68,11 @@ public class JogoLabirinto {
                                 System.out.println();
                                 int continuar = 0;
                                 while (continuar == 0) {
+                                            try {
+                                                Thread.sleep(1000);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                    }
                                     limparTela();
                                     try {
                                         printComDelay("Escolha seu personagem:", 20);
@@ -130,7 +135,13 @@ public class JogoLabirinto {
                                 printComDelay("Mas seu nariz não falha: você sente o cheiro de um ar pesado com o cheiro de mofo apodrecido.", 20);                        
                                 printComDelay("Lembre-se aventureiro.", 60);
                                 printComDelay("Todo passo, é um passo mais perto.", 60);
-                                
+
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
                                 labirinto = new Labirinto(jogador, dificuldade, 1);
                                 jogoIniciado = true;
 
